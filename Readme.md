@@ -1,4 +1,4 @@
-# Creando una Red Social
+# Creando una Red Social - Roxana
 
 Bienvenida a tu primer proyecto del track de Frontend en Laboratoria.
 
