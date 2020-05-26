@@ -17,9 +17,8 @@
     "test": "jest --coverage",
     "start": "serve src/",
     "sass": "node-sass sass/ -o build/css/",
-    "sass-build": "node-sass --output-style content src/style.scss src/style.css",
-    "sass-watch": "node-sass --watch --output-style expanded src/style.scss src/style.css"
-
+    "sass-build": "node-sass --output-style content src/sass/style.scss src/css/style.css",
+    "sass-watch": "node-sass --watch --output-style expanded src/sass/style.scss src/css/style.css"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
