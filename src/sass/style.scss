@@ -1,3 +1,7 @@
-body {
-    font-family: "Lucida Sans";
-}
+// * {
+//     margin: 0;
+//     padding: 0;
+// }
+$font-family: "Lato";
+
+@import "register.scss";

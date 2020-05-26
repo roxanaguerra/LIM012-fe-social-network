@@ -1,2 +1,25 @@
 body {
-  font-family: "Lucida Sans"; }
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to right, #201C50, #9070B9);
+}
+
+.container-register {
+  width: 232px;
+  height: 369px;
+  left: 41px;
+  top: 83px;
+  background: rgba(255, 255, 255, 0.62);
+  border-radius: 20px;
+}
+
+.data-register {
+  width: 174px;
+  height: 196px;
+  left: 70px;
+  top: 108px;
+}
