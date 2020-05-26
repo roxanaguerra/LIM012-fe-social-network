@@ -16,7 +16,7 @@
     "pretest": "npm run htmlhint && npm run eslint && npm run stylelint",
     "test": "jest --coverage",
     "start": "serve src/",
-    "scss": "node-sass sass/ -o build/css/",
+    "sass": "node-sass sass/ -o build/css/",
     "sass-build": "node-sass --output-style content src/sass/style.scss src/css/style.css",
     "sass-watch": "node-sass --watch --output-style expanded src/sass/style.scss src/css/style.css"
   },
