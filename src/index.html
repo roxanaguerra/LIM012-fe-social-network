@@ -6,69 +6,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>DRONE LOGISTICS</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-<main id="main">
-  <section id="general container">
-    <div class="container-register">
-      <h1 class="delivery-drone">Delivery Drone</h1>
+  <main id="main">
+    <section id="general container">
+      <div class="container-register">
+        <h1 class="delivery-drone">Delivery Drone</h1>
         <h4 class="safetyHome"> STAY HOME, STAY SAFE</h4>
         <h3 class="find-delivers">FIND DELIVERIES TO YOU SAFELY</h3>
-      <div class="container-form">
-        <form class="form-page" >
-          <div class="inputs-form">
-          <input id="name-login" type="text" class="name" placeholder="Nombres y Apellido">
-          <input id="email" type="mail" class="email" placeholder="E-mail">
-          <input id="password" type="text" class="password" placeholder="Password">
-          </div>
-          <button id="register" class="btn-register">Register</button>
-          <p>Or</p>
-          <div class="options-register">
-            <div class="facebook"></div>
-            <div class="google"></div>
-          </div>
-          <p id="comment-register">If you have an account</p>
-          <a id="comment-signin" href="">Sign In</a>
-        </form>
+        <div class="container-form">
+          <form class="form-page">
+            <div class="data-register">
+              <div class="inputs-form">
+                <input id="name-login" type="text" class="name" placeholder="Nombres y Apellido">
+                <input id="email" type="mail" class="email" placeholder="E-mail">
+                <input id="password" type="text" class="password" placeholder="Password">
+              </div>
+              <button id="register" class="btn-register">Register</button>
+            </div>
+            <p>Or</p>
+            <div class="options-register">
+              <div class="facebook"></div>
+              <div class="google"></div>
+            </div>
+            <p id="comment-register">If you have an account</p>
+            <a id="comment-signin" href="">Sign In</a>
+          </form>
+        </div>
       </div>
-    </div>
 
-  </section>
-</main>
+    </section>
+  </main>
 
 
 
   <!-- prueba -->
-  
-    <!--  -->
+
+  <!--  -->
   <script type="module" src="index.js"></script>
 
 
   <!-- FIREBASE SCRIPTS -->
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
+  <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
 
-<script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyD6lhOl_AzVcrqQ6zx-aqPOhsZ2sp4dLck",
-    authDomain: "drone-delivery-d84b0.firebaseapp.com",
-    databaseURL: "https://drone-delivery-d84b0.firebaseio.com",
-    projectId: "drone-delivery-d84b0",
-    storageBucket: "drone-delivery-d84b0.appspot.com",
-    messagingSenderId: "659053851547",
-    appId: "1:659053851547:web:e85db85af83cb0661d673e",
-    measurementId: "G-8MM24LR9RK"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-</script>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyD6lhOl_AzVcrqQ6zx-aqPOhsZ2sp4dLck",
+      authDomain: "drone-delivery-d84b0.firebaseapp.com",
+      databaseURL: "https://drone-delivery-d84b0.firebaseio.com",
+      projectId: "drone-delivery-d84b0",
+      storageBucket: "drone-delivery-d84b0.appspot.com",
+      messagingSenderId: "659053851547",
+      appId: "1:659053851547:web:e85db85af83cb0661d673e",
+      measurementId: "G-8MM24LR9RK"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
 </body>
 
 </html>
