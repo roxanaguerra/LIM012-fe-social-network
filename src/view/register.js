@@ -1,5 +1,5 @@
 export default () => {
-    const viewRegister = `
+  const viewRegister = `
     <div class="ctn-register-login">
     <div class="content flex column">
       <div class="">
@@ -17,8 +17,8 @@ export default () => {
         </div>
         <p class="txt-register">Or</p>
         <div class="options-register">
-          <img class="logo-fb" src="assets/fb.png" alt="">
-          <img class="logo-google" src="assets/gg.png" alt="">
+          <img class="logo-fb" id="google" src="assets/fb.png" alt="">
+          <img class="logo-google" id="facebook" src="assets/gg.png" alt="">
         </div>
         <div class="ask-option flex">
           <p class="question" id="comment-register">If you have an account</p>
@@ -30,13 +30,8 @@ export default () => {
     </div>
   </div>`;
 
-    const divElemt = document.createElement('div');
-    // divElemt.classList.add('position')
-    divElemt.innerHTML = viewRegister;
-    return divElemt;
-
-    // const btnRegister = document.getElementById('btn-register');
-    // btnRegister.addEventListener('click', () => {
-    //   console.log('registrado')
-    // });
+  const divElemt = document.createElement('div');
+  // divElemt.classList.add('position')
+  divElemt.innerHTML = viewRegister;
+  return divElemt;
 };
