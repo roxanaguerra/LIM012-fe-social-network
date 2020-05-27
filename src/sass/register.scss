@@ -2,26 +2,173 @@ body {
     margin: 0;
     height: 100vh;
     width: 100vw;
+    font-family: $main-font;
     display: flex;    
     align-items: center;
     justify-content: center;
-    background-image: linear-gradient(to right, #201C50, #9070B9);
-
+    color: white;
 }
-.container-register {
-    
+
+h1 {
+    color: white;
+    margin: 0;
+    font-size: 30px;
+}
+
+h4 {
+    color: #120136;
+    margin-bottom: 0%;
+    margin-top: 35px;
+    font-size: 18px;
+}
+
+h6 {
+    color: #F6A13E;
+    font-size: 12px;
+    margin-top: 0;
+    letter-spacing: 0.7px;
+}
+
+.flex {
+    display: flex;    
+    align-items: center;
+    justify-content: center;   
+}
+
+.column {
+    flex-direction: column;
+}
+
+.ctn-register-login {
+    background-image: $bgcolor-top-bottom;
+    margin: 0;
+    width: 362px;
+    height: 640px;
+}
+
+.content {
+    margin: 0;
+    background-image: url(/src/assets/bg-mobile.png);
+    width: 362px;
+    height: 640px;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+}
+
+.container-form {
     width: 232px;
-    height: 369px;
-    left: 41px;
-    top: 83px;
-
-    background: rgba(255, 255, 255, 0.62);
+    height: 400px;
+    background: $bg-form;
     border-radius: 20px;
-    // background-color: blue;
 }
+
 .data-register {
     width: 174px;
-    height: 196px;
-    left: 70px;
-    top: 108px;
+    margin-bottom: 35px;
+}
+
+.inputs-form {
+    padding: 0px 5px 45px 5px;
+}
+
+.inputs-form input{
+    border: none;
+    outline: none;
+    background: none;
+    border-bottom: 4px solid #201C50;
+    padding-bottom: 8px;
+    padding-top: 17px;
+}
+
+::placeholder {
+    color: #201C50;
+    margin-bottom: 10px;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.7px;
+}
+
+.btn-register {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    width: 170px;
+    height: 38px;
+    border-radius: 20px;
+    background: #201C50;
+    color: white;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.txt-register {
+    font-size: 12px;
+    color: #120136;
+    margin: 0;
+}
+
+.logo-google, 
+.logo-fb{
+    width: 45px;
+    height: 45px;
+    margin: 15px;
+}
+
+.ask-option {
+    margin-top: 15px;
+}
+
+div .question {
+    color: #120136;
+    margin: 0;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+div .option {
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 12px;
+    color: #360C8E;
+}
+
+.find-delivers {
+    letter-spacing: 1px;
+    font-size: 16px;
+}
+
+@media screen and (max-width: 900px) and (min-width: 370px) {
+    .ctn-register-login {
+        background-image: $bgcolor-top-bottom;
+        width: 700px;
+        height: 900px;
+        margin: 0;
+    }
+    .content {
+        background-image: url(/src/assets/bg-mobile.png);
+        width: 700px;
+        height: 900px;
+        background-position: center;
+        background-size: cover;
+        text-align: center;
+    }
+}
+
+// desktop
+@media screen and (min-width: 900px) {
+    .ctn-register-login {
+        background-image: $bgcolor-top-bottom;
+        width: 1440px;
+        height: 1024px;
+        margin: 0;
+    }
+    .content {
+        background-image: url(/src/assets/bg-desktop.png);
+        width: 1440px;
+        height: 1024px;
+        background-position: center;
+        background-size: cover;
+        text-align: center;
+    }
 }
