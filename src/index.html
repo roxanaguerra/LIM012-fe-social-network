@@ -1,12 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>DRONE LOGISTICS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
+  <section class="container" id="general-container">
+    <div class="ctn-register-login">
+    <div class="content flex column">
+      <div class="">
+          <h1 class="delivery-drone">Delivery Drone</h1>
+          <h6 class="safetyHome"> STAY HOME, STAY SAFE</h6>
+      </div>
+        <div class="container-form flex column">
+            <div class="data-register flex column">
+              <div class="inputs-form">
+                <input class="name" id="username" type="text" placeholder="Nombres y Apellidos">
+                <input class="email" id="email" type="mail" placeholder="E-mail">
+                <input class="password" id="password" type="text" placeholder="Password">
+              </div>
+              <button class="btn-register" id="register">Register</button>
+            </div>
+            <p class="txt-register">Or</p>
+            <div class="options-register">
+                <img class="logo-fb" src="assets/fb.png" alt="">
+                <img class="logo-google" src="assets/gg.png" alt="">
+            </div>
+            <div class="ask-option flex">
+              <p class="question" id="comment-register">If you have an account</p>
+              <a class="option" id="comment-signin" href="">Sign In</a>
+            </div>
+        </div>
+        
+      <h4 class="find-delivers">FIND DELIVERIES TO <br> YOU SAFELY</h4>
+    </div>
+  </div>
+  </section>
+
+
+  <!-- prueba -->
+
+  <!--  -->
   <script type="module" src="index.js"></script>
+
+
+  <!-- FIREBASE SCRIPTS -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyD6lhOl_AzVcrqQ6zx-aqPOhsZ2sp4dLck",
+      authDomain: "drone-delivery-d84b0.firebaseapp.com",
+      databaseURL: "https://drone-delivery-d84b0.firebaseio.com",
+      projectId: "drone-delivery-d84b0",
+      storageBucket: "drone-delivery-d84b0.appspot.com",
+      messagingSenderId: "659053851547",
+      appId: "1:659053851547:web:e85db85af83cb0661d673e",
+      measurementId: "G-8MM24LR9RK"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
 </body>
+
 </html>
