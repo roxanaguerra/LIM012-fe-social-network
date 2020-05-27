@@ -12,7 +12,7 @@ export default () => {
             <input class="email" id="email" type="mail" placeholder="E-mail">
             <input class="password" id="password" type="text" placeholder="Password">
           </div>
-          <button class="btn-login" id="login">Log In</button>
+          <button class="btn-form" id="btn-login">Log In</button>
         </div>
         <p class="txt-register">Or</p>
         <div class="options-register">

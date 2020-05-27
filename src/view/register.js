@@ -13,7 +13,7 @@ export default () => {
             <input class="email" id="email" type="mail" placeholder="E-mail">
             <input class="password" id="password" type="text" placeholder="Password">
           </div>
-          <button class="btn-register" id="register">Register</button>
+          <button class="btn-form" id="btn-register">Register</button>
         </div>
         <p class="txt-register">Or</p>
         <div class="options-register">
@@ -35,5 +35,8 @@ export default () => {
     divElemt.innerHTML = viewRegister;
     return divElemt;
 
-    
+    // const btnRegister = document.getElementById('btn-register');
+    // btnRegister.addEventListener('click', () => {
+    //   console.log('registrado')
+    // });
 };
