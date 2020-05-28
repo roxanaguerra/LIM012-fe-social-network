@@ -9,8 +9,8 @@ export default () => {
       <div class="container-form flex column">
         <div class="data-register flex column">
           <div class="inputs-form">
-            <input class="email" id="email" type="mail" placeholder="E-mail">
-            <input class="password" id="password" type="text" placeholder="Password">
+            <input class="email" id="email-login" type="email" placeholder="E-mail">
+            <input class="password" id="password-login" type="password" placeholder="Password">
           </div>
           <button class="btn-form" id="btn-login">Log In</button>
         </div>
@@ -32,6 +32,27 @@ export default () => {
     const divElemt = document.createElement('div');
     // divElemt.classList.add('position')
     divElemt.innerHTML = viewLogin;
+
+    const btnLogin = divElemt.querySelector('#btn-login');
+    btnLogin.addEventListener('click', (e) => {
+        e.preventDefault(); //cancelar el evento de reinicio de formulario
+        const emailLogin = divElemt.querySelector('#email-login').value;
+        const passwordLogin = divElemt.querySelector('#password-login').value;
+        console.log(emailLogin, passwordLogin)
+        firebase.auth().signInWithEmailAndPassword(emailLogin, passwordLogin)
+        .then( userCredential => {
+          console.log('Ingreso, ya esta logeadx')
+        })
+        .catch(function(error) {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+
+        });
+    });
+
     return divElemt;
 
     
