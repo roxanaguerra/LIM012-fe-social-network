@@ -6,12 +6,12 @@ export default () => {
         <h1 class="delivery-drone">Delivery Drone</h1>
         <h6 class="safetyHome"> STAY HOME, STAY SAFE</h6>
       </div>
-      <div class="container-form flex column">
+      <div class="container-form flex column">      
         <div class="data-register flex column">
           <div class="inputs-form">
             <input class="name" id="username" type="text" placeholder="Nombres y Apellidos">
-            <input class="email" id="email" type="mail" placeholder="E-mail">
-            <input class="password" id="password" type="text" placeholder="Password">
+            <input class="email" id="email-register" type="email" placeholder="E-mail">
+            <input class="password" id="password-register" type="password" placeholder="Password">
           </div>
           <button class="btn-form" id="btn-register">Register</button>
         </div>
@@ -31,12 +31,28 @@ export default () => {
   </div>`;
 
     const divElemt = document.createElement('div');
-    // divElemt.classList.add('position')
-    divElemt.innerHTML = viewRegister;
-    return divElemt;
+    divElemt.innerHTML = viewRegister;    
 
-    // const btnRegister = document.getElementById('btn-register');
-    // btnRegister.addEventListener('click', () => {
-    //   console.log('registrado')
-    // });
+    const btnRegister = divElemt.querySelector('#btn-register');
+    btnRegister.addEventListener('click', (e) => {
+        e.preventDefault(); //cancelar el evento de reinicio de formulario
+        const emailRegister = divElemt.querySelector('#email-register').value;
+        const passwordRegister = divElemt.querySelector('#password-register').value;
+        console.log(emailRegister, passwordRegister);
+        firebase.auth().createUserWithEmailAndPassword(emailRegister, passwordRegister)
+        .then( userCredential => {
+          console.log('registradx');
+          
+        })
+        .catch(function(error) {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+
+        });
+    });
+
+    return divElemt;
 };
