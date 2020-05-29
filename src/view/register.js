@@ -1,5 +1,10 @@
+import {
+  registerNewUser,
+  authSignInGoogle,
+} from '../controller/controller-autentication.js';
+
 export default () => {
-    const viewRegister = `
+  const viewRegister = `
     <div class="ctn-register-login">
     <div class="content flex column">
       <div class="">
@@ -17,8 +22,8 @@ export default () => {
         </div>
         <p class="txt-register">Or</p>
         <div class="options-register">
-          <img class="logo-fb" src="assets/fb.png" alt="">
-          <img class="logo-google" src="assets/gg.png" alt="">
+          <img class="logo-fb" src="assets/fb.png" alt="" id="facebook-register">
+          <img class="logo-google" src="assets/gg.png" alt="" id="google-register">
         </div>
         <div class="ask-option flex">
           <p class="question" id="comment-register">If you have an account</p>
@@ -30,29 +35,26 @@ export default () => {
     </div>
   </div>`;
 
-    const divElemt = document.createElement('div');
-    divElemt.innerHTML = viewRegister;    
+  const divElemt = document.createElement('div');
+  divElemt.innerHTML = viewRegister;
 
-    const btnRegister = divElemt.querySelector('#btn-register');
-    btnRegister.addEventListener('click', (e) => {
-        e.preventDefault(); //cancelar el evento de reinicio de formulario
-        const emailRegister = divElemt.querySelector('#email-register').value;
-        const passwordRegister = divElemt.querySelector('#password-register').value;
-        console.log(emailRegister, passwordRegister);
-        firebase.auth().createUserWithEmailAndPassword(emailRegister, passwordRegister)
-        .then( userCredential => {
-          console.log('registradx');
-          
-        })
-        .catch(function(error) {
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode);
-          console.log(errorMessage);
+  // REGISTRAR USUARIO
+  const btnRegister = divElemt.querySelector('#btn-register');
+  btnRegister.addEventListener('click', (e) => {
+    e.preventDefault(); //cancelar el evento de reinicio de formulario
+    const emailRegister = divElemt.querySelector('#email-register').value;
+    const passwordRegister = divElemt.querySelector('#password-register').value;
+    console.log(emailRegister, passwordRegister);
+    registerNewUser(emailRegister, passwordRegister);
+  });
 
-        });
-    });
+  // INICIO DE SESIÓN CON GOOGLE
+  const btnGoogle = divElemt.querySelector('#google-register');
+  btnGoogle.addEventListener('click', (e) => {
+    e.preventDefault(); //cancelar el evento de reinicio de formulario
+    console.log('Google Prueba - register');
+    authSignInGoogle();
+  });
 
-    return divElemt;
+  return divElemt;
 };
