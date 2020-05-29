@@ -1,5 +1,13 @@
+import {
+  authSignIn,
+  authSignInGoogle,
+  authSignInFacebook,
+  signOutUser,
+} from '../controller/controller-autentication.js';
+import { signOut } from '../model/model-authentication.js';
+
 export default () => {
-    const viewLogin = `
+  const viewLogin = `
     <div class="ctn-register-login">
     <div class="content flex column">
       <div class="">
@@ -13,11 +21,12 @@ export default () => {
             <input class="password" id="password-login" type="password" placeholder="Password">
           </div>
           <button class="btn-form" id="btn-login">Log In</button>
+          <button class="btn-form" id="btn-cerrar">Prueba-cerrar</button>
         </div>
         <p class="txt-register">Or</p>
         <div class="options-register">
-          <img class="logo-fb" src="assets/fb.png" alt="">
-          <img class="logo-google" src="assets/gg.png" alt="">
+          <img class="logo-fb" src="assets/fb.png" alt="" id="facebook-login">
+          <img class="logo-google" src="assets/gg.png" alt="" id="google-login">
         </div>
         <div class="ask-option flex">
           <p class="question" id="comment-register">Don’t have an account?</p>
@@ -29,31 +38,62 @@ export default () => {
     </div>
   </div>`;
 
-    const divElemt = document.createElement('div');
-    // divElemt.classList.add('position')
-    divElemt.innerHTML = viewLogin;
+  const divElemt = document.createElement('div');
+  divElemt.innerHTML = viewLogin;
 
-    const btnLogin = divElemt.querySelector('#btn-login');
-    btnLogin.addEventListener('click', (e) => {
-        e.preventDefault(); //cancelar el evento de reinicio de formulario
-        const emailLogin = divElemt.querySelector('#email-login').value;
-        const passwordLogin = divElemt.querySelector('#password-login').value;
-        console.log(emailLogin, passwordLogin)
-        firebase.auth().signInWithEmailAndPassword(emailLogin, passwordLogin)
-        .then( userCredential => {
-          console.log('Ingreso, ya esta logeadx')
-        })
-        .catch(function(error) {
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode);
-          console.log(errorMessage);
+  const btnLogin = divElemt.querySelector('#btn-login');
+  btnLogin.addEventListener('click', (e) => {
+    e.preventDefault(); //cancelar el evento de reinicio de formulario
+    const emailLogin = divElemt.querySelector('#email-login').value;
+    const passwordLogin = divElemt.querySelector('#password-login').value;
+    console.log(emailLogin, passwordLogin);
+    // Acceso de usuarios existentes
+    authSignIn(emailLogin, passwordLogin);
+  });
 
-        });
+  const observador = () => {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        console.log('Existe Usuario Activo');
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        var providerData = user.providerData;
+        // ...
+      } else {
+        // User is signed out.
+        console.log('No existe Usuario Activo');
+      }
     });
+  };
+  observador();
 
-    return divElemt;
+  // CERRAR SESIÓN 'funcion para boton singOut'
+  const btnCerrar = divElemt.querySelector('#btn-cerrar')
+  btnCerrar.addEventListener('click', (e) => {
+    e.preventDefault();
+    signOutUser();
+  });
 
-    
+  // INICIO DE SESIÓN CON GOOGLE
+  const btnGoogle = divElemt.querySelector('#google-login');
+  btnGoogle.addEventListener('click', (e) => {
+    e.preventDefault(); //cancelar el evento de reinicio de formulario
+    console.log('Google Prueba');
+    authSignInGoogle();
+  });
+
+  // INICIO DE SESIÓN CON FACEBOOK
+  const btnFacebook = divElemt.querySelector('#facebook-login');
+  btnFacebook.addEventListener('click', (e) => {
+    e.preventDefault(); //cancelar el evento de reinicio de formulario
+    console.log('Facebook Prueba');
+    authSignInFacebook();
+  });
+
+  return divElemt;
 };

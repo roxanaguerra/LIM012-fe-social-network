@@ -3,11 +3,11 @@ import Register from './register.js'
 import Login from './login.js'
 import errorMessage from './error.js'
 
-const components = {
+const componentsView = {
     home: Home,
     register: Register,
     login: Login,
     error: errorMessage,
 }
 
-export { components };
+export { componentsView };
