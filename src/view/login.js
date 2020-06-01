@@ -19,6 +19,7 @@ export default () => {
             <input class="email" id="email-login" type="email" placeholder="E-mail">
             <input class="password" id="password-login" type="password" placeholder="Password">
           </div>
+          
           <button class="btn-form" id="btn-login">Log In</button>
           <button class="btn-form" id="btn-cerrar">Prueba-cerrar</button>
         </div>
@@ -35,6 +36,7 @@ export default () => {
 
       <h4 class="find-delivers">FIND DELIVERIES TO <br> YOU SAFELY</h4>
     </div>
+    <span id="span"></span>
   </div>`;
 
   const divElemt = document.createElement('div');
@@ -42,11 +44,9 @@ export default () => {
 
   const btnLogin = divElemt.querySelector('#btn-login');
   btnLogin.addEventListener('click', (e) => {
-    e.preventDefault(); // cancelar el evento de reinicio de formulario
+    e.preventDefault();
     const emailLogin = divElemt.querySelector('#email-login').value;
     const passwordLogin = divElemt.querySelector('#password-login').value;
-    console.log(emailLogin, passwordLogin);
-    // Acceso de usuarios existentes
     authSignIn(emailLogin, passwordLogin);
   });
 
@@ -65,7 +65,6 @@ export default () => {
         // const providerData = user.providerData;
         // *********************
       } else {
-        // User is signed out.
         console.log('No existe Usuario Activo');
       }
     });

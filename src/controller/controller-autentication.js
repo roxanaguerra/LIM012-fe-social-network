@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import {
   signUp,
   signIn,
@@ -5,35 +6,42 @@ import {
   signInGoogle,
   signInFacebook,
 } from '../model/model-authentication.js';
+import { componentsView } from '../view/view-index.js';
+
 
 // REGISTRAR USUARIO
 export const registerNewUser = (emailRegister, passwordRegister) => {
+  // const view = componentsView.login();
   signUp(emailRegister, passwordRegister)
     .then((userCredential) => {
       console.log('registradx', userCredential);
       window.location.hash = '#/home';
     })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode);
-      console.log(errorMessage);
-    });
+    .catch((error) =>
+      // let message = '';
+      // if (error.code === 'auth/wrong-password') {
+      //   message = 'contraseña incorrecta';
+      // }
+      // const span = view.querySelector('#codeError');
+      // span.innerHTML = message;
+      error);
 };
 
 // INICIAR SESIÓN
 export const authSignIn = (emailLogin, passwordLogin) => {
+  const view = componentsView.login();
   signIn(emailLogin, passwordLogin)
     .then((userCredential) => {
-      console.log('Usted ya ingreso, ya esta logeadx', userCredential);
+      console.log('Usted ya ingreso, ya esta logeado', userCredential);
       window.location.hash = '#/home';
     })
     .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode);
-      console.log(errorMessage);
+      console.log(error);
+      if (error.code === 'auth/wrong-password') {
+        const span = view.querySelector('#span');
+        alert('soy un error');
+        span.innerHTML = 'soy un error';
+      }
     });
 };
 
