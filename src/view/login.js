@@ -4,7 +4,6 @@ import {
   authSignInFacebook,
   signOutUser,
 } from '../controller/controller-autentication.js';
-import { signOut } from '../model/model-authentication.js';
 
 export default () => {
   const viewLogin = `
@@ -43,7 +42,7 @@ export default () => {
 
   const btnLogin = divElemt.querySelector('#btn-login');
   btnLogin.addEventListener('click', (e) => {
-    e.preventDefault(); //cancelar el evento de reinicio de formulario
+    e.preventDefault(); // cancelar el evento de reinicio de formulario
     const emailLogin = divElemt.querySelector('#email-login').value;
     const passwordLogin = divElemt.querySelector('#password-login').value;
     console.log(emailLogin, passwordLogin);
@@ -52,18 +51,19 @@ export default () => {
   });
 
   const observador = () => {
-    firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log('Existe Usuario Activo');
+        // *********************
         // User is signed in.
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        var providerData = user.providerData;
-        // ...
+        // const displayName = user.displayName;
+        // const email = user.email;
+        // const emailVerified = user.emailVerified;
+        // const photoURL = user.photoURL;
+        // const isAnonymous = user.isAnonymous;
+        // const uid = user.uid;
+        // const providerData = user.providerData;
+        // *********************
       } else {
         // User is signed out.
         console.log('No existe Usuario Activo');
@@ -73,7 +73,7 @@ export default () => {
   observador();
 
   // CERRAR SESIÓN 'funcion para boton singOut'
-  const btnCerrar = divElemt.querySelector('#btn-cerrar')
+  const btnCerrar = divElemt.querySelector('#btn-cerrar');
   btnCerrar.addEventListener('click', (e) => {
     e.preventDefault();
     signOutUser();
@@ -82,7 +82,7 @@ export default () => {
   // INICIO DE SESIÓN CON GOOGLE
   const btnGoogle = divElemt.querySelector('#google-login');
   btnGoogle.addEventListener('click', (e) => {
-    e.preventDefault(); //cancelar el evento de reinicio de formulario
+    e.preventDefault(); // cancelar el evento de reinicio de formulario
     console.log('Google Prueba');
     authSignInGoogle();
   });
@@ -90,7 +90,7 @@ export default () => {
   // INICIO DE SESIÓN CON FACEBOOK
   const btnFacebook = divElemt.querySelector('#facebook-login');
   btnFacebook.addEventListener('click', (e) => {
-    e.preventDefault(); //cancelar el evento de reinicio de formulario
+    e.preventDefault(); // cancelar el evento de reinicio de formulario
     console.log('Facebook Prueba');
     authSignInFacebook();
   });
