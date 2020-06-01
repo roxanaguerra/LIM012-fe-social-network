@@ -11,6 +11,7 @@ export const registerNewUser = (emailRegister, passwordRegister) => {
   signUp(emailRegister, passwordRegister)
     .then((userCredential) => {
       console.log('registradx', userCredential);
+      window.location.hash = '#/home';
     })
     .catch((error) => {
       const errorCode = error.code;
