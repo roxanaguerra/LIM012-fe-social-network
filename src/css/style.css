@@ -81,6 +81,11 @@ h6 {
   padding-top: 17px;
 }
 
+#codeError {
+  color: blue;
+  font-size: larger;
+}
+
 ::placeholder {
   color: #201C50;
   margin-bottom: 10px;
