@@ -18,7 +18,9 @@ export default () => {
             <input class="email" id="email-register" type="email" placeholder="E-mail">
             <input class="password" id="password-register" type="password" placeholder="Password">
           </div>
+          
           <button class="btn-form" id="btn-register">Register</button>
+          <span id="span">Welcome!</span>
         </div>
         <p class="txt-register">Or</p>
         <div class="options-register">
