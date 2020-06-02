@@ -1,3 +1,21 @@
-export const users = (uid, email, username, profileImg, coverImg, about) => firebase.firestore().collection('userData').add({
-  uid, email, username, profileImg, coverImg, about,
-});
+export const createUserData = (id, email, name, photo) => {
+  firebase.firestore()
+    .collection('usersData').doc(id).set({
+      userID: id,
+      mail: email,
+      username: name,
+      profileImg: photo,
+      coverImg: '',
+      about: '',
+    });
+};
+
+export const allUsers = () => {
+  firebase.firestore()
+    .collection('usersData').get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id);
+      });
+    });
+};

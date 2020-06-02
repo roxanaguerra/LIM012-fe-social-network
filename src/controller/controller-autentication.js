@@ -8,6 +8,7 @@ import {
   signInFacebook,
 } from '../model/model-authentication.js';
 // import { componentsView } from '../view/view-index.js';
+import { createUserData } from '../model/model-user.js';
 const validateEmail = (email) => {
   // para validar que ingrese un email de acuerdo a su sintaxis
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -68,16 +69,9 @@ export const authSignIn = (emailLogin, passwordLogin) => {
 export const authSignInGoogle = () => {
   signInGoogle()
     .then((result) => {
+      const user = result.user;
+      createUserData(user.uid, user.email, user.displayName, user.photoURL);
       window.location.hash = '#/home';
-      firebase.firestore()
-        .collection('usersData').add({
-          uid: user.uid,
-          email: user.email,
-          username: user.displayName,
-          profileImg: user.photoURL,
-          coverImg: '',
-          about: '',
-        });
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -90,7 +84,9 @@ export const authSignInGoogle = () => {
 // AUTENTICACIÓN CON FACEBOOK
 export const authSignInFacebook = () => {
   signInFacebook()
-    .then(() => {
+    .then((result) => {
+      const user = result.user;
+      createUserData(user.uid, user.email, user.displayName, user.photoURL);
       window.location.hash = '#/home';
     })
     .catch((error) => {
