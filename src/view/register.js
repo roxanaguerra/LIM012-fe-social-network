@@ -41,7 +41,7 @@ export default () => {
   // REGISTRAR USUARIO
   const btnRegister = divElemt.querySelector('#btn-register');
   btnRegister.addEventListener('click', (e) => {
-    e.preventDefault(); //cancelar el evento de reinicio de formulario
+    e.preventDefault(); // cancelar el evento de reinicio de formulario
     const emailRegister = divElemt.querySelector('#email-register').value;
     const passwordRegister = divElemt.querySelector('#password-register').value;
     console.log(emailRegister, passwordRegister);
@@ -51,7 +51,7 @@ export default () => {
   // INICIO DE SESIÓN CON GOOGLE
   const btnGoogle = divElemt.querySelector('#google-register');
   btnGoogle.addEventListener('click', (e) => {
-    e.preventDefault(); //cancelar el evento de reinicio de formulario
+    e.preventDefault(); // cancelar el evento de reinicio de formulario
     console.log('Google Prueba - register');
     authSignInGoogle();
   });
