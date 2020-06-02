@@ -8,27 +8,27 @@ import {
   signInFacebook,
 } from '../model/model-authentication.js';
 // import { componentsView } from '../view/view-index.js';
-
 const validateEmail = (email) => {
-  // para validar que ingrese un email de acuerdo a su sintáxis
+  // para validar que ingrese un email de acuerdo a su sintaxis
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 };
+
 // REGISTRAR USUARIO
 export const registerNewUser = (emailRegister, passwordRegister) => {
-  // const view = componentsView.login();
   const span = document.querySelector('#span');
+  const validateSintaxEmail = validateEmail(emailRegister);
   signUp(emailRegister, passwordRegister)
-    .then((userCredential) => {
-      console.log('registradx', userCredential);
+    .then(() => {
       window.location.hash = '#/';
     })
     .catch((error) => {
-      console.log(error);
       if (error.code === 'auth/invalid-email') {
         span.innerHTML = 'Email incorrecto';
       } else if (error.code === 'auth/weak-password') {
         span.innerHTML = 'contraseña insegura Ingrese mínimo 6 caracteres';
+      } else if (!validateSintaxEmail) {
+        span.innerHTML = 'error de sintáxis';
       }
       setTimeout(
         () => (span.innerHTML = 'El futuro es hoy...Regístrate'),
@@ -40,23 +40,22 @@ export const registerNewUser = (emailRegister, passwordRegister) => {
 // INICIAR SESIÓN
 export const authSignIn = (emailLogin, passwordLogin) => {
   const span = document.querySelector('#span');
+  const validateSintaxEmail = validateEmail(emailLogin);
   signIn(emailLogin, passwordLogin)
-    .then((userCredential) => {
-      console.log('Bienvenido otra vez', userCredential);
+    .then(() => {
       window.location.hash = '#/home';
     })
     .catch((error) => {
-      console.log(error);
       if (error.code === 'auth/wrong-password') {
         span.innerHTML = 'Contraseña inválida';
       } else if (error.code === 'auth/invalid-email') {
-        // span.innerHTML = '';
         span.innerHTML = 'Correo electrónico incorrecto. Intente otra vez';
       } else if (error.code === 'auth/user-not-found') {
-        // span.innerHTML = '';
         span.innerHTML = 'Usario no registrado';
       } else if (error.code === 'auth/too-many-requests') {
         span.innerHTML = 'Refresque la página';
+      } else if (!validateSintaxEmail) {
+        span.innerHTML = 'error de sintáxis';
       }
       setTimeout(
         () => (span.innerHTML = 'Muchos envíos te esperan...'),
@@ -69,15 +68,7 @@ export const authSignIn = (emailLogin, passwordLogin) => {
 export const authSignInGoogle = () => {
   signInGoogle()
     .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const token = result.credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
       window.location.hash = '#/home';
-      console.log('google Sign In');
-      console.log(user);
-      console.log(user.uid);
-      // console.log(result);
       firebase.firestore()
         .collection('usersData').add({
           uid: user.uid,
@@ -89,32 +80,18 @@ export const authSignInGoogle = () => {
         });
     })
     .catch((error) => {
-      // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
-      // The email of the user's account used.
       const email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
       const credential = error.credential;
-      console.log('Error Google Prueba');
-      console.log(errorCode);
-      console.log(errorMessage);
-      console.log(email);
-      console.log(credential);
     });
 };
 
 // AUTENTICACIÓN CON FACEBOOK
 export const authSignInFacebook = () => {
   signInFacebook()
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const token = result.credential.accessToken;
-      console.log(token);
-      // The signed-in user info.
-      const user = result.user;
+    .then(() => {
       window.location.hash = '#/home';
-      console.log('Facebook Sign In');
     })
     .catch((error) => {
       console.log(error);
