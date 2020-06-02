@@ -75,6 +75,18 @@ export const authSignInGoogle = () => {
       const user = result.user;
       window.location.hash = '#/home';
       console.log('google Sign In');
+      console.log(user);
+      console.log(user.uid);
+      // console.log(result);
+      firebase.firestore()
+        .collection('usersData').add({
+          uid: user.uid,
+          email: user.email,
+          username: user.displayName,
+          profileImg: user.photoURL,
+          coverImg: '',
+          about: '',
+        });
     })
     .catch((error) => {
       // Handle Errors here.
