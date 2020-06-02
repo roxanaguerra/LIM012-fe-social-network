@@ -22,6 +22,7 @@ export default () => {
           
           <button class="btn-form" id="btn-login">Log In</button>
           <button class="btn-form" id="btn-cerrar">Prueba-cerrar</button>
+          <span id="span">Happy deliver!</span>
         </div>
         <p class="txt-register">Or</p>
         <div class="options-register">
@@ -36,7 +37,7 @@ export default () => {
 
       <h4 class="find-delivers">FIND DELIVERIES TO <br> YOU SAFELY</h4>
     </div>
-    <span id="span"></span>
+    
   </div>`;
 
   const divElemt = document.createElement('div');
