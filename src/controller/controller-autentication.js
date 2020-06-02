@@ -20,7 +20,7 @@ export const registerNewUser = (emailRegister, passwordRegister) => {
   const validateSintaxEmail = validateEmail(emailRegister);
   signUp(emailRegister, passwordRegister)
     .then(() => {
-      window.location.hash = '#/';
+      window.location.hash = '#/profile';
     })
     .catch((error) => {
       if (error.code === 'auth/invalid-email') {
@@ -97,6 +97,12 @@ export const authSignInFacebook = () => {
       console.log(error);
     });
 };
+
+
+
+
+
+
 
 // CERRAR SESIÓN
 export const signOutUser = () => {
