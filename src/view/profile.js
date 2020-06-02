@@ -1,4 +1,5 @@
-export const viewProfile = `
+export default () => {
+  const viewProfile = `
 <div class="mobile-container">
     <!-- Top Navigation Menu -->
     <div class="topnav">
@@ -182,3 +183,8 @@ export const viewProfile = `
     </div>
 </div>
 `;
+  const divElemt = document.createElement('div');
+  // divElemt.classList.add('position')
+  divElemt.innerHTML = viewProfile;
+  return divElemt;
+};
