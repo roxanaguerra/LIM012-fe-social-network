@@ -1,0 +1,277 @@
+
+  /* mobile menu */
+  .mobile-container {
+    width: 360px;
+    margin: auto;
+    background: white;
+    height: 640px;
+}
+
+.menu-bars {
+    height: 18px;
+    width: 18px;
+}
+
+.topnav {
+    overflow: hidden;
+    background-image: linear-gradient(to right, #120136, rgba(144, 112, 185, 0.42));
+    position: relative;
+}
+  
+.topnav h1 {
+    font-size: 17px;
+}
+
+.topnav #nav-links {
+    display: none;
+}
+  
+.topnav a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+}
+  
+.topnav a.icon {
+    background: #201C50;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+  
+  .topnav a:hover {
+    color: white;
+  }
+
+/* cover photo */
+.ctn-cover-photo {
+    position: relative;  
+}
+
+.ctn-cover-photo img {
+    width: 94%;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 0.75px; 
+}
+
+/* profile photo */
+.ctn-profile-photo img {
+    height: 90px;
+    width: 90px;
+    border-radius: 50px;
+    object-fit: cover;
+}
+
+.ctn-profile-photo {
+    position: absolute;
+    top: 5px;
+    right: 135px;
+}
+
+.border {
+    border-color: white;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.ctn {
+    background-image: linear-gradient(to right, #120136, rgba(144, 112, 185, 0.42));
+    width: 94%;
+    /* margin: 0.75px 0 0.75px 0; */
+}
+
+/* description */
+.description {
+    height: 62px;
+}
+
+.username {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;font-size: 18px;
+    cursor: pointer;
+}
+
+.option-edit img {
+    height: 15px;
+    width: 15px;
+}
+
+.ctn-description-text {
+    width: 195px;
+    margin-bottom: 5px;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+}
+
+/* create post */
+.ctn-create-post {
+    height: 60px;
+}
+
+.ctn-img-post img {
+    height: 38px;
+    width: 38px;
+    object-fit: cover;
+    border-radius: 50px;
+    margin: 7px 10px 3px 0;
+}
+
+textarea {
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+}
+
+.ctn-txt-post ::placeholder{
+    color: gray;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-family: 'Lato', sans-serif;
+}
+
+.ctn-post-status {
+    height: 25px;
+    color: white;
+    font-size: 12px;
+}
+
+.config-post {
+    margin: 0 10px;
+}
+
+.config-post img {
+    height: 12px;
+    width: 12px;
+}
+
+.config-privacy img{
+    height: 9px;
+    width: 9px;
+    margin: 2px;
+}
+
+.btn-post {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    width: 170px;
+    height: 20px;
+    border-radius: 20px;
+    background: #201C50;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Past posts */
+.start {
+    display: flex;
+    align-items: flex-start;
+}
+
+.ctn-post-details {
+    height: 55px;
+    padding-left: 15px;
+    font-size: 15px;
+}
+
+.margin-top {
+    margin-top: 7px;
+}
+
+.ctn-photo-posted .photo {
+    object-fit: cover;
+    width: 94%;
+    height: 150px;
+}
+
+.ctn-likes-comments {
+    height: 30px;
+}
+
+.likes, 
+.comments {
+    width: 50%;
+}
+
+.likes img,
+.comments img {
+    height: 17px;
+    width: 17px;
+}
+
+.likes span,
+.comments span {
+   color: white;
+   font-size: 13px;
+   margin-left: 5px;
+}
+
+.ctn-comment {
+    background-color: rgba(144, 112, 185, 0.35);
+    border-radius: 5px;
+    width: 255px;
+    padding: 0 5px;
+}
+
+.comment p {
+    color:white;
+    font-size: 14px;
+}
+
+.username-comment {
+    color: white;
+    font-weight: 600;
+}
+
+.btn-publish {
+    border-radius: 50px;
+    margin: 5px;
+}
+
+.btn-publish img {
+    height: 25px;
+    padding: 2px;
+}
+
+.ctn-comment-txa ::placeholder {
+    color: gray;
+    padding:  5px 7px;
+    font-size: 12px;
+    font-family: 'Lato', sans-serif;
+    height: 10px;
+}
+
+.txt-posted {
+    background-color: white;
+    height: 50px;
+    width: 94%;
+}
+
+.txt-posted p {
+    width: 92%;
+    font-size: 15px;
+    color: #201C50;
+}
+
+.ctn-img-post-home img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    margin: 7px 10px 3px 0;
+}
+
+.ctn-img-post-home {
+    padding-left: 15px;
+}
+
+
+* {
+    margin: 0;
+}
