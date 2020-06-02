@@ -98,12 +98,6 @@ export const authSignInFacebook = () => {
     });
 };
 
-
-
-
-
-
-
 // CERRAR SESIÓN
 export const signOutUser = () => {
   signOut()
