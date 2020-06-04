@@ -1,6 +1,7 @@
 import {
   registerNewUser,
   authSignInGoogle,
+  authSignInFacebook,
 } from '../controller/controller-autentication.js';
 
 export default () => {
@@ -56,6 +57,14 @@ export default () => {
     e.preventDefault(); // cancelar el evento de reinicio de formulario
     console.log('Google Prueba - register');
     authSignInGoogle();
+  });
+
+  // INICIO DE SESIÓN CON FACEBOOK
+  const btnFacebook = divElemt.querySelector('#facebook-register');
+  btnFacebook.addEventListener('click', (e) => {
+    e.preventDefault(); // cancelar el evento de reinicio de formulario
+    console.log('Facebook Prueba');
+    authSignInFacebook();
   });
 
   return divElemt;
