@@ -7,6 +7,7 @@ body {
     align-items: center;
     justify-content: center;
     color: white;
+    overflow: hidden;
 }
 
 h1 {
@@ -138,25 +139,134 @@ div .option {
     font-size: 16px;
 }
 
-@media screen and (max-width: 900px) and (min-width: 370px) {
+@media screen and (min-width: 550px){
+    * {
+        box-sizing: border-box;
+    } 
     .ctn-register-login {
-        background-image: $bgcolor-top-bottom;
-        width: 700px;
-        height: 900px;
-        margin: 0;
+        width: 100vw;
+        min-height: 100vh;
     }
     .content {
-        background-image: url(/src/assets/bg-mobile.png);
-        width: 700px;
-        height: 900px;
-        background-position: center;
-        background-size: cover;
-        text-align: center;
+        background-image: url(/src/assets/bg-desktop-1200.png);
+        width: 100%;
+        min-height: 100vh;
+    }
+    h1 {
+        font-size: 30px;
+    }
+    h6 {
+        font-size: 15px;
+    }
+    .find-delivers {
+        font-size: 15px;
+        position: absolute;
+        bottom: 50px;
+        left: 120px;
+    }
+    .container-form {
+        width: 35%;
+        height: 400px;
+        position: absolute;
+        right: 50px;
+        top: 80px;
+    }
+    div .question, div .option {
+        font-size: 12px;
+    }
+    .logo-google, .logo-fb {
+        height: 35px;
+        width: 35px;
+        margin: 10px;
+    }
+    .btn-form {
+        width: 100%;
+        height: 35px;
+        font-size: 13px;
+    }
+    ::placeholder {
+        font-size: 14px;
+    }
+    .ctn-titles {
+       position: absolute;
+       top: 50px;
+       left: 100px;
+    }
+    .inputs-form {
+        width: 100%;
+        padding: 0 5px 42px 5px;
+    }
+    .inputs-form input {
+        width: 100%;
+        height: 43px;
+        padding-bottom: 0;
     }
 }
 
-// desktop
 @media screen and (min-width: 900px) {
+    .find-delivers {
+        font-size: 20px;
+        position: absolute;
+        bottom: 50px;
+        left: 150px;
+    }
+    .container-form {
+        width: 27%;
+        height: 400px;
+        position: absolute;
+        right: 100px;
+        top: 90px;
+    }
+    .ctn-titles {
+        position: absolute;
+        top: 30px;
+        left: 150px;
+     }
+     h1 {
+        font-size: 30px;
+    }
+    h6 {
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .find-delivers {
+        font-size: 20px;
+        position: absolute;
+        bottom: 50px;
+        left: 310px;
+    }
+    .content {
+        background-image: url(/src/assets/bg-desktop-1200.png);
+        width: 100%;
+    }
+    .container-form {
+        width: 20%;
+        height: 450px;
+        position: absolute;
+        right: 250px;
+        top: 90px;
+    }
+    .ctn-titles {
+        position: absolute;
+        top: 30px;
+        left: 250px;
+    }
+    h1 {
+        font-size: 50px;
+    }
+    h6 {
+        font-size: 20px;
+    }
+    .inputs-form input {
+        width: 100%;
+        padding-bottom: 0;
+        height: 50px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
     .ctn-register-login {
         background-image: $bgcolor-top-bottom;
         width: 1440px;
@@ -165,10 +275,57 @@ div .option {
     }
     .content {
         background-image: url(/src/assets/bg-desktop.png);
-        width: 1440px;
+        width: 100%;
         height: 1024px;
         background-position: center;
         background-size: cover;
         text-align: center;
+        position: relative;
+    }
+    h1 {
+        font-size: 80px;
+    }
+    h6 {
+        font-size: 30px;
+    }
+    .find-delivers {
+        font-size: 40px;
+        bottom: 50px;
+        left: 260px;
+        position: absolute;
+    }
+    .container-form {
+        width: 394px;
+        height: 673px;
+        position: absolute;
+        right: 90px;
+    }
+    div .question, div .option {
+        font-size: 16px;
+    }
+    .logo-google, .logo-fb {
+        width: 84px;
+        height: 84px;
+    }
+    .btn-form {
+        width: 297px;
+        height: 59px;
+        font-size: 24px;
+    }
+    ::placeholder {
+        font-size: 18px;
+    }
+    .ctn-titles {
+        position: absolute;
+        top: 50px;
+        left: 200px;
+    }
+    .inputs-form {
+        padding: 0px 5px 80px 5px;
+    }
+    .inputs-form input {
+        width: 290px;
+        padding-bottom: 0;
+        height: 50px;
     }
 }

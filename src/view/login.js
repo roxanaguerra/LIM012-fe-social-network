@@ -9,7 +9,7 @@ export default () => {
   const viewLogin = `
     <div class="ctn-register-login">
     <div class="content flex column">
-      <div class="">
+      <div class="ctn-titles">
         <h1 class="delivery-drone">Delivery Drone</h1>
         <h6 class="safetyHome"> STAY HOME, STAY SAFE</h6>
       </div>
