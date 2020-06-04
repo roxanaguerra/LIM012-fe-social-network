@@ -9,6 +9,7 @@ import {
 } from '../model/model-authentication.js';
 // import { componentsView } from '../view/view-index.js';
 import { createUserData } from '../model/model-user.js';
+
 const validateEmail = (email) => {
   // para validar que ingrese un email de acuerdo a su sintaxis
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

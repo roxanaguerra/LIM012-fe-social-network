@@ -1,13 +1,14 @@
 import {
   registerNewUser,
   authSignInGoogle,
+  authSignInFacebook,
 } from '../controller/controller-autentication.js';
 
 export default () => {
   const viewRegister = `
     <div class="ctn-register-login">
     <div class="content flex column">
-      <div class="">
+      <div class="ctn-titles">
         <h1 class="delivery-drone">Delivery Drone</h1>
         <h6 class="safetyHome"> STAY HOME, STAY SAFE</h6>
       </div>
@@ -56,6 +57,14 @@ export default () => {
     e.preventDefault(); // cancelar el evento de reinicio de formulario
     console.log('Google Prueba - register');
     authSignInGoogle();
+  });
+
+  // INICIO DE SESIÓN CON FACEBOOK
+  const btnFacebook = divElemt.querySelector('#facebook-register');
+  btnFacebook.addEventListener('click', (e) => {
+    e.preventDefault(); // cancelar el evento de reinicio de formulario
+    console.log('Facebook Prueba');
+    authSignInFacebook();
   });
 
   return divElemt;
