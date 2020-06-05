@@ -1,30 +1,26 @@
 body {
   margin: 0;
-  height: 100vh;
-  width: 100vw;
-  font-family: "Lato", sans-serif;
+  height: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  color: white;
   overflow: hidden;
 }
 
 h1 {
-  color: white;
+  color: #c300ff;
   margin: 0;
   font-size: 30px;
 }
 
 h4 {
-  color: #120136;
+  color: #0026ff;
   margin-bottom: 0%;
   margin-top: 35px;
-  font-size: 18px;
+  font-size: 80px;
 }
 
 h6 {
-  color: #F6A13E;
+  color: #fa8601;
   font-size: 12px;
   margin-top: 0;
   letter-spacing: 0.7px;
@@ -38,9 +34,6 @@ h6 {
 
 .column {
   flex-direction: column;
-}
-
-.ctn-register-login {
   background-image: linear-gradient(#201C50, rgba(144, 112, 185, 0.35));
   margin: 0;
   width: 362px;
@@ -143,7 +136,7 @@ div .option {
   * {
     box-sizing: border-box;
   }
-  .ctn-register-login {
+  .column {
     width: 100vw;
     min-height: 100vh;
   }
@@ -267,7 +260,7 @@ div .option {
 }
 
 @media screen and (min-width: 1440px) {
-  .ctn-register-login {
+  .column {
     background-image: linear-gradient(#201C50, rgba(144, 112, 185, 0.35));
     width: 1440px;
     height: 1024px;
@@ -605,4 +598,16 @@ textarea {
 
 * {
   margin: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  font-family: "Lato", sans-serif;
 }

@@ -13,7 +13,7 @@ export default () => {
     <div id="nav-links">
       <a href="#home">Home</a>
       <a href="#profile">Profile</a>
-      <a href="#logout">Log out</a>
+      <button class="btn-form" id="btn-cerrar">Prueba-cerrar</button>
     </div>
       <a href="javascript:void(0);" class="icon" id="navbar-mobile">
         <img class="menu-bars" src="assets/nav-menu.png" alt="">
@@ -111,12 +111,16 @@ export default () => {
               </div>
             </div>  
           </div>
-      
-         
   `;
 
   const divElemt = document.createElement('div');
   divElemt.innerHTML = viewHome;
+
+  const btnCerrar = divElemt.querySelector('#btn-cerrar');
+  btnCerrar.addEventListener('click', (e) => {
+    e.preventDefault();
+    signOutUser();
+  });
 
   const btnPost = divElemt.querySelector('#btn-post');
   btnPost.addEventListener('click', () => {
