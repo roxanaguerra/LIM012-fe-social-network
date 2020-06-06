@@ -7,6 +7,10 @@
     height: 640px;
 }
 
+.hide {
+    display: none;
+}
+
 .menu-bars {
     height: 18px;
     width: 18px;
@@ -90,15 +94,22 @@
 }
 
 .username {
-    color: white;
+    color: #58DAD2;
     text-decoration: none;
     font-weight: 600;font-size: 18px;
     cursor: pointer;
 }
 
 .option-edit img {
-    height: 15px;
-    width: 15px;
+    height: 12px;
+    width: 12px;
+    margin: 5px;
+}
+
+.option-save img {
+    height: 12px;
+    width: 12px;
+    margin: 5px;
 }
 
 .ctn-description-text {

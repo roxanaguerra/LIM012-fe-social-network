@@ -139,6 +139,13 @@ div .option {
   font-size: 16px;
 }
 
+.error-msg {
+  font-size: 12px;
+  color: #cc4539;
+  font-style: normal;
+  text-align: left;
+}
+
 @media screen and (min-width: 550px) {
   * {
     box-sizing: border-box;
@@ -338,6 +345,10 @@ div .option {
   height: 640px;
 }
 
+.hide {
+  display: none;
+}
+
 .menu-bars {
   height: 18px;
   width: 18px;
@@ -421,7 +432,7 @@ div .option {
 }
 
 .username {
-  color: white;
+  color: #58DAD2;
   text-decoration: none;
   font-weight: 600;
   font-size: 18px;
@@ -429,8 +440,15 @@ div .option {
 }
 
 .option-edit img {
-  height: 15px;
-  width: 15px;
+  height: 12px;
+  width: 12px;
+  margin: 5px;
+}
+
+.option-save img {
+  height: 12px;
+  width: 12px;
+  margin: 5px;
 }
 
 .ctn-description-text {

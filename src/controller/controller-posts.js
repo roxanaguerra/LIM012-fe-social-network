@@ -3,10 +3,15 @@ import {
   readPostPrueba,
 } from '../model/model-posts.js';
 
-export const postCreado = (inputPost) => {
-  const uid = firebase.auth().currentUser.uid;
-  console.log(uid);
-  allPostPrueba('uid', 'roxana', inputPost)
+export const postCreado = (inputPost, id, name, mode, like) => {
+  allPostPrueba().add({
+    post: inputPost,
+    date: new Date(),
+    idUser: id,
+    username: name,
+    privacy: mode,
+    likes: like,
+  })
     .then((docRef) => {
       console.log('Document written with ID: ', docRef.id);
       // eslint-disable-next-line no-param-reassign
