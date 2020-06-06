@@ -7,6 +7,14 @@
 
 // const db = firebase.firestore();
 
-export const allPostPrueba = () => firebase.firestore().collection('post');
+// CREAR LA COLECCION DE POST
+export const allPostPrueba = (uid, names, post) => firebase.firestore().collection('post');
 
+// LEER LA COLECCION DE POST
 export const readPostPrueba = () => firebase.firestore().collection('post').get();
+
+export const editPost = (id, newPost) => firebase.firestore().collection('post').doc(id).update({
+  first: newPost,
+});
+
+export const deletePost = id => firebase.firestore().collection('post').doc(id).delete();

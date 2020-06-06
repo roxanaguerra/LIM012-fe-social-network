@@ -2,7 +2,7 @@ import {
   authSignIn,
   authSignInGoogle,
   authSignInFacebook,
-  signOutUser,
+  observador,
 } from '../controller/controller-autentication.js';
 
 export default () => {
@@ -20,9 +20,8 @@ export default () => {
             <input class="password" id="password-login" type="password" placeholder="Password">
           </div>
           
-          <button class="btn-form" id="btn-login"> &#128274 Log In</button>
-          <button class="btn-form" id="btn-cerrar">Prueba-cerrar</button>
-          <span id="span">Happy deliver!</span>
+          <button class="btn-form" id="btn-login">Log In</button>
+          <span class="error-msg" id="span"></span>
         </div>
         <p class="txt-register">Or</p>
         <div class="options-register">
@@ -51,33 +50,8 @@ export default () => {
     authSignIn(emailLogin, passwordLogin);
   });
 
-  const observador = () => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log('Existe Usuario Activo');
-        // *********************
-        // User is signed in.
-        // const displayName = user.displayName;
-        // const email = user.email;
-        // const emailVerified = user.emailVerified;
-        // const photoURL = user.photoURL;
-        // const isAnonymous = user.isAnonymous;
-        // const uid = user.uid;
-        // const providerData = user.providerData;
-        // *********************
-      } else {
-        console.log('No existe Usuario Activo');
-      }
-    });
-  };
+  // Se llama a este observador cada vez que cambia el estado de acceso del usuario.
   observador();
-
-  // CERRAR SESIÓN 'funcion para boton singOut'
-  const btnCerrar = divElemt.querySelector('#btn-cerrar');
-  btnCerrar.addEventListener('click', (e) => {
-    e.preventDefault();
-    signOutUser();
-  });
 
   // INICIO DE SESIÓN CON GOOGLE
   const btnGoogle = divElemt.querySelector('#google-login');

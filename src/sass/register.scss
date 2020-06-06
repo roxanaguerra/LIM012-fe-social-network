@@ -138,7 +138,13 @@ div .option {
     letter-spacing: 1px;
     font-size: 16px;
 }
-
+.error-msg {
+    font-size: 12px;
+    color: #cc4539;
+    font-style: normal;
+    text-align: left;
+}
+// Estilos for Desktop
 @media screen and (min-width: 550px){
     * {
         box-sizing: border-box;
