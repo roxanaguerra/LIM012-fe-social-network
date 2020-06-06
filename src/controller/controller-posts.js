@@ -15,7 +15,7 @@ export const postCreado = (inputPost, id, name, mode, like) => {
     .then((docRef) => {
       console.log('Document written with ID: ', docRef.id);
       // eslint-disable-next-line no-param-reassign
-    //   inputPost.value = '';
+      //   inputPost.value = '';
     })
     .catch((error) => {
       console.error('Error adding document: ', error);

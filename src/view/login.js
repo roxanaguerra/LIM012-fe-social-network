@@ -2,6 +2,7 @@ import {
   authSignIn,
   authSignInGoogle,
   authSignInFacebook,
+  observador,
 } from '../controller/controller-autentication.js';
 
 export default () => {
@@ -49,25 +50,7 @@ export default () => {
     authSignIn(emailLogin, passwordLogin);
   });
 
-  const observador = () => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log('Existe Usuario Activo');
-        // *********************
-        // User is signed in.
-        // const displayName = user.displayName;
-        // const email = user.email;
-        // const emailVerified = user.emailVerified;
-        // const photoURL = user.photoURL;
-        // const isAnonymous = user.isAnonymous;
-        // const uid = user.uid;
-        // const providerData = user.providerData;
-        // *********************
-      } else {
-        console.log('No existe Usuario Activo');
-      }
-    });
-  };
+  // Se llama a este observador cada vez que cambia el estado de acceso del usuario.
   observador();
 
   // INICIO DE SESIÓN CON GOOGLE

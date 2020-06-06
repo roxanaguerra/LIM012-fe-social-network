@@ -2,6 +2,7 @@ import {
   registerNewUser,
   authSignInGoogle,
   authSignInFacebook,
+  observador,
 } from '../controller/controller-autentication.js';
 
 export default () => {
@@ -15,7 +16,7 @@ export default () => {
       <div class="container-form flex column">      
         <div class="data-register flex column">
           <div class="inputs-form">
-            <input class="name" id="username" type="text" placeholder="Nombres y Apellidos">
+            <input class="name" id="name-register" type="text" placeholder="Nombres y Apellidos">
             <input class="email" id="email-register" type="email" placeholder="E-mail">
             <input class="password" id="password-register" type="password" placeholder="Password">
           </div>
@@ -45,10 +46,11 @@ export default () => {
   const btnRegister = divElemt.querySelector('#btn-register');
   btnRegister.addEventListener('click', (e) => {
     e.preventDefault(); // cancelar el evento de reinicio de formulario
+    const nameRegister = divElemt.querySelector('#name-register').value;
     const emailRegister = divElemt.querySelector('#email-register').value;
     const passwordRegister = divElemt.querySelector('#password-register').value;
     console.log(emailRegister, passwordRegister);
-    registerNewUser(emailRegister, passwordRegister);
+    registerNewUser(nameRegister, emailRegister, passwordRegister);
   });
 
   // INICIO DE SESIÓN CON GOOGLE
@@ -66,6 +68,9 @@ export default () => {
     console.log('Facebook Prueba');
     authSignInFacebook();
   });
+
+  // Se llama a este observador cada vez que cambia el estado de acceso del usuario.
+  observador();
 
   return divElemt;
 };
