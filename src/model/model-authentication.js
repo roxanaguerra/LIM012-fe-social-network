@@ -20,3 +20,5 @@ export const signInFacebook = () => {
   const provider = new firebase.auth.FacebookAuthProvider();
   return firebase.auth().signInWithPopup(provider);
 };
+
+export const currentUser = () => firebase.auth().currentUser;
