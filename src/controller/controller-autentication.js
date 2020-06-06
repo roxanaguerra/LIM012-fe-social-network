@@ -19,23 +19,26 @@ const validateEmail = (email) => {
 // REGISTRAR USUARIO
 export const registerNewUser = (emailRegister, passwordRegister) => {
   const span = document.querySelector('#span');
+  const username = document.querySelector('#username').value;
   const validateSintaxEmail = validateEmail(emailRegister);
   signUp(emailRegister, passwordRegister)
-    .then(() => {
+    .then((result) => {
+      const user = result.user;
+      createUserData(user.uid, user.email, username, '');
       window.location.hash = '#/profile';
     })
     .catch((error) => {
       if (error.code === 'auth/invalid-email') {
-        span.innerHTML = 'Email incorrecto';
+        span.innerHTML = '*Email incorrecto';
       } else if (error.code === 'auth/weak-password') {
-        span.innerHTML = 'contraseña insegura Ingrese mínimo 6 caracteres';
+        span.innerHTML = '*Contraseña insegura. Ingrese mínimo 6 caracteres';
       } else if (!validateSintaxEmail) {
-        span.innerHTML = 'error de sintáxis';
+        span.innerHTML = '*error de sintáxis';
       }
-      setTimeout(
-        () => (span.innerHTML = 'El futuro es hoy...Regístrate'),
-        2000,
-      );
+      // setTimeout(
+      //   () => (span.innerHTML = 'El futuro es hoy...Regístrate'),
+      //   2000,
+      // );
     });
 };
 
@@ -49,18 +52,19 @@ export const authSignIn = (emailLogin, passwordLogin) => {
     })
     .catch((error) => {
       if (error.code === 'auth/wrong-password') {
-        span.innerHTML = 'Contraseña inválida';
+        span.innerHTML = '*Contraseña inválida';
       } else if (error.code === 'auth/invalid-email') {
-        span.innerHTML = 'Correo electrónico incorrecto. Intente otra vez';
+        span.innerHTML = '*Correo electrónico incorrecto';
       } else if (error.code === 'auth/user-not-found') {
-        span.innerHTML = 'Usario no registrado';
+        span.innerHTML = '*Usario no registrado';
       } else if (error.code === 'auth/too-many-requests') {
-        span.innerHTML = 'Refresque la página';
+        span.innerHTML = '*Refresque la página';
       } else if (!validateSintaxEmail) {
-        span.innerHTML = 'error de sintáxis';
+        span.innerHTML = '*error de sintáxis';
       }
       setTimeout(
-        () => (span.innerHTML = 'Muchos envíos te esperan...'),
+        // eslint-disable-next-line no-return-assign
+        () => (span.innerHTML = ''),
         2000,
       );
     });
