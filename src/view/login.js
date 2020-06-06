@@ -16,11 +16,11 @@ export default () => {
       <div class="container-form flex column">
         <div class="data-register flex column">
           <div class="inputs-form">
-            <input class="email" id="email-login" type="email" placeholder="E-mail">
+            <input class="email" id="email-login" type="email" placeholder="E-mail" <p>&#128274</p>> 
             <input class="password" id="password-login" type="password" placeholder="Password">
           </div>
           
-          <button class="btn-form" id="btn-login">Log In</button>
+          <button class="btn-form" id="btn-login"> &#128274 Log In</button>
           <button class="btn-form" id="btn-cerrar">Prueba-cerrar</button>
           <span id="span">Happy deliver!</span>
         </div>
