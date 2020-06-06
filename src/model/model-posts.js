@@ -8,17 +8,7 @@
 // const db = firebase.firestore();
 
 // CREAR LA COLECCION DE POST
-export const allPostPrueba = (uid, names, post) => firebase.firestore().collection('post').add({
-  uid,
-  names,
-//   profilePicture,
-  post,
-//   photo: imgPost,
-//   privacy,
-  // date: datePostDB(),
-  // orderDate: orderDate(),
-  // likes: [],
-});
+export const allPostPrueba = (uid, names, post) => firebase.firestore().collection('post');
 
 // LEER LA COLECCION DE POST
 export const readPostPrueba = () => firebase.firestore().collection('post').get();
