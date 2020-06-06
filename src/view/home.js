@@ -2,32 +2,36 @@ import {
   postCreado,
   postRead,
 } from '../controller/controller-posts.js';
+import { readUserProfile } from '../controller/controller-user.js';
+import { currentUser } from '../model/model-authentication.js';
+import { signOutUser } from '../controller/controller-autentication.js';
+// import Header from './header.js';
 
 export default () => {
+  const userNow = currentUser();
+  readUserProfile(userNow.uid);
   const viewHome = `
-  <div class="mobile-container">
-
-  <!-- Top Navigation Menu -->
-  <div class="topnav">
-    <a href="#home" class="active"><h1>DL</h1></a>
-    <div id="nav-links">
-      <a href="#home">Home</a>
-      <a href="#profile">Profile</a>
-      <a href="#logout">Log out</a>
-    </div>
-      <a href="javascript:void(0);" class="icon" id="navbar-mobile">
-        <img class="menu-bars" src="assets/nav-menu.png" alt="">
-      </a>
-  </div>
+  <div class="mobile-container" id="mobile-container">
   <!------------------------------- Home ---------------------------------->
-      
+  <!-- Top Navigation Menu -->
+    <div class="topnav">
+        <a href="#home" class="active"><h1>DL</h1></a>
+        <div id="nav-links">
+            <a href="#/home">Home</a>
+            <a href="#/profile">Profile</a>
+            <a id="btn-cerrar" href="#">Log out</a>
+        </div>
+            <a href="javascript:void(0);" class="icon" id="navbar-mobile">
+            <img class="menu-bars" src="assets/nav-menu.png" alt="">
+            </a>
+    </div>
     <!-- Post -->
     <div class="ctn-post flex column margin-top">
             <div class="ctn column ">
               <div class="start">
                 <div class="ctn-img-post-home flex">
-                    <img class="border" src="assets/profile-photo.jpg" alt="">
-                    <a class="username" href="">Ana Wong</a>                
+                    <div class="img-photo-post"></div>
+                    <a class="username" href="#/profile"></a>                
                 </div>
               </div>
               <div class="ctn-txt-post flex">
@@ -60,7 +64,7 @@ export default () => {
                   <img class="border" src="assets/user.jpg" alt="">
                 </div>
                 <div class="">
-                  <a class="username" href="">Rosa Aguilar</a>
+                  <a class="username" href=""></a>
                   <div class="ctn-post-status flex">
                     <span>23/05/2020</span>
                     <span>18:00</span>
@@ -110,13 +114,21 @@ export default () => {
                 </div>
               </div>
             </div>  
-          </div>
-      
-         
+          </div>    
   `;
 
   const divElemt = document.createElement('div');
   divElemt.innerHTML = viewHome;
+
+  const navbMobile = divElemt.querySelector('#navbar-mobile');
+  navbMobile.addEventListener('click', () => {
+    const navLinks = divElemt.querySelector('#nav-links');
+    if (navLinks.style.display === 'block') {
+      navLinks.style.display = 'none';
+    } else {
+      navLinks.style.display = 'block';
+    }
+  });
 
   const btnPost = divElemt.querySelector('#btn-post');
   btnPost.addEventListener('click', () => {
@@ -124,7 +136,7 @@ export default () => {
     console.log('prueba: ', inputPost);
     console.log(inputPost);
     divElemt.querySelector('#input-post').value = '';
-    postCreado(inputPost);
+    postCreado(inputPost, userNow.uid, userNow.displayName, 'public', '5');
     postRead();
     const divPostNew = divElemt.querySelector('#new-post');
     divPostNew.innerHTML += `
@@ -133,10 +145,10 @@ export default () => {
     <div class="ctn start">
       <div class="ctn-post-details flex">
         <div class="ctn-img-post">
-          <img class="border" src="assets/profile-photo.jpg" alt="">
+          <div class="img-photo-post"></div>
         </div>
         <div class="">
-          <a class="username" href="">Ana Wong</a>
+          <a class="username" href=""></a>
           <div class="ctn-post-status flex">
             <span>23/05/2020</span>
             <span>18:00</span>
@@ -189,6 +201,13 @@ export default () => {
   </div>
 </div>
   `;
+  });
+
+  // CERRAR SESIÓN 'funcion para boton singOut'
+  const btnCerrar = divElemt.querySelector('#btn-cerrar');
+  btnCerrar.addEventListener('click', (e) => {
+    e.preventDefault();
+    signOutUser();
   });
 
   return divElemt;
