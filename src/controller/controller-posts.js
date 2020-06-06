@@ -4,15 +4,13 @@ import {
 } from '../model/model-posts.js';
 
 export const postCreado = (inputPost) => {
-  allPostPrueba().add({
-    first: inputPost,
-    date: '03/05/2020',
-    idUser: 'roxana333',
-  })
+  const uid = firebase.auth().currentUser.uid;
+  console.log(uid);
+  allPostPrueba('uid', 'roxana', inputPost)
     .then((docRef) => {
       console.log('Document written with ID: ', docRef.id);
       // eslint-disable-next-line no-param-reassign
-    //   inputPost.value = '';
+      //   inputPost.value = '';
     })
     .catch((error) => {
       console.error('Error adding document: ', error);
