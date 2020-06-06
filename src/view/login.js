@@ -2,7 +2,6 @@ import {
   authSignIn,
   authSignInGoogle,
   authSignInFacebook,
-  signOutUser,
 } from '../controller/controller-autentication.js';
 
 export default () => {
@@ -21,8 +20,7 @@ export default () => {
           </div>
           
           <button class="btn-form" id="btn-login">Log In</button>
-          <button class="btn-form" id="btn-cerrar">Prueba-cerrar</button>
-          <span id="span">Happy deliver!</span>
+          <span class="error-msg" id="span"></span>
         </div>
         <p class="txt-register">Or</p>
         <div class="options-register">
@@ -71,13 +69,6 @@ export default () => {
     });
   };
   observador();
-
-  // CERRAR SESIÓN 'funcion para boton singOut'
-  const btnCerrar = divElemt.querySelector('#btn-cerrar');
-  btnCerrar.addEventListener('click', (e) => {
-    e.preventDefault();
-    signOutUser();
-  });
 
   // INICIO DE SESIÓN CON GOOGLE
   const btnGoogle = divElemt.querySelector('#google-login');
