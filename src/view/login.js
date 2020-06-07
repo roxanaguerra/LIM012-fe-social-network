@@ -16,7 +16,7 @@ export default () => {
       <div class="container-form flex column">
         <div class="data-register flex column">
           <div class="inputs-form">
-            <input class="email" id="email-login" type="email" placeholder="E-mail">
+            <input class="email" id="email-login" type="email" placeholder="E-mail" <p>&#128274</p>> 
             <input class="password" id="password-login" type="password" placeholder="Password">
           </div>
           
