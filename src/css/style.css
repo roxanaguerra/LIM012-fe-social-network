@@ -285,8 +285,8 @@ textarea {
 * {
   margin: 0;
 }
-th: 100%;
-  }
+/* th: 100%; */
+
   .container-form {
     width: 20%;
     height: 450px;
@@ -310,7 +310,6 @@ th: 100%;
     padding-bottom: 0;
     height: 50px;
   }
-}
 
 @media screen and (min-width: 1440px) {
   .ctn-register-login {
