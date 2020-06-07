@@ -2,7 +2,7 @@ import {
   registerNewUser,
   authSignInGoogle,
   authSignInFacebook,
-  observador,
+  // observador,
 } from '../controller/controller-autentication.js';
 
 export default () => {
@@ -22,7 +22,7 @@ export default () => {
           </div>
           
           <button class="btn-form" id="btn-register">Register</button>
-          <span id="span">Welcome!</span>
+          <span id="span"></span>
         </div>
         <p class="txt-register">Or</p>
         <div class="options-register">
@@ -71,7 +71,7 @@ export default () => {
   });
 
   // Se llama a este observador cada vez que cambia el estado de acceso del usuario.
-  observador();
+  // observador();
 
   return divElemt;
 };

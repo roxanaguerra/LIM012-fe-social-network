@@ -2,7 +2,7 @@ import {
   authSignIn,
   authSignInGoogle,
   authSignInFacebook,
-  observador,
+  // observador,
 } from '../controller/controller-autentication.js';
 
 export default () => {
@@ -51,7 +51,7 @@ export default () => {
   });
 
   // Se llama a este observador cada vez que cambia el estado de acceso del usuario.
-  observador();
+  // observador();
 
   // INICIO DE SESIÓN CON GOOGLE
   const btnGoogle = divElemt.querySelector('#google-login');

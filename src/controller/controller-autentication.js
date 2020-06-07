@@ -7,7 +7,7 @@ import {
   signInGoogle,
   signInFacebook,
   verificationEmail,
-  observerUser,
+  // observerUser,
 } from '../model/model-authentication.js';
 // import { componentsView } from '../view/view-index.js';
 import { createUserData } from '../model/model-user.js';
@@ -27,26 +27,16 @@ export const registerNewUser = (emailRegister, passwordRegister) => {
   signUp(emailRegister, passwordRegister)
     .then((result) => {
       const user = result.user;
-      createUserData(user.uid, user.email, username, '');
-      window.location.hash = '#/profile';
-      // resul.user.updateProfile({
-      //   displayName: nameRegister,
-      // });
-      // console.log(displayName);
-      // console.log('REGISTRADO - VERIF');
-      // window.Location.hash = '#/profile';
-      // const configuration = {
-      //   url: 'http://localhost:5000/',
-      // };
-      // user.sendEmailVerification(configuration)
-      //   .catch(() => {
-      //     console.log('Ocurrio un error...');
-      //   });
-      // CREAR USUARIO EN DB
-      // createUserData(resul.user.uid, emailRegister, nameRegister, imgUser)
-
-      // eslint-disable-next-line no-use-before-define
-      // emailVerification();
+      verificationEmail()
+        .then(() => {
+          createUserData(user.uid, user.email, username, '');
+          // Email sent.
+          console.log('Se envio un correo de verificación');
+          span.innerHTML = '*Se envió un correo de verificación';
+        }).catch(() => {
+        // An error happened.
+          console.log('No se envío correo');
+        });
     })
     .catch((error) => {
       if (error.code === 'auth/invalid-email') {
@@ -55,11 +45,14 @@ export const registerNewUser = (emailRegister, passwordRegister) => {
         span.innerHTML = '*Contraseña insegura. Ingrese mínimo 6 caracteres';
       } else if (!validateSintaxEmail) {
         span.innerHTML = '*error de sintáxis';
+      } else if (error.code === 'auth/email-already-in-use') {
+        span.innerHTML = '*Este correo ya está en uso';
       }
-      // setTimeout(
-      //   () => (span.innerHTML = 'El futuro es hoy...Regístrate'),
-      //   2000,
-      // );
+      setTimeout(
+        // eslint-disable-next-line no-return-assign
+        () => (span.innerHTML = ''),
+        5000,
+      );
     });
 };
 
@@ -68,8 +61,15 @@ export const authSignIn = (emailLogin, passwordLogin) => {
   const span = document.querySelector('#span');
   const validateSintaxEmail = validateEmail(emailLogin);
   signIn(emailLogin, passwordLogin)
-    .then(() => {
-      window.location.hash = '#/home';
+    .then((result) => {
+      const user = result.user;
+      if (user.emailVerified) {
+        window.location.hash = '#/home';
+      } else {
+        // alert('Debes validar tu correo para iniciar sesión');
+        span.innerHTML = '*Debes validar tu correo';
+        signOut();
+      }
     })
     .catch((error) => {
       if (error.code === 'auth/wrong-password') {
@@ -86,7 +86,7 @@ export const authSignIn = (emailLogin, passwordLogin) => {
       setTimeout(
         // eslint-disable-next-line no-return-assign
         () => (span.innerHTML = ''),
-        2000,
+        5000,
       );
     });
 };
@@ -123,8 +123,8 @@ export const authSignInFacebook = () => {
 // CERRAR SESIÓN
 export const signOutUser = () => {
   signOut()
-    .then((resp) => {
-      console.log('Saliendo...!', resp);
+    .then(() => {
+      console.log('Saliendo...!');
     })
     .catch((error) => {
       console.log(error);
@@ -132,35 +132,35 @@ export const signOutUser = () => {
 };
 
 // VERIFICACION DE EMAIL
-const emailVerification = () => {
-  verificationEmail.then(() => {
-    // Email sent.
-    console.log('Enviando correo...');
-  }).catch((error) => {
-    // An error happened.
-  });
-};
+// const emailVerification = () => {
+//   verificationEmail.then(() => {
+//     // Email sent.
+//     console.log('Enviando correo...');
+//   }).catch((error) => {
+//     // An error happened.
+//   });
+// };
 
 // OBSERVADOR
 // Se llama a este observador cada vez que cambia el estado de acceso del usuario.
-export const observador = () => {
-  observerUser((user) => {
-    if (user) {
-      console.log('Existe Usuario Activo');
-      console.log(user);
-      // *********************
-      // User is signed in.
-      // const displayName = user.displayName;
-      // const email = user.email;
-      const emailVerified = user.emailVerified;
-      console.log(emailVerified);
-      // const photoURL = user.photoURL;
-      // const isAnonymous = user.isAnonymous;
-      // const uid = user.uid;
-      // const providerData = user.providerData;
-      // *********************
-    } else {
-      console.log('No existe Usuario Activo');
-    }
-  });
-};
+// export const observador = () => {
+//   observerUser((user) => {
+//     if (user) {
+//       // console.log('Existe Usuario Activo');
+//       console.log(user);
+//       // *********************
+//       // User is signed in.
+//       // const displayName = user.displayName;
+//       // const email = user.email;
+//       const emailVerified = user.emailVerified;
+//       console.log(emailVerified);
+//       // const photoURL = user.photoURL;
+//       // const isAnonymous = user.isAnonymous;
+//       // const uid = user.uid;
+//       // const providerData = user.providerData;
+//       // *********************
+//     } else {
+//       console.log('No existe Usuario Activo');
+//     }
+//   });
+// };
