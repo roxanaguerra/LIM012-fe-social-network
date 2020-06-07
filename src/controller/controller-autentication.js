@@ -19,34 +19,34 @@ const validateEmail = (email) => {
 };
 
 // REGISTRAR USUARIO
-export const registerNewUser = (nameRegister, emailRegister, passwordRegister) => {
+// export const registerNewUser = (nameRegister, emailRegister, passwordRegister) => {
+export const registerNewUser = (emailRegister, passwordRegister) => {
   const span = document.querySelector('#span');
-  const username = document.querySelector('#username').value;
+  const username = document.querySelector('#name-register').value;
   const validateSintaxEmail = validateEmail(emailRegister);
   signUp(emailRegister, passwordRegister)
-    .then((resul) => {
-    //       const user = result.user;
-    //       createUserData(user.uid, user.email, username, '');
-    //       window.location.hash = '#/profile';
-      resul.user.updateProfile({
-        displayName: nameRegister,
-      });
-      console.log(displayName);
-      console.log('REGISTRADO - VERIF');
+    .then((result) => {
+      const user = result.user;
+      createUserData(user.uid, user.email, username, '');
+      window.location.hash = '#/profile';
+      // resul.user.updateProfile({
+      //   displayName: nameRegister,
+      // });
+      // console.log(displayName);
+      // console.log('REGISTRADO - VERIF');
       // window.Location.hash = '#/profile';
-      const configuration = {
-        url: 'http://localhost:5000/',
-      };
-      resul.user.sendEmailVerification(configuration)
-        .catch(() => {
-          console.log('Ocurrio un error...');
-        });
+      // const configuration = {
+      //   url: 'http://localhost:5000/',
+      // };
+      // user.sendEmailVerification(configuration)
+      //   .catch(() => {
+      //     console.log('Ocurrio un error...');
+      //   });
       // CREAR USUARIO EN DB
       // createUserData(resul.user.uid, emailRegister, nameRegister, imgUser)
 
       // eslint-disable-next-line no-use-before-define
       // emailVerification();
-
     })
     .catch((error) => {
       if (error.code === 'auth/invalid-email') {

@@ -46,11 +46,12 @@ export default () => {
   const btnRegister = divElemt.querySelector('#btn-register');
   btnRegister.addEventListener('click', (e) => {
     e.preventDefault(); // cancelar el evento de reinicio de formulario
-    const nameRegister = divElemt.querySelector('#name-register').value;
+    // const nameRegister = divElemt.querySelector('#name-register').value;
     const emailRegister = divElemt.querySelector('#email-register').value;
     const passwordRegister = divElemt.querySelector('#password-register').value;
     console.log(emailRegister, passwordRegister);
-    registerNewUser(nameRegister, emailRegister, passwordRegister);
+    // registerNewUser(nameRegister, emailRegister, passwordRegister);
+    registerNewUser(emailRegister, passwordRegister);
   });
 
   // INICIO DE SESIÓN CON GOOGLE
