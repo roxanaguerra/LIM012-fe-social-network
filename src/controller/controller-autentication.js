@@ -35,13 +35,13 @@ export const registerNewUser = (emailRegister, passwordRegister) => {
       // console.log(displayName);
       // console.log('REGISTRADO - VERIF');
       // window.Location.hash = '#/profile';
-      // const configuration = {
-      //   url: 'http://localhost:5000/',
-      // };
-      // user.sendEmailVerification(configuration)
-      //   .catch(() => {
-      //     console.log('Ocurrio un error...');
-      //   });
+      const configuration = {
+        url: 'http://localhost:5000/',
+      };
+      user.sendEmailVerification(configuration)
+        .catch(() => {
+          console.log('Ocurrio un error...');
+        });
       // CREAR USUARIO EN DB
       // createUserData(resul.user.uid, emailRegister, nameRegister, imgUser)
 
