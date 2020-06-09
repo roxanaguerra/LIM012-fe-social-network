@@ -14,7 +14,7 @@ export const createPost = (inputPost, id) => {
     // username: userObject.name,
     // privacy: userObject.mode,
     // likes: userObject.like,
-    registrationDate: firebase.firestore.FieldValue.Timestamp().fromDate(new Date()),
+    // registrationDate: firebase.firestore.FieldValue.Timestamp().fromDate(new Date()),
   })
     .then((docRef) => {
       console.log('Document written with ID: ', docRef.id);
