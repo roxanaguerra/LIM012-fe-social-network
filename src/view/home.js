@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   createPost,
   postsMain,
@@ -5,8 +6,14 @@ import {
 import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser, observerUser } from '../model/model-authentication.js';
 import { signOutUser } from '../controller/controller-autentication.js';
+<<<<<<< HEAD
 import { readPostPrueba } from '../model/model-posts.js';
 import { storageRef, imagenHref, imagenRefChild } from '../model/model-storage.js';
+=======
+// import { readPostPrueba } from '../model/model-posts.js';
+// import { storageRef, imagenHref } from '../model/model-storage.js';
+
+>>>>>>> 3761fa65c3229079d88d14c0187a0aff6869d559
 // import Header from './header.js';
 
 export default () => {
@@ -41,6 +48,7 @@ export default () => {
               </div>  
             </div>
             <div class="ctn-post-status ctn flex">
+<<<<<<< HEAD
               <div class="config-post flex" id="icon-photo">
                 <form action="">
                   <label for="">
@@ -50,6 +58,9 @@ export default () => {
                   </label>
                 </form>                
               </div>
+=======
+              
+>>>>>>> 3761fa65c3229079d88d14c0187a0aff6869d559
               <div class="config-post flex">
                 <img src="assets/private.png" alt="">
                 <p>Privacy</p>
@@ -141,128 +152,130 @@ export default () => {
   const btnPost = divElemt.querySelector('#btn-post');
 
   btnPost.addEventListener('click', () => {
+    console.log();
+
     const inputPost = divElemt.querySelector('#input-post').value;
     // const userName = divElemt.querySelector('#userName').value;
     console.log(inputPost);
-    if (!inputPost.trim()) { // si manda el formulario vacío el trim hace que no se envié nada
-      // si manda algo que no seatexto o manda vacío, sucede esto...
+    if (!inputPost.trim()) {
       console.log('input vacío');
       return;
     }
     divElemt.querySelector('#input-post').value = '';
 
-    createPost(inputPost, userNow.uid);
+    createPost(inputPost, userNow);
+    // observerUser(user)
+    // observerUser((user) => {
+    // console.log(user);
+
+    // });
   });
 
-  observerUser((user) => {
-    console.log(user);
-
-    postsMain().onSnapshot((query) => {
-      const newPost = divElemt.querySelector('#new-post');
-      newPost.innerHTML = '';
-      query.forEach((doc) => {
-        // console.log(doc.data());
-        if (doc.data().uid === user.uid) {
-          newPost.innerHTML += `
-          <div class="ctn-text-posted flex column margin-top">
-          <div class="ctn start">
-              <div class="ctn-post-details flex">
-                  <div class="ctn-img-post">
-                      <div class="img-photo-post">${user.photoURL}</div>
-                  </div>
-                  <div class="">
-                      <a class="username" href=""></a>
-                      <div class="ctn-post-status flex">
-                          <span>${user.displayName}</span>
-                          <span>${doc.data().date.toDate()}</span>
-                      </div>
-                  </div>
-                  <div class="config-post">
-                      <img src="assets/public.png" alt="">
-                      <span class="config-privacy">
-                          <img src="assets/option.png" alt="">
-                      </span>
-                  </div>
-              </div>
-          </div>
-          <div class="txt-posted flex">
-              <p>${doc.data().post} </p>
-          </div>
-          <div class="ctn-likes-comments ctn flex">
-              <div class="likes flex">
-                  <img src="assets/like.png" alt="">
-                  <span>15 Likes</span>
-              </div>
-              <div class="comments flex">
-                  <img src="assets/comment.png" alt="">
-                  <span>5 comments</span>
-              </div>
-          </div>
-          <div class="ctn flex ctn-create-comment  start">
-              <div class="flex">
-                  <div class="ctn-img-post">
-                      <!-- <img src="assets/profile-photo.jpg" alt=""> -->
-                  </div>
-                  <div class="ctn-comment-txa">
-                      <textarea name="" id="" cols="37" rows="2" placeholder="Add a comment"></textarea>
-                  </div>
-              </div>
-          </div>
-      </div>
-    `;
-        } else {
-          newPost.innerHTML += `
-          <div class="ctn-text-posted flex column margin-top">
-          <div class="ctn start">
-              <div class="ctn-post-details flex">
-                  <div class="ctn-img-post">
-                      <div class="img-photo-post"></div>
-                  </div>
-                  <div class="">
-                      <a class="username" href=""></a>
-                      <div class="ctn-post-status flex">
-                          <span>
-                          <img class="border ctn-post-details flex ctn-img-post" src="${user.photoURL}" alt="">
-                          </span>  
-                          <span>${user.displayName}</span>
-                          <span>${doc.data().date.toDate()}</span>
-
-                      </div>
-                  </div>
-                  <div class="config-post">
-                      <img src="assets/public.png" alt="">
-                      <span class="config-privacy">
-                          <img src="assets/option.png" alt="">
-                      </span>
-                  </div>
-              </div>
-          </div>
-          <div class="txt-posted flex">
-              <p>${doc.data().post} </p>
-          </div>
-          <div class="ctn-likes-comments ctn flex">
-              <div class="likes flex">
-                  <img src="assets/like.png" alt="">
-                  <span>15 Likes</span>
-              </div>
-              <div class="comments flex">
-                  <img src="assets/comment.png" alt="">
-                  <span>5 comments</span>
-              </div>
-          </div>
-          <div class="ctn flex ctn-create-comment  start">
-              <div class="flex">
-                  <div class="ctn-img-post">
-                      <!-- <img src="assets/profile-photo.jpg" alt=""> -->
-                  </div>
-                  <div class="ctn-comment-txa">
-                      <textarea name="" id="" cols="37" rows="2" placeholder="Add a comment"></textarea>
-                  </div>
-              </div>
-          </div>
-      </div>`;
-        }
-      });
+  postsMain().onSnapshot((query) => {
+    const newPost = divElemt.querySelector('#new-post');
+    newPost.innerHTML = '';
+    query.forEach((doc) => {
+      console.log(doc.data());
+      if (doc.data().uid === userNow.uid) {
+        newPost.innerHTML += `
+            <div class="ctn-text-posted flex column margin-top">
+            <div class="ctn start">
+                <div class="ctn-post-details flex">
+                    <div class="ctn-img-post">
+                        <div class="img-photo-post">${userNow.photoURL}</div>
+                    </div>
+                    <div class="">
+                        <a class="username" href=""></a>
+                        <div class="ctn-post-status flex">
+                            <span>${userNow.displayName}</span>
+                            <span>${doc.data().date.toDate()}</span>
+                        </div>
+                    </div>
+                    <div class="config-post">
+                        <img src="assets/public.png" alt="">
+                        <span class="config-privacy">
+                            <img src="assets/option.png" alt="">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="txt-posted flex">
+                <p>${doc.data().post} </p>
+            </div>
+            <div class="ctn-likes-comments ctn flex">
+                <div class="likes flex">
+                    <img src="assets/like.png" alt="">
+                    <span>15 Likes</span>
+                </div>
+                <div class="comments flex">
+                    <img src="assets/comment.png" alt="">
+                    <span>5 comments</span>
+                </div>
+            </div>
+            <div class="ctn flex ctn-create-comment  start">
+                <div class="flex">
+                    <div class="ctn-img-post">
+                        <!-- <img src="assets/profile-photo.jpg" alt=""> -->
+                    </div>
+                    <div class="ctn-comment-txa">
+                        <textarea name="" id="" cols="37" rows="2" placeholder="Add a comment"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+      `;
+      } else {
+        newPost.innerHTML += `
+            <div class="ctn-text-posted flex column margin-top">
+            <div class="ctn start">
+                <div class="ctn-post-details flex">
+                    <div class="ctn-img-post">
+                        <div class="img-photo-post"></div>
+                    </div>
+                    <div class="">
+                        <a class="username" href=""></a>
+                        <div class="ctn-post-status flex">
+                            <span>
+                            <img class="border ctn-post-details flex ctn-img-post" src="${userNow.photoURL}" alt="">
+                            </span>  
+                            <span>${userNow.displayName}</span>
+                            <span>${doc.data().date.toDate()}</span>
+  
+                        </div>
+                    </div>
+                    <div class="config-post">
+                        <img src="assets/public.png" alt="">
+                        <span class="config-privacy">
+                            <img src="assets/option.png" alt="">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="txt-posted flex">
+                <p>${doc.data().post} </p>
+            </div>
+            <div class="ctn-likes-comments ctn flex">
+                <div class="likes flex">
+                    <img src="assets/like.png" alt="">
+                    <span>15 Likes</span>
+                </div>
+                <div class="comments flex">
+                    <img src="assets/comment.png" alt="">
+                    <span>5 comments</span>
+                </div>
+            </div>
+            <div class="ctn flex ctn-create-comment  start">
+                <div class="flex">
+                    <div class="ctn-img-post">
+                        <!-- <img src="assets/profile-photo.jpg" alt=""> -->
+                    </div>
+                    <div class="ctn-comment-txa">
+                        <textarea name="" id="" cols="37" rows="2" placeholder="Add a comment"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+      }
     });
   });
 
@@ -273,6 +286,7 @@ export default () => {
     signOutUser();
   });
 
+<<<<<<< HEAD
   // FIREBASE - STORAGE POST IMAGENES
   // AGREGANDO A LA COLECCION IMGPOST, LA NUEVA IMAGEN
   const crearNodoenDBFirebase = ((nombreImg, urlImg) => {
@@ -322,5 +336,7 @@ export default () => {
   });
 
 
+=======
+>>>>>>> 3761fa65c3229079d88d14c0187a0aff6869d559
   return divElemt;
 };
