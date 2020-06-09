@@ -6,14 +6,8 @@ import {
 import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser, observerUser } from '../model/model-authentication.js';
 import { signOutUser } from '../controller/controller-autentication.js';
-<<<<<<< HEAD
-import { readPostPrueba } from '../model/model-posts.js';
-import { storageRef, imagenHref, imagenRefChild } from '../model/model-storage.js';
-=======
 // import { readPostPrueba } from '../model/model-posts.js';
-// import { storageRef, imagenHref } from '../model/model-storage.js';
-
->>>>>>> 3761fa65c3229079d88d14c0187a0aff6869d559
+import { storageRef, imagenHref, imagenRefChild } from '../model/model-storage.js';
 // import Header from './header.js';
 
 export default () => {
@@ -48,7 +42,6 @@ export default () => {
               </div>  
             </div>
             <div class="ctn-post-status ctn flex">
-<<<<<<< HEAD
               <div class="config-post flex" id="icon-photo">
                 <form action="">
                   <label for="">
@@ -58,9 +51,6 @@ export default () => {
                   </label>
                 </form>                
               </div>
-=======
-              
->>>>>>> 3761fa65c3229079d88d14c0187a0aff6869d559
               <div class="config-post flex">
                 <img src="assets/private.png" alt="">
                 <p>Privacy</p>
@@ -286,7 +276,6 @@ export default () => {
     signOutUser();
   });
 
-<<<<<<< HEAD
   // FIREBASE - STORAGE POST IMAGENES
   // AGREGANDO A LA COLECCION IMGPOST, LA NUEVA IMAGEN
   const crearNodoenDBFirebase = ((nombreImg, urlImg) => {
@@ -327,7 +316,6 @@ export default () => {
     });
   };
 
-
   const btnImg = divElemt.querySelector('#icon-photo');
   btnImg.addEventListener('click', () => {
     console.log('Selecciona la img...!');
@@ -335,8 +323,5 @@ export default () => {
     uploadImg.addEventListener('change', subirImagenFirebase, false);
   });
 
-
-=======
->>>>>>> 3761fa65c3229079d88d14c0187a0aff6869d559
   return divElemt;
 };
