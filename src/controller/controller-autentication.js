@@ -130,37 +130,3 @@ export const signOutUser = () => {
       console.log(error);
     });
 };
-
-// VERIFICACION DE EMAIL
-// const emailVerification = () => {
-//   verificationEmail.then(() => {
-//     // Email sent.
-//     console.log('Enviando correo...');
-//   }).catch((error) => {
-//     // An error happened.
-//   });
-// };
-
-// OBSERVADOR
-// Se llama a este observador cada vez que cambia el estado de acceso del usuario.
-// export const observador = () => {
-//   observerUser((user) => {
-//     if (user) {
-//       // console.log('Existe Usuario Activo');
-//       console.log(user);
-//       // *********************
-//       // User is signed in.
-//       // const displayName = user.displayName;
-//       // const email = user.email;
-//       const emailVerified = user.emailVerified;
-//       console.log(emailVerified);
-//       // const photoURL = user.photoURL;
-//       // const isAnonymous = user.isAnonymous;
-//       // const uid = user.uid;
-//       // const providerData = user.providerData;
-//       // *********************
-//     } else {
-//       console.log('No existe Usuario Activo');
-//     }
-//   });
-// };
