@@ -6,7 +6,7 @@ import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser, observerUser } from '../model/model-authentication.js';
 import { signOutUser } from '../controller/controller-autentication.js';
 import { readPostPrueba } from '../model/model-posts.js';
-// import { storageRef, imagenHref } from '../model/model-storage.js';
+import { storageRef, imagenHref, imagenRefChild } from '../model/model-storage.js';
 // import Header from './header.js';
 
 export default () => {
@@ -272,5 +272,55 @@ export default () => {
     e.preventDefault();
     signOutUser();
   });
+
+  // FIREBASE - STORAGE POST IMAGENES
+  // AGREGANDO A LA COLECCION IMGPOST, LA NUEVA IMAGEN
+  const crearNodoenDBFirebase = ((nombreImg, urlImg) => {
+    imagenHref.add({
+      idPost: 'roxana',
+      name: nombreImg,
+      url: urlImg,
+    })
+      .then((docRef) => {
+        console.log('Document written with ID: ', docRef.id);
+      })
+      .catch((error) => {
+        console.error('Error adding document: ', error);
+      });
+  });
+
+  const subirImagenFirebase = () => {
+    const uploadImg = divElemt.querySelector('#uploadImg');
+    console.log(uploadImg.files);
+    // console.log('Subiendo la Img...!');
+    console.log('Imagen Cargada');
+    const imagenASubir = uploadImg.files[0];
+    console.log(imagenASubir);
+    // const name = `${new Date()}-${imagenASubir.name}`;
+    // console.log(imagenASubir);
+    const uploadTask = storageRef.child(`photoPosts/${imagenASubir.name}`).put(imagenASubir);
+    uploadTask.on('state_changed', (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log(`Upload is ${progress}% done`);
+    }, (error) => {
+      // Handle unsuccessful uploads
+    }, () => {
+      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+        console.log('Se subio la img con url:', downloadURL);
+        crearNodoenDBFirebase(imagenASubir.name, downloadURL);
+        // mostrarImgFirebase();
+      });
+    });
+  };
+
+
+  const btnImg = divElemt.querySelector('#icon-photo');
+  btnImg.addEventListener('click', () => {
+    console.log('Selecciona la img...!');
+    const uploadImg = divElemt.querySelector('#uploadImg');
+    uploadImg.addEventListener('change', subirImagenFirebase, false);
+  });
+
+
   return divElemt;
 };
