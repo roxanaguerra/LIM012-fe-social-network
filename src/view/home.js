@@ -14,111 +14,91 @@ export default () => {
   const userNow = currentUser();
   readUserProfile(userNow.uid);
   const viewHome = `
-  <div class="mobile-container" id="mobile-container">
-  <!------------------------------- Home ---------------------------------->
-  <!-- Top Navigation Menu -->
-    <div class="topnav">
-        <a href="#home" class="active"><h1>DL</h1></a>
-        <div id="nav-links">
-            <a href="#/home">Home</a>
-            <a href="#/profile">Profile</a>
-            <a id="btn-cerrar" href="#">Log out</a>
-        </div>
-            <a href="javascript:void(0);" class="icon" id="navbar-mobile">
-            <img class="menu-bars" src="assets/nav-menu.png" alt="">
-            </a>
-    </div>
-    <!-- Post -->
-    <div class="ctn-post flex column margin-top">
-            <div class="ctn column ">
-              <div class="start">
-                <div class="ctn-img-post-home flex">
-                    <div class="img-photo-post"></div>
-                    <a id="userName" class="username" href="#/profile"></a>                
-                </div>
-              </div>
-              <div class="ctn-txt-post flex">
-                <textarea id="input-post" cols="45" rows="4" placeholder="What's on your mind?"></textarea>
-              </div>  
-            </div>
-            <div class="ctn-post-status ctn flex">
-              <div class="config-post flex">
-                <img src="assets/camera.png" alt="">
-                <p>Photo +</p>
-              </div>
-              <div class="config-post flex">
-                <img src="assets/private.png" alt="">
-                <p>Privacy</p>
-                <span class="config-privacy flex">
-                  <img src="assets/option.png" alt="">
-                </span>
-              </div>
-              <button class="btn-post" id="btn-post">POST</button>
-            </div>
-    </div>
-    <div id="new-post" class="">
+  <!-- Navbar -->
+  <div class="top">
+   <div class="bar theme-d2 left-align large">
+    <a class="bar-item button hide-medium hide-large right padding-large hover-white large theme-d2" href="javascript:void(0);"><i class="fa fa-bars" id="navbar-mobile"></i></a>
+    <a href="#/home" class="bar-item button padding-large theme-d4"><i class="fa fa-home margin-right"></i>DL</a>
+    <a href="#/profile" class="bar-item button hide-small padding-large hover-white" title="Profile">
+      <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" class="circle" style="height:23px;width:23px" alt="Avatar">
+    </a>
+    <a href="#/" class="bar-item button hide-small right padding-large hover-white" id="btn-cerrar" title="Log Out"><i class="fa fa-sign-out"></i></a>
+   </div>
+  </div>
+  
+  <!-- Navbar on small screens -->
+    <div id="nav-links" class="bar-block theme-d2 hide hide-large hide-medium large">
+    <a href="#/home" class="bar-item button padding-large">Home</a>
+    <a href="#/home" class="bar-item button padding-large">Home</a>
+    <a href="#/profile" class="bar-item button padding-large">Profile</a>
+    <a href="#" id="btn-cerrar" class="bar-item button padding-large">Log Out</a>
+  </div>
 
-    </div>
-              
-          <!-- Past photo posts -->
-          <div class="ctn-photo-posted flex column margin-top">
-            <div class="ctn start">
-              <div class="ctn-post-details flex">
-                <div class="ctn-img-post">
-                  <img class="border" src="assets/user.jpg" alt="">
-                </div>
-                <div class="">
-                  <a class="username" href=""></a>
-                  <div class="ctn-post-status flex">
-                    <span>23/05/2020</span>
-                    <span>18:00</span>
-                  </div>
-                </div>
-                <div class="config-post">
-                  <img src="assets/public.png" alt="">
-                  <span class="config-privacy">
-                    <img src="assets/option.png" alt="">
-                  </span>
-                </div>
-              </div>
+  
+  <!-- Page Container -->
+  <div class="container content" style="max-width:1400px;margin-top:80px">
+    <!-- The Grid -->
+    <div class="row max-width">
+
+      <!-- Left Column -->
+      <div class="col m4">
+        
+        <!-- Profile -->
+        <div class="card round white">
+          <!-- Profile photo -->     
+          <div class="container theme-d5 background-photo">
+            <p class="img-photo-post photo-medium center"></p>
+          </div>
+
+          <!-- Description -->     
+          <div class="container">
+            <div class="flex">
+              <h4 class="center username" id="username"></h4>
             </div>
             <div class="flex">
-              <img class="photo" src="assets/past-photo.jpg" alt="">
+              <p class="theme-d3 userabout" id="userabout"></p>
             </div>
-            <div class="ctn-likes-comments ctn flex">
-              <div class="likes flex">
-                <img src="assets/like.png" alt="">
-                <span>15 Likes</span>
-              </div>
-              <div class="comments flex">
-                <img src="assets/comment.png" alt="">
-                <span>5 comments</span>
+          </div>
+        <!-- End Profile -->  
+        </div>
+        <br>
+
+      <!-- End Left Column -->
+      </div>
+
+      <!-- Right Column -->
+      <div class="col m8">
+        
+        <!-- Post -->
+        <div class="row-padding">
+          <div class="col m12">
+            <div class="card round white">
+              <div class="container padding flex">
+                <p class="img-photo-post center"></p>
+                <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
+                <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px" placeholder="What's on your mind?"></textarea>  
+              </div>                                          
+              <div class="container padding theme-d5">
+                  <button type="button" class="button theme-d5"><i class="fa fa-image"></i>  Photo</button> 
+                  <button type="button" class="button theme-d5"><i class="fa fa-lock"></i>  Private</button> 
+                  <button type="button" id="btn-post" class="button theme-d1 right button-medium" >Post</button>     
               </div>
             </div>
-            <div class="ctn flex ctn-create-comment  start">
-              <div class="flex">
-                <div class="ctn-img-post">
-                  <img src="assets/profile-photo.jpg" alt="">
-                </div>
-                <div class="ctn-comment-txa">
-                  <textarea name="" id="" cols="37" rows="2" placeholder="Add a comment"></textarea>
-                </div>
-              </div> 
-            </div>
-            <div class="ctn ctn-last-comment start">
-              <div class="ctn-post-details flex">
-                <div class="ctn-img-post">
-                  <img src="assets/comment-photo.jpg" alt="">
-                </div>
-                <div class="ctn-comment">
-                  <a class="username-comment" href="">Eva Alva</a>
-                  <div class="comment">
-                    <p class="">Increible vista me encantan los drones</p>                            
-                  </div>
-                </div>
-              </div>
-            </div>  
-          </div>    
+          </div>
+        </div>
+        
+        <div id="new-post" class=""></div>
+        <!-- Post -->
+
+      <!-- End Right Column -->
+      </div>
+
+    <!-- End Grid -->
+    </div>
+
+  <!-- End Page Container -->
+  </div>  
+          
   `;
 
   const divElemt = document.createElement('div');
@@ -127,10 +107,11 @@ export default () => {
   const navbMobile = divElemt.querySelector('#navbar-mobile');
   navbMobile.addEventListener('click', () => {
     const navLinks = divElemt.querySelector('#nav-links');
-    if (navLinks.style.display === 'block') {
-      navLinks.style.display = 'none';
+    if (navLinks.className.indexOf('show') === -1) {
+      navLinks.className += ' show';
     } else {
       navLinks.style.display = 'block';
+      navLinks.className = navLinks.className.replace(' show', '');
     }
   });
 
@@ -161,66 +142,19 @@ export default () => {
       // Con data se pinta en lenguaje humano los datos en la base de datos,
       // cada console corresponde a cada uno de los documentos
       // if (doc.data().uid === userNow.uid) {
-        newPost.innerHTML += `
-        <div class="ctn-text-posted flex column margin-top">
-        <div class="ctn start">
-            <div class="ctn-post-details flex">
-                <div class="ctn-img-post">
-                    <div class="img-photo-post"></div>
-                </div>
-                <div class="">
-                    <a class="username" href=""></a>
-                    <div class="ctn-post-status flex">
-                        <span>${doc.data().date.toDate()}</span>
-                        <span>18:00</span>
-                    </div>
-                </div>
-                <div class="config-post">
-                    <img src="assets/public.png" alt="">
-                    <span class="config-privacy">
-                        <img src="assets/option.png" alt="">
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="txt-posted flex">
-            <p>${doc.data().post} </p>
-        </div>
-        <div class="ctn-likes-comments ctn flex">
-            <div class="likes flex">
-                <img src="assets/like.png" alt="">
-                <span>15 Likes</span>
-            </div>
-            <div class="comments flex">
-                <img src="assets/comment.png" alt="">
-                <span>5 comments</span>
-            </div>
-        </div>
-        <div class="ctn flex ctn-create-comment  start">
-            <div class="flex">
-                <div class="ctn-img-post">
-                    <!-- <img src="assets/profile-photo.jpg" alt=""> -->
-                </div>
-                <div class="ctn-comment-txa">
-                    <textarea name="" id="" cols="37" rows="2" placeholder="Add a comment"></textarea>
-                </div>
-            </div>
-        </div>
-        <div class="ctn ctn-last-comment start">
-            <div class="ctn-post-details flex">
-                <div class="ctn-img-post">
-                    <!-- <img src="assets/comment-photo.jpg" alt=""> -->
-                </div>
-                <div class="ctn-comment">
-                    <!-- <a class="username-comment" href="">Eva Alva</a>
-                    <div class="comment">
-                        <p class="">Increible vista me encantan los drones</p>
-                    </div> -->
-                </div>
-            </div>
-        </div>
-    </div>
-
+      newPost.innerHTML += `
+        <div class="container card white round margin"><br>
+        <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
+        <span class="right opacity"><i class="fa fa-edit"></i></span>
+        <h4>Ana Wong</h4>
+        <span class="opacity">${doc.data().date.toDate()}</span>
+        <span class="opacity"><i class="fa fa-globe"></i></span>
+        <br>
+        <hr class="clear">
+        <p>${doc.data().post}</p>
+        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+      </div>
   `;
       // } else {
       //   newPost.innerHTML += `
