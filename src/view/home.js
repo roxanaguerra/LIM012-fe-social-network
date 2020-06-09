@@ -8,6 +8,7 @@ import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser } from '../model/model-authentication.js';
 import { signOutUser } from '../controller/controller-autentication.js';
 import { readPostPrueba } from '../model/model-posts.js';
+// import { storageRef, imagenHref } from '../model/model-storage.js';
 // import Header from './header.js';
 
 export default () => {
@@ -42,9 +43,14 @@ export default () => {
               </div>  
             </div>
             <div class="ctn-post-status ctn flex">
-              <div class="config-post flex">
-                <img src="assets/camera.png" alt="">
-                <p>Photo +</p>
+              <div class="config-post flex" id="icon-photo">
+                <form action="">
+                  <label for="">
+                    <input type="file" id="uploadImg">
+                    <img src="assets/camera.png" alt="">
+                    <p>Photo +</p>
+                  </label>
+                </form>                
               </div>
               <div class="config-post flex">
                 <img src="assets/private.png" alt="">
@@ -161,7 +167,7 @@ export default () => {
       // Con data se pinta en lenguaje humano los datos en la base de datos,
       // cada console corresponde a cada uno de los documentos
       // if (doc.data().uid === userNow.uid) {
-        newPost.innerHTML += `
+      newPost.innerHTML += `
         <div class="ctn-text-posted flex column margin-top">
         <div class="ctn start">
             <div class="ctn-post-details flex">
@@ -238,6 +244,5 @@ export default () => {
     e.preventDefault();
     signOutUser();
   });
-
   return divElemt;
 };
