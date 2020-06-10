@@ -39,7 +39,16 @@ export default () => {
               </div>
               <div class="ctn-txt-post flex">
                 <textarea id="input-post" cols="45" rows="4" placeholder="What's on your mind?"></textarea>
+              </div>
+
+              <div class="containerProgress">
+                <div class="progress"></div>
+              </div>
+              <div class="hide divImg">
+                <span class="deleteImg">❌</span>
+                <img class="picPost"/>
               </div>  
+
             </div>
             <div class="ctn-post-status ctn flex">
               <div class="config-post flex" id="icon-photo">
@@ -229,8 +238,7 @@ export default () => {
                             <img class="border ctn-post-details flex ctn-img-post" src="${userNow.photoURL}" alt="">
                             </span>  
                             <span>${userNow.displayName}</span>
-                            <span>${doc.data().date.toDate()}</span>
-  
+                            <span>${userNow.date}</span>  
                         </div>
                     </div>
                     <div class="config-post">
@@ -279,8 +287,9 @@ export default () => {
   // FIREBASE - STORAGE POST IMAGENES
   // AGREGANDO A LA COLECCION IMGPOST, LA NUEVA IMAGEN
   const crearNodoenDBFirebase = ((nombreImg, urlImg) => {
+    const userPost = firebase.auth().currentUser;
     imagenHref.add({
-      idPost: 'roxana',
+      idUser: userPost.uid,
       name: nombreImg,
       url: urlImg,
     })
@@ -303,15 +312,25 @@ export default () => {
     // console.log(imagenASubir);
     const uploadTask = storageRef.child(`photoPosts/${imagenASubir.name}`).put(imagenASubir);
     uploadTask.on('state_changed', (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      const percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      const progress = document.querySelector('.progress');
+      progress.parentNode.classList.add('showProgress');
+      progress.innerText = `${percent.toFixed(0)}%`;
+      progress.style.width = `${percent}%`;
       console.log(`Upload is ${progress}% done`);
     }, (error) => {
       // Handle unsuccessful uploads
+      const progress = document.querySelector('.progress');
+      progress.classList.add('errorMessage');
+      progress.innerText = '⚠️ Error al cargar imagen, debe ser menor a 5mb.';
+      setTimeout(() => {
+        progress.parentNode.classList.remove('showProgress');
+        progress.classList.remove('errorMessage');
+      }, 3000);
     }, () => {
       uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
         console.log('Se subio la img con url:', downloadURL);
         crearNodoenDBFirebase(imagenASubir.name, downloadURL);
-        // mostrarImgFirebase();
       });
     });
   };
