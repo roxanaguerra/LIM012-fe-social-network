@@ -46,6 +46,12 @@ export default () => {
     e.preventDefault();
     const emailLogin = divElemt.querySelector('#email-login').value;
     const passwordLogin = divElemt.querySelector('#password-login').value;
+    const span = document.querySelector('#span');
+    if (emailLogin === '') {
+      span.innerHTML = '*Debe ingresar su correo';
+    } else if (passwordLogin === '') {
+      span.innerHTML = '*Debe ingresar su contraseña';
+    }
     authSignIn(emailLogin, passwordLogin);
   });
 
