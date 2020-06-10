@@ -1,20 +1,26 @@
+/* eslint-disable import/named */
 import {
   posts,
   readPostPrueba,
 } from '../model/model-posts.js';
 
 
-export const createPost = (inputPost, id) => {
+export const createPost = (post, user) => {
+  console.log(user);
+
   // return new Promise((resolve, reject) => {
   // const user = firebase.auth().currentUser.uid;
   posts().add({
-    post: inputPost,
+    post,
     date: new Date(),
-    idUser: id,
-    // username: userObject.name,
+    // date: new Date(),
+    idUser: user.uid,
+    username: user.displayName,
+    photo: user.photoURL,
     // privacy: userObject.mode,
     // likes: userObject.like,
     // registrationDate: firebase.firestore.FieldValue.Timestamp().fromDate(new Date()),
+    // registrationDate: firebase.firestore.FieldValue.Timestamp(),
   })
     .then((docRef) => {
       console.log('Document written with ID: ', docRef.id);
@@ -26,10 +32,6 @@ export const createPost = (inputPost, id) => {
 };
 
 export const postsMain = () => posts().orderBy('date', 'desc');
-
-
-export const getPublications = () => posts.collection('post').orderBy('date', 'desc');
-// export default { createPost, getPublications };
 
 
 // LEER DOCUMENTOS

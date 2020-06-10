@@ -1,13 +1,13 @@
+/* eslint-disable no-console */
 import {
   createPost,
-  getPublications,
   postsMain,
-  postRead,
-} from '../controller/controller-posts.js';
+} from '../controller/controller-posts';
 import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser } from '../model/model-authentication.js';
 import { signOutUser } from '../controller/controller-autentication.js';
-import { readPostPrueba } from '../model/model-posts.js';
+// import { readPostPrueba } from '../model/model-posts.js';
+import { storageRef, imagenHref } from '../model/model-storage.js';
 // import Header from './header.js';
 
 export default () => {
@@ -32,7 +32,6 @@ export default () => {
     <a href="#/profile" class="bar-item button padding-large">Profile</a>
     <a href="#" id="btn-cerrar" class="bar-item button padding-large">Log Out</a>
   </div>
-
   
   <!-- Page Container -->
   <div class="container content" style="max-width:1400px;margin-top:80px">
@@ -96,8 +95,7 @@ export default () => {
     </div>
 
   <!-- End Page Container -->
-  </div>  
-          
+  </div>        
   `;
 
   const divElemt = document.createElement('div');
@@ -119,20 +117,15 @@ export default () => {
     const inputPost = divElemt.querySelector('#input-post').value;
     // const userName = divElemt.querySelector('#userName').value;
     console.log(inputPost);
-    if (!inputPost.trim()) { // si manda el formulario vacío el trim hace que no se envié nada
-      // si manda algo que no seatexto o manda vacío, sucede esto...
+    if (!inputPost.trim()) {
       console.log('input vacío');
       return;
     }
     divElemt.querySelector('#input-post').value = '';
-
-    createPost(inputPost, userNow.uid);
+    createPost(inputPost, userNow);
   });
 
-  postsMain().onSnapshot((query) => { // onSnapshot tbn es un observable, detecta
-    //  que se agrega un nuevo documento hace todo el recorrido
-    // por eso se limpia y agrega el nuevo documento
-    // console.log(query);
+  postsMain().onSnapshot((query) => {
     const newPost = divElemt.querySelector('#new-post');
     newPost.innerHTML = '';
     query.forEach((doc) => {
@@ -140,8 +133,8 @@ export default () => {
       // rray de mensajes ya generados usar data()
       // Con data se pinta en lenguaje humano los datos en la base de datos,
       // cada console corresponde a cada uno de los documentos
-      // if (doc.data().uid === userNow.uid) {
-      newPost.innerHTML += `
+      if (doc.data().uid === userNow.uid) {
+        newPost.innerHTML += `
         <div class="container card white round margin"><br>
         <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
         <span class="right opacity"><i class="fa fa-edit"></i></span>
@@ -154,14 +147,23 @@ export default () => {
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
       </div>
-  `;
-      // } else {
-      //   newPost.innerHTML += `
-      //         <div class="">
-      //             <span class="">${doc.data().post}</span>
-      //             <span>${doc.data().registrationDate}</span>
-      //         </div>`;
-      // }
+        `;
+      } else {
+        newPost.innerHTML += `
+        <div class="container card white round margin"><br>
+        <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
+        <span class="right opacity"><i class="fa fa-edit"></i></span>
+        <h4>${userNow.displayName}</h4>
+        <span class="opacity">${doc.data().date.toDate()}</span>
+        <span class="opacity"><i class="fa fa-globe"></i></span>
+        <br>
+        <hr class="clear">
+        <p>${doc.data().post}</p>
+        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+      </div>
+        `;
+      }
     });
   });
 
@@ -170,6 +172,53 @@ export default () => {
   btnCerrar.addEventListener('click', (e) => {
     e.preventDefault();
     signOutUser();
+  });
+
+  // FIREBASE - STORAGE POST IMAGENES
+  // AGREGANDO A LA COLECCION IMGPOST, LA NUEVA IMAGEN
+  const crearNodoenDBFirebase = ((nombreImg, urlImg) => {
+    imagenHref.add({
+      idPost: 'roxana',
+      name: nombreImg,
+      url: urlImg,
+    })
+      .then((docRef) => {
+        console.log('Document written with ID: ', docRef.id);
+      })
+      .catch((error) => {
+        console.error('Error adding document: ', error);
+      });
+  });
+
+  const subirImagenFirebase = () => {
+    const uploadImg = divElemt.querySelector('#uploadImg');
+    console.log(uploadImg.files);
+    // console.log('Subiendo la Img...!');
+    console.log('Imagen Cargada');
+    const imagenASubir = uploadImg.files[0];
+    console.log(imagenASubir);
+    // const name = `${new Date()}-${imagenASubir.name}`;
+    // console.log(imagenASubir);
+    const uploadTask = storageRef.child(`photoPosts/${imagenASubir.name}`).put(imagenASubir);
+    uploadTask.on('state_changed', (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log(`Upload is ${progress}% done`);
+    }, () => {
+      // Handle unsuccessful uploads
+    }, () => {
+      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+        console.log('Se subio la img con url:', downloadURL);
+        crearNodoenDBFirebase(imagenASubir.name, downloadURL);
+        // mostrarImgFirebase();
+      });
+    });
+  };
+
+  const btnImg = divElemt.querySelector('#icon-photo');
+  btnImg.addEventListener('click', () => {
+    console.log('Selecciona la img...!');
+    const uploadImg = divElemt.querySelector('#uploadImg');
+    uploadImg.addEventListener('change', subirImagenFirebase, false);
   });
 
   return divElemt;
