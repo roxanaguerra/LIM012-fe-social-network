@@ -7,11 +7,9 @@ export const readUserProfile = (id) => {
         const userName = document.querySelector('.username');
         const userPhoto = document.querySelector('.img-photo-post');
         const userAbout = document.querySelector('.userabout');
-        // const userCover = document.querySelector('.usercover');
         userName.innerHTML = doc.data().username;
         userPhoto.innerHTML = `<img class="border circle" alt="Avatar" src="${doc.data().profileImg}">`;
         userAbout.innerHTML = doc.data().about;
-        // userCover.innerHTML += `<img src="${doc.data().coverImg}" alt="">`;
       } else {
         console.log('this doc does not exists');
       }
