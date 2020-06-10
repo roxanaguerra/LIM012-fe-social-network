@@ -1,12 +1,11 @@
-export const createUserData = (id, email, name, photo) => {
+export const createUserData = (id, email, name) => {
   firebase.firestore()
     .collection('usersData').doc(id).set({
       userID: id,
       mail: email,
       username: name,
-      profileImg: photo,
-      coverImg: '',
-      about: '',
+      profileImg: 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png',
+      about: 'Drone user',
     });
 };
 
