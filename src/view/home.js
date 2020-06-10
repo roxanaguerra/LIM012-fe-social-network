@@ -2,7 +2,7 @@
 import {
   createPost,
   postsMain,
-} from '../controller/controller-posts';
+} from '../controller/controller-posts.js';
 import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser } from '../model/model-authentication.js';
 import { signOutUser } from '../controller/controller-autentication.js';
@@ -129,7 +129,8 @@ export default () => {
     const newPost = divElemt.querySelector('#new-post');
     newPost.innerHTML = '';
     query.forEach((doc) => {
-      console.log(doc.data()); // firebase para acceder a la informaciòn del a
+      // console.log(doc.data());
+      // firebase para acceder a la informaciòn del a
       // rray de mensajes ya generados usar data()
       // Con data se pinta en lenguaje humano los datos en la base de datos,
       // cada console corresponde a cada uno de los documentos
@@ -139,7 +140,7 @@ export default () => {
         <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
         <span class="right opacity"><i class="fa fa-edit"></i></span>
         <h4>Ana Wong</h4>
-        <span class="opacity">${doc.data().date.toDate()}</span>
+        <span class="opacity">Aquí va fecha Fecha y hora</span>
         <span class="opacity"><i class="fa fa-globe"></i></span>
         <br>
         <hr class="clear">
@@ -154,7 +155,7 @@ export default () => {
         <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
         <span class="right opacity"><i class="fa fa-edit"></i></span>
         <h4>${userNow.displayName}</h4>
-        <span class="opacity">${doc.data().date.toDate()}</span>
+        <span class="opacity">Aquí va fecha Fecha y hora</span>
         <span class="opacity"><i class="fa fa-globe"></i></span>
         <br>
         <hr class="clear">
@@ -214,12 +215,13 @@ export default () => {
     });
   };
 
-  const btnImg = divElemt.querySelector('#icon-photo');
-  btnImg.addEventListener('click', () => {
-    console.log('Selecciona la img...!');
-    const uploadImg = divElemt.querySelector('#uploadImg');
-    uploadImg.addEventListener('change', subirImagenFirebase, false);
-  });
+  // Comente este código porque no tengo en el template #icon-photo y me salia error
+  // const btnImg = divElemt.querySelector('#icon-photo');
+  // btnImg.addEventListener('click', () => {
+  //   console.log('Selecciona la img...!');
+  //   const uploadImg = divElemt.querySelector('#uploadImg');
+  //   uploadImg.addEventListener('change', subirImagenFirebase, false);
+  // });
 
   return divElemt;
 };
