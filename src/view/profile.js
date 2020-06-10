@@ -23,7 +23,6 @@ export default () => {
             <!-- Navbar on small screens -->
             <div id="nav-links" class="bar-block theme-d2 hide hide-large hide-medium large">
               <a href="#/home" class="bar-item button padding-large">Home</a>
-              <a href="#/home" class="bar-item button padding-large">Home</a>
               <a href="#/profile" class="bar-item button padding-large">Profile</a>
               <a href="#" id="btn-cerrar" class="bar-item button padding-large">Log Out</a>
             </div>
@@ -39,7 +38,7 @@ export default () => {
                     <!-- Profile -->
                     <div class="card round white">
                       <!-- Profile photo -->     
-                      <div class="container theme-d5 background-photo">
+                      <div class="container theme-d5 background-photo flex">
                         <p class="img-photo-post photo-medium center"></p>
                       </div>
 
@@ -73,8 +72,8 @@ export default () => {
                           <div class="container padding flex">
                             <p class="img-photo-post center"></p>
                             <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-                            <p contenteditable="true" class="border-radius padding theme-d3" id="input-post" style="width:600px">What's on your mind</p>
-                          </div>                                          
+                            <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px" placeholder="What's on your mind?"></textarea>
+                            </div>                                          
                           <div class="container padding theme-d5">
                               <button type="button" class="button theme-d5"><i class="fa fa-image"></i>  Photo</button> 
                               <button type="button" class="button theme-d5"><i class="fa fa-lock"></i>  Private</button> 
