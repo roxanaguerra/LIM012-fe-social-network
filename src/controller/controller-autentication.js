@@ -14,12 +14,13 @@ import { createUserData } from '../model/model-user.js';
 export const registerNewUser = (emailRegister, passwordRegister) => {
   const span = document.querySelector('#span');
   const username = document.querySelector('#name-register').value;
+  const profilePhotoDefault = 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png';
   signUp(emailRegister, passwordRegister)
     .then((result) => {
       const user = result.user;
       verificationEmail()
         .then(() => {
-          createUserData(user.uid, user.email, username);
+          createUserData(user.uid, user.email, username, profilePhotoDefault);
           span.innerHTML = '*Se envió un correo de verificación';
         }).catch(() => {
         // An error happened.
