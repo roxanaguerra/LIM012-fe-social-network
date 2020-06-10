@@ -5,8 +5,7 @@ export const createUserData = (id, email, name, photo) => {
       mail: email,
       username: name,
       profileImg: photo,
-      coverImg: '',
-      about: '',
+      about: 'Drone user',
     });
 };
 

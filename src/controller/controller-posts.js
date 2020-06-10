@@ -19,6 +19,7 @@ export const createPost = (post, user) => {
     photo: user.photoURL,
     // privacy: userObject.mode,
     // likes: userObject.like,
+    // registrationDate: firebase.firestore.FieldValue.Timestamp().fromDate(new Date()),
     // registrationDate: firebase.firestore.FieldValue.Timestamp(),
   })
     .then((docRef) => {
