@@ -29,7 +29,6 @@ export default () => {
   <!-- Navbar on small screens -->
     <div id="nav-links" class="bar-block theme-d2 hide hide-large hide-medium large">
     <a href="#/home" class="bar-item button padding-large">Home</a>
-    <a href="#/home" class="bar-item button padding-large">Home</a>
     <a href="#/profile" class="bar-item button padding-large">Profile</a>
     <a href="#" id="btn-cerrar" class="bar-item button padding-large">Log Out</a>
   </div>
