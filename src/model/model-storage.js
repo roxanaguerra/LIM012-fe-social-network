@@ -11,3 +11,72 @@ export const imagenRefChild = storageRef.child('photoPost');
 // Servicio database
 // export const imagenHref = firebase.database().ref().child('imgPost');
 export const imagenHref = firebase.firestore().collection('imgPost');
+
+export const deleteFileStorage = (file) => storageRef.child(`photoPost/${file}`).delete()
+  .then(() => {
+    console.log('Se elimino la Imagen!');
+  }).catch((error) => {
+    console.log('Error al eliminar!', error);
+  });
+
+// FIREBASE - STORAGE POST IMAGENES
+// AGREGANDO A LA COLECCION IMGPOST, LA NUEVA IMAGEN
+export const crearNodoenDBFirebase = ((nombreImg, urlImg) => {
+  const userPost = firebase.auth().currentUser;
+  imagenHref.add({
+    idUser: userPost.uid,
+    name: nombreImg,
+    url: urlImg,
+  })
+    .then((docRef) => {
+      console.log('Document written with ID: ', docRef.id);
+    })
+    .catch((error) => {
+      console.error('Error adding document: ', error);
+    });
+});
+
+export const subirImagenFirebase = () => {
+  const uploadImg = document.querySelector('#uploadImg');
+  console.log(uploadImg.files);
+  // console.log('Subiendo la Img...!');
+  console.log('Imagen Cargada');
+  const imagenASubir = uploadImg.files[0];
+  console.log(imagenASubir);
+  // const name = `${new Date()}-${imagenASubir.name}`;
+  // console.log(imagenASubir);
+  const uploadTask = storageRef.child(`photoPosts/${imagenASubir.name}`).put(imagenASubir);
+  uploadTask.on('state_changed', (snapshot) => {
+    const percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    const progress = document.querySelector('.progress');
+    progress.parentNode.classList.add('showProgress');
+    progress.innerText = `${percent.toFixed(0)}%`;
+    progress.style.width = `${percent}%`;
+    console.log(`Upload is ${progress}% done`);
+  }, (error) => {
+    // Handle unsuccessful uploads
+  }, () => {
+    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+      sessionStorage.setItem('imgNewPost', downloadURL);
+      const pic = document.querySelector('.picPost');
+      pic.parentNode.classList.remove('hide');
+      pic.setAttribute('src', downloadURL);
+      console.log('Se subio la img con url:', downloadURL);
+      // crearNodoenDBFirebase(imagenASubir.name, downloadURL);
+      // ELIMINAR LA IMG CARGADA EN EL POST
+      const btnDeleteImg = document.querySelector('.deleteImg');
+      btnDeleteImg.addEventListener('click', () => {
+        // const objFile = sessionStorage.getItem('imgNewPost');
+        console.log(imagenASubir.name);
+        deleteFileStorage(imagenASubir.name);
+        sessionStorage.removeItem('imgNewPost');
+        btnDeleteImg.parentNode.classList.add('hide');
+        pic.parentNode.classList.add('hide');
+      });
+    });
+    setTimeout(() => {
+      const progress = document.querySelector('.progress');
+      progress.parentNode.classList.remove('showProgress');
+    }, 2500);
+  });
+};
