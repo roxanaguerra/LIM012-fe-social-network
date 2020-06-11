@@ -3,6 +3,7 @@
 import {
   posts,
   readPostPrueba,
+  increment,
 } from '../model/model-posts.js';
 
 
@@ -17,7 +18,8 @@ export const createPost = (post, user, mode) => {
     idUser: user.uid,
     username: user.displayName,
     photo: user.photoURL,
-    privacy: mode,
+    likes: user.punctuation,
+    // privacy: userObject.mode,
     // likes: userObject.like,
   })
     .then((docRef) => {
@@ -31,7 +33,10 @@ export const createPost = (post, user, mode) => {
 
 export const postsMain = () => posts().orderBy('date', 'desc');
 
-
+export const addLike = (id) => {
+  const publicationRef = posts.doc(id);
+  publicationRef.update({ likes: increment });
+};
 // LEER DOCUMENTOS
 export const postRead = () => {
   readPostPrueba()
