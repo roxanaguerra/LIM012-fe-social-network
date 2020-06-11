@@ -2,6 +2,7 @@
 import {
   createPost,
   postsMain,
+  addLike,
 } from '../controller/controller-posts.js';
 import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser } from '../model/model-authentication.js';
@@ -76,7 +77,7 @@ export default () => {
                 <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px" placeholder="What's on your mind?"></textarea>  
               </div>                                          
               <div class="container padding theme-d5">
-                  <button type="button" class="button theme-d5"><i class="fa fa-image"></i>  Photo</button> 
+                  <button id="" type="button" class="button theme-d5"><i class="fa fa-image"></i>  Photo</button> 
                   <button type="button" class="button theme-d5"><i class="fa fa-lock"></i>  Private</button> 
                   <button type="button" id="btn-post" class="button theme-d1 right button-medium" >Post</button>     
               </div>
@@ -128,11 +129,6 @@ export default () => {
     const newPost = divElemt.querySelector('#new-post');
     newPost.innerHTML = '';
     query.forEach((doc) => {
-      // console.log(doc.data());
-      // firebase para acceder a la informaciòn del a
-      // rray de mensajes ya generados usar data()
-      // Con data se pinta en lenguaje humano los datos en la base de datos,
-      // cada console corresponde a cada uno de los documentos
       if (doc.data().uid === userNow.uid) {
         newPost.innerHTML += `
         <div class="container card white round margin"><br>
@@ -144,9 +140,11 @@ export default () => {
         <br>
         <hr class="clear">
         <p>${doc.data().post}</p>
-        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </div>
+      <section class='content-likes'>
+        <button type="button" id="like" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+        <button type="button" id="comment" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+      </section>
+        </div>
         `;
       } else {
         newPost.innerHTML += `
@@ -166,6 +164,19 @@ export default () => {
       }
     });
   });
+
+  const btnLike = divElemt.querySelector('#like');
+  const contentLikes = divElemt.querySelector('.content-likes');
+
+  const view = () => {
+    btnLike.addEventListener('click', (e) => {
+      e.preventDefault();
+      addLike(e.currentTarget.dataset.publication);
+    });
+  };
+
+  contentLikes.innerHTML = view();
+
 
   // CERRAR SESIÓN 'funcion para boton singOut'
   const btnCerrar = divElemt.querySelector('#btn-cerrar');

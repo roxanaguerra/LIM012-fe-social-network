@@ -2,6 +2,7 @@
 import {
   posts,
   readPostPrueba,
+  increment,
 } from '../model/model-posts.js';
 
 
@@ -17,6 +18,7 @@ export const createPost = (post, user) => {
     idUser: user.uid,
     username: user.displayName,
     photo: user.photoURL,
+    likes: user.punctuation,
     // privacy: userObject.mode,
     // likes: userObject.like,
     // registrationDate: firebase.firestore.FieldValue.Timestamp().fromDate(new Date()),
@@ -33,7 +35,10 @@ export const createPost = (post, user) => {
 
 export const postsMain = () => posts().orderBy('date', 'desc');
 
-
+export const addLike = (id) => {
+  const publicationRef = posts.doc(id);
+  publicationRef.update({ likes: increment });
+};
 // LEER DOCUMENTOS
 export const postRead = () => {
   readPostPrueba()
