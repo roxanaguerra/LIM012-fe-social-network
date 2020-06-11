@@ -11,6 +11,7 @@ import { storageRef, imagenHref } from '../model/model-storage.js';
 // import Header from './header.js';
 
 export default () => {
+  // droneImg.classList.add('hide');
   const userNow = currentUser();
   readUserProfile(userNow.uid);
   const viewHome = `
