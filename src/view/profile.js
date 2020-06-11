@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser } from '../model/model-authentication.js';
 import { updateUserName, updateUserAbout } from '../model/model-user.js';
