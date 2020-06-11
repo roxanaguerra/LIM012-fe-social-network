@@ -6,35 +6,50 @@ import {
   signOut,
   signInGoogle,
   signInFacebook,
+  verificationEmail,
 } from '../model/model-authentication.js';
-// import { componentsView } from '../view/view-index.js';
 import { createUserData } from '../model/model-user.js';
-
-const validateEmail = (email) => {
-  // para validar que ingrese un email de acuerdo a su sintaxis
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
-};
 
 // REGISTRAR USUARIO
 export const registerNewUser = (emailRegister, passwordRegister) => {
   const span = document.querySelector('#span');
-  const validateSintaxEmail = validateEmail(emailRegister);
+  const username = document.querySelector('#name-register').value;
+  const profilePhotoDefault = 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png';
   signUp(emailRegister, passwordRegister)
-    .then(() => {
-      window.location.hash = '#/profile';
+    .then((result) => {
+      const user = result.user;
+      verificationEmail()
+        .then(() => {
+          createUserData(user.uid, user.email, username, profilePhotoDefault);
+          span.innerHTML = '*Se envió un correo de verificación';
+        }).catch(() => {
+        // An error happened.
+          console.log('No se envío correo');
+        });
     })
     .catch((error) => {
-      if (error.code === 'auth/invalid-email') {
-        span.innerHTML = 'Email incorrecto';
-      } else if (error.code === 'auth/weak-password') {
-        span.innerHTML = 'contraseña insegura Ingrese mínimo 6 caracteres';
-      } else if (!validateSintaxEmail) {
-        span.innerHTML = 'error de sintáxis';
+      const errorCode = error.code;
+      switch (errorCode) {
+        case 'auth/invalid-email':
+          span.innerHTML = '*Ingresa un correo válido';
+          break;
+        case 'auth/weak-password':
+          span.innerHTML = '*Ingresa mínimo 6 caracteres';
+          break;
+        case 'auth/email-already-in-use':
+          span.innerHTML = '*Este correo ya está en uso';
+          break;
+        case 'auth/operation-not-allowed':
+          span.innerHTML = '*Comunícate con el administrador';
+          break;
+        default:
+          span.innerHTML = '*Error inesperado';
+          break;
       }
       setTimeout(
-        () => (span.innerHTML = 'El futuro es hoy...Regístrate'),
-        2000,
+        // eslint-disable-next-line no-return-assign
+        () => (span.innerHTML = ''),
+        7000,
       );
     });
 };
@@ -42,26 +57,30 @@ export const registerNewUser = (emailRegister, passwordRegister) => {
 // INICIAR SESIÓN
 export const authSignIn = (emailLogin, passwordLogin) => {
   const span = document.querySelector('#span');
-  const validateSintaxEmail = validateEmail(emailLogin);
   signIn(emailLogin, passwordLogin)
-    .then(() => {
-      window.location.hash = '#/home';
+    .then((result) => {
+      const user = result.user;
+      if (user.emailVerified) {
+        window.location.hash = '#/home';
+      } else {
+        span.innerHTML = '*Debes validar tu correo';
+        signOut();
+      }
     })
     .catch((error) => {
       if (error.code === 'auth/wrong-password') {
-        span.innerHTML = 'Contraseña inválida';
+        span.innerHTML = '*Contraseña inválida';
       } else if (error.code === 'auth/invalid-email') {
-        span.innerHTML = 'Correo electrónico incorrecto. Intente otra vez';
+        span.innerHTML = '*Correo electrónico incorrecto';
       } else if (error.code === 'auth/user-not-found') {
-        span.innerHTML = 'Usario no registrado';
+        span.innerHTML = '*Usario no registrado';
       } else if (error.code === 'auth/too-many-requests') {
-        span.innerHTML = 'Refresque la página';
-      } else if (!validateSintaxEmail) {
-        span.innerHTML = 'error de sintáxis';
+        span.innerHTML = '*Refresque la página';
       }
       setTimeout(
-        () => (span.innerHTML = 'Muchos envíos te esperan...'),
-        2000,
+        // eslint-disable-next-line no-return-assign
+        () => (span.innerHTML = ''),
+        7000,
       );
     });
 };
@@ -98,8 +117,8 @@ export const authSignInFacebook = () => {
 // CERRAR SESIÓN
 export const signOutUser = () => {
   signOut()
-    .then((resp) => {
-      console.log('Saliendo...!', resp);
+    .then(() => {
+      console.log('Saliendo...!');
     })
     .catch((error) => {
       console.log(error);

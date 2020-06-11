@@ -20,3 +20,12 @@ export const signInFacebook = () => {
   const provider = new firebase.auth.FacebookAuthProvider();
   return firebase.auth().signInWithPopup(provider);
 };
+
+export const currentUser = () => firebase.auth().currentUser;
+
+// VERIFICACION DE EMAIL
+// eslint-disable-next-line max-len
+export const verificationEmail = () => firebase.auth().currentUser.sendEmailVerification();
+
+// OBSERVADOR
+export const observerUser = (user) => firebase.auth().onAuthStateChanged((user));

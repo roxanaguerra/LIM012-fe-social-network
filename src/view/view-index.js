@@ -10,7 +10,6 @@ const componentsView = {
   login: Login,
   error: errorMessage,
   profile: Profile,
-
 };
 
 export { componentsView };
