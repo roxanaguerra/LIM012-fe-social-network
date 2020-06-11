@@ -6,7 +6,7 @@ import {
 } from '../model/model-posts.js';
 
 
-export const createPost = (post, user) => {
+export const createPost = (post, user, mode) => {
   console.log(user);
 
   // return new Promise((resolve, reject) => {
@@ -17,7 +17,7 @@ export const createPost = (post, user) => {
     idUser: user.uid,
     username: user.displayName,
     photo: user.photoURL,
-    // privacy: userObject.mode,
+    privacy: mode,
     // likes: userObject.like,
   })
     .then((docRef) => {

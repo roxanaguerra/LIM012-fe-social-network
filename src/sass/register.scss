@@ -48,8 +48,12 @@ h6 {
 .container-form {
     width: 232px;
     height: 400px;
-    background: $bg-form;
-    border-radius: 20px;
+    background-color: #9EE2F8;
+    position: relative;
+}
+
+.delivery-drone {
+    color: #E0C162;
 }
 
 .data-register {
@@ -68,6 +72,8 @@ h6 {
     border-bottom: 4px solid #201C50;
     padding-bottom: 8px;
     padding-top: 17px;
+    width: 200px;
+    height: 50px;
 }
 
 ::placeholder {
@@ -84,11 +90,17 @@ h6 {
     cursor: pointer;
     width: 170px;
     height: 38px;
-    border-radius: 20px;
-    background: #201C50;
-    color: white;
-    font-weight: 500;
+    border-radius: 5px;
+    background: #2B3049;
+    color: #E0C162;
+    font-weight: 700;
     letter-spacing: 1px;
+}
+
+.btn-form:hover {
+    background-color: #E0C162;
+    color: #2B3049;
+    font-weight: 700;
 }
 
 .txt-register {
@@ -119,7 +131,19 @@ div .option {
     text-decoration: none;
     cursor: pointer;
     font-size: 12px;
-    color: #360C8E;
+    color: #2B3049;
+    font-weight: 700;
+}
+
+.fa-key {
+    position: absolute;
+    left: 17px;
+    top: 93px;
+}
+.fa-user {
+    position: absolute;
+    left: 17px;
+    top: 43px;
 }
 
 .find-delivers {
@@ -133,4 +157,35 @@ div .option {
     font-style: normal;
     text-align: center;
     padding: 5px;
+}
+
+@media (min-width: 993px) {
+    .container-form {
+        width: 300px;
+        height: 500px;
+        background-color: #9EE2F8;
+        position: relative;
+        top: 70px;
+        border-radius: 5px;
+    } 
+
+    .fa-key {
+        left: 34px;
+        top: 137px;
+    }
+
+    .fa-user {
+        left: 35px;
+        top: 95px;
+    }
+    
+    // .bg-img {
+    //     background-image: url(../assets/bg-desktop-1200.png);
+    //     background-size: cover;
+    //     height: 100vh;
+    // }
+    
+    .btn-form {
+        width: 205px;
+    }
 }

@@ -2,6 +2,7 @@
 import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser } from '../model/model-authentication.js';
 import { updateUserName, updateUserAbout } from '../model/model-user.js';
+import { createPost, postsMain } from '../controller/controller-posts.js';
 import { signOutUser } from '../controller/controller-autentication.js';
 import { subirImagenFirebase } from '../model/model-storage.js';
 
@@ -74,13 +75,13 @@ export default () => {
                           <div class="container padding flex">
                             <p class="img-photo-post center"></p>
                             <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-                            <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px" placeholder="What's on your mind?"></textarea>
+                            <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px; overflow: hidden;" placeholder="What's on your mind?"></textarea>
                           </div>
                           <div class="hide divImg">
                             <span class="deleteImg">❌</span>
                             <img class="picPost"/>
                           </div>
-                          <div class="container padding theme-d5">
+                          <div class="container padding theme-d5 ctn-optpost">
                             <div class="containerProgress">
                               <div class="progress"></div>
                             </div>
@@ -90,13 +91,18 @@ export default () => {
                                 <i class="fa fa-image"></i>  Photo
                               </laber>                  
                             </div>
-                            <button type="button" class="button theme-d5"><i class="fa fa-lock"></i>  Private</button> 
+                            <div id="ctn-privacy" class="zero-padding inline-grid">
+                                <button type="button" id="public-privacy" value="public" class="button theme-d5"><i class="fa fa-globe"></i>  Public</i></button>
+                                <button type="button" id="private-privacy" value="private" class="hide button theme-d5"><i class="fa fa-lock"></i>  Private</button>
+                            </div>
+                            <button type="button" id="privacy" class="button-small theme-d5 zero-padding"><i class="fa fa-caret-down"></i></button>
                             <button type="button" id="btn-post" class="button theme-d1 right button-medium">  Post</button> 
                           </div>
                         </div>
                       </div>
                     </div>
                     
+                    <div id="new-post" class=""></div>
                     <div class="container card white round margin"><br>
                       <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
                       <span class="right opacity"><i class="fa fa-edit"></i></span>
@@ -124,6 +130,7 @@ export default () => {
                       <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
                     </div>
 
+                    
                   <!-- End Right Column -->
                   </div>
 
@@ -184,6 +191,87 @@ export default () => {
     const newAbout = userAbout.innerText;
     updateUserAbout(userNow.uid, newAbout);
     readUserProfile(userNow.uid);
+  });
+
+  const ctnPrivacy = divElemt.querySelector('#ctn-privacy');
+  const privacyOptions = divElemt.querySelector('#privacy');
+  const publicMode = divElemt.querySelector('#public-privacy');
+  const privateMode = divElemt.querySelector('#private-privacy');
+  privacyOptions.addEventListener('click', () => {
+    if (publicMode.classList.contains('hide')) {
+      publicMode.classList.remove('hide');
+    }
+    if (privateMode.classList.contains('hide')) {
+      privateMode.classList.remove('hide');
+    }
+  });
+
+  publicMode.addEventListener('click', () => {
+    publicMode.classList.remove('hide');
+    privateMode.classList.add('hide');
+    ctnPrivacy.appendChild(privateMode);
+  });
+
+  privateMode.addEventListener('click', () => {
+    publicMode.classList.add('hide');
+    privateMode.classList.remove('hide');
+    ctnPrivacy.appendChild(publicMode);
+  });
+
+  const btnPost = divElemt.querySelector('#btn-post');
+  btnPost.addEventListener('click', () => {
+    const inputPost = divElemt.querySelector('#input-post').value;
+    // const userName = divElemt.querySelector('#userName').value;
+    console.log(inputPost);
+    if (!inputPost.trim()) {
+      console.log('input vacío');
+      return;
+    }
+    if (publicMode.classList.contains('hide')) {
+      createPost(inputPost, userNow, privateMode.value);
+      divElemt.querySelector('#input-post').value = '';
+    } else {
+      createPost(inputPost, userNow, publicMode.value);
+      divElemt.querySelector('#input-post').value = '';
+    }
+  });
+
+  postsMain().onSnapshot((query) => {
+    const newPost = divElemt.querySelector('#new-post');
+    newPost.innerHTML = '';
+    query.forEach((doc) => {
+      if (doc.data().idUser === userNow.uid && doc.data().privacy === 'public') {
+        newPost.innerHTML += `
+      <div class="container card white round margin"><br>
+        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
+        <span class="right opacity"><i class="fa fa-edit"></i></span>
+        <h4>${doc.data().username}</h4>
+        <span class="opacity">${doc.data().date}</span>
+        <span class="opacity"><i class="fa fa-globe"></i></span>
+        <br>
+        <hr class="clear">
+        <p>${doc.data().post}</p>
+        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+      </div>
+        `;
+      } else if (doc.data().idUser === userNow.uid && doc.data().privacy === 'private') {
+        newPost.innerHTML += `
+      <div class="container card white round margin"><br>
+        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
+        <span class="right opacity"><i class="fa fa-edit"></i></span>
+        <h4>${doc.data().username}</h4>
+        <span class="opacity">${doc.data().date}</span>
+        <span class="opacity"><i class="fa fa-lock"></i></i></span>
+        <br>
+        <hr class="clear">
+        <p>${doc.data().post}</p>
+        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+      </div>
+        `;
+      }
+    });
   });
 
   // CERRAR SESIÓN 'funcion para boton singOut'
