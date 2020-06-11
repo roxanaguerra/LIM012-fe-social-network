@@ -147,6 +147,18 @@ div.background-photo {
   margin: 5px;
 }
 
+.zero-padding {
+  padding: 0;
+}
+
+.inline-grid {
+  display: inline-grid;
+}
+
+.ctn-optpost {
+  height: 52px;
+}
+
 textarea {
   padding: 0;
   border: 0;
@@ -314,8 +326,26 @@ a {
 }
 
 .button-medium {
-  width: 100px;
+  width: 75px;
   border-radius: 10px;
+}
+
+.button-small {
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+div #ctn-privacy {
+  width: 80px;
+}
+
+.button#private-privacy:focus,
+.button-small#privacy:focus,
+.button#public-privacy:focus {
+  outline: none;
 }
 
 .button:disabled {
@@ -509,6 +539,13 @@ a {
   }
   .button {
     padding: 8px 16px !important;
+  }
+  .button-medium {
+    width: 100px;
+    border-radius: 10px;
+  }
+  div #ctn-privacy {
+    width: 100px;
   }
 }
 
