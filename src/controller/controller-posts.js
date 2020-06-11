@@ -12,15 +12,12 @@ export const createPost = (post, user, mode) => {
   // const user = firebase.auth().currentUser.uid;
   posts().add({
     post,
-    date: new Date(),
-    // date: new Date(),
+    date: new Date().toLocaleString(),
     idUser: user.uid,
     username: user.displayName,
     photo: user.photoURL,
     privacy: mode,
     // likes: userObject.like,
-    // registrationDate: firebase.firestore.FieldValue.Timestamp().fromDate(new Date()),
-    // registrationDate: firebase.firestore.FieldValue.Timestamp(),
   })
     .then((docRef) => {
       console.log('Document written with ID: ', docRef.id);

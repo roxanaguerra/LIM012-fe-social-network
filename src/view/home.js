@@ -7,7 +7,7 @@ import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser } from '../model/model-authentication.js';
 import { signOutUser } from '../controller/controller-autentication.js';
 // import { readPostPrueba } from '../model/model-posts.js';
-import { storageRef, imagenHref } from '../model/model-storage.js';
+import { subirImagenFirebase } from '../model/model-storage.js';
 // import Header from './header.js';
 
 export default () => {
@@ -74,15 +74,27 @@ export default () => {
               <div class="container padding flex">
                 <p class="img-photo-post center"></p>
                 <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-                <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px" placeholder="What's on your mind?"></textarea>  
-              </div>                                          
+                <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px" placeholder="What's on your mind?"></textarea>
+              </div>
+              <div class="hide divImg">
+                <span class="deleteImg">❌</span>
+                <img class="picPost"/>
+              </div>                                
               <div class="container padding theme-d5 ctn-optpost">
-                  <button type="button" class="button theme-d5"><i class="fa fa-image"></i>  Photo</button> 
+                  <div class="containerProgress">
+                    <div class="progress"></div>
+                  </div>
+                  <div class="button theme-d5">
+                    <input accept="image/*" type="file" id="uploadImg" class="hide">
+                    <label id="icon-photo" for="uploadImg">                    
+                      <i class="fa fa-image"></i>  Photo
+                    </laber>                  
+                  </div>
                   <div id="ctn-privacy" class="zero-padding inline-grid">
                     <button type="button" id="public-privacy" value="public" class="button theme-d5"><i class="fa fa-globe"></i>  Public</i></button>
                     <button type="button" id="private-privacy" value="private" class="hide button theme-d5"><i class="fa fa-lock"></i>  Private</button>
                   </div>
-                  <button type="button" id="privacy" class="button-small theme-d5 zero-padding"><i class="fa fa-caret-down"></i></button> 
+                  <button type="button" id="privacy" class="button-small theme-d5 zero-padding"><i class="fa fa-caret-down"></i></button>
                   <button type="button" id="btn-post" class="button theme-d1 right button-medium" >Post</button>     
               </div>
             </div>
@@ -163,27 +175,6 @@ export default () => {
     const newPost = divElemt.querySelector('#new-post');
     newPost.innerHTML = '';
     query.forEach((doc) => {
-      // console.log(doc.data());
-      // firebase para acceder a la informaciòn del a
-      // rray de mensajes ya generados usar data()
-      // Con data se pinta en lenguaje humano los datos en la base de datos,
-      // cada console corresponde a cada uno de los documentos
-      // if (doc.data().idUser === userNow.uid && doc.data().privacy === 'public') {
-      //   newPost.innerHTML += `
-      //   <div class="container card white round margin"><br>
-      //   <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
-      //   <span class="right opacity"><i class="fa fa-edit"></i></span>
-      //   <h4>${doc.data().username}</h4>
-      //   <span class="opacity">${doc.data().date}</span>
-      //   <span class="opacity"><i class="fa fa-globe"></i></span>
-      //   <br>
-      //   <hr class="clear">
-      //   <p>${doc.data().post}</p>
-      //   <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-      //   <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      // </div>
-      //   `;
-      // }
       if (doc.data().idUser === userNow.uid && doc.data().privacy !== 'private') {
         newPost.innerHTML += `
         <div class="container card white round margin"><br>
@@ -224,64 +215,13 @@ export default () => {
     signOutUser();
   });
 
-  // FIREBASE - STORAGE POST IMAGENES
-  // AGREGANDO A LA COLECCION IMGPOST, LA NUEVA IMAGEN
-  const crearNodoenDBFirebase = ((nombreImg, urlImg) => {
-    const userPost = firebase.auth().currentUser;
-    imagenHref.add({
-      idUser: userPost.uid,
-      name: nombreImg,
-      url: urlImg,
-    })
-      .then((docRef) => {
-        console.log('Document written with ID: ', docRef.id);
-      })
-      .catch((error) => {
-        console.error('Error adding document: ', error);
-      });
-  });
-
-  const subirImagenFirebase = () => {
+  // CARGAR LA IMAGEN PARA HACER UN POST
+  const btnImg = divElemt.querySelector('#icon-photo');
+  btnImg.addEventListener('click', () => {
+    console.log('Selecciona la img...!');
     const uploadImg = divElemt.querySelector('#uploadImg');
-    console.log(uploadImg.files);
-    // console.log('Subiendo la Img...!');
-    console.log('Imagen Cargada');
-    const imagenASubir = uploadImg.files[0];
-    console.log(imagenASubir);
-    // const name = `${new Date()}-${imagenASubir.name}`;
-    // console.log(imagenASubir);
-    const uploadTask = storageRef.child(`photoPosts/${imagenASubir.name}`).put(imagenASubir);
-    uploadTask.on('state_changed', (snapshot) => {
-      const percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      const progress = document.querySelector('.progress');
-      progress.parentNode.classList.add('showProgress');
-      progress.innerText = `${percent.toFixed(0)}%`;
-      progress.style.width = `${percent}%`;
-      console.log(`Upload is ${progress}% done`);
-    }, () => {
-      // Handle unsuccessful uploads
-      const progress = document.querySelector('.progress');
-      progress.classList.add('errorMessage');
-      progress.innerText = '⚠️ Error al cargar imagen, debe ser menor a 5mb.';
-      setTimeout(() => {
-        progress.parentNode.classList.remove('showProgress');
-        progress.classList.remove('errorMessage');
-      }, 3000);
-    }, () => {
-      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-        console.log('Se subio la img con url:', downloadURL);
-        crearNodoenDBFirebase(imagenASubir.name, downloadURL);
-      });
-    });
-  };
-
-  // Comente este código porque no tengo en el template #icon-photo y me salia error
-  // const btnImg = divElemt.querySelector('#icon-photo');
-  // btnImg.addEventListener('click', () => {
-  //   console.log('Selecciona la img...!');
-  //   const uploadImg = divElemt.querySelector('#uploadImg');
-  //   uploadImg.addEventListener('change', subirImagenFirebase, false);
-  // });
+    uploadImg.addEventListener('change', subirImagenFirebase, false);
+  });
 
   return divElemt;
 };
