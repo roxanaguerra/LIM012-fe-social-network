@@ -2,6 +2,7 @@ import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser } from '../model/model-authentication.js';
 import { updateUserName, updateUserAbout } from '../model/model-user.js';
 import { signOutUser } from '../controller/controller-autentication.js';
+import { subirImagenFirebase } from '../model/model-storage.js';
 
 export default () => {
   const userNow = currentUser();
@@ -73,11 +74,23 @@ export default () => {
                             <p class="img-photo-post center"></p>
                             <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
                             <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px" placeholder="What's on your mind?"></textarea>
-                            </div>                                          
+                          </div>
+                          <div class="hide divImg">
+                            <span class="deleteImg">❌</span>
+                            <img class="picPost"/>
+                          </div>
                           <div class="container padding theme-d5">
-                              <button type="button" class="button theme-d5"><i class="fa fa-image"></i>  Photo</button> 
-                              <button type="button" class="button theme-d5"><i class="fa fa-lock"></i>  Private</button> 
-                              <button type="button" id="btn-post" class="button theme-d1 right button-medium">  Post</button> 
+                            <div class="containerProgress">
+                              <div class="progress"></div>
+                            </div>
+                            <div class="button theme-d5">
+                              <input accept="image/*" type="file" id="uploadImg" class="hide">
+                              <label id="icon-photo" for="uploadImg">                    
+                                <i class="fa fa-image"></i>  Photo
+                              </laber>                  
+                            </div>
+                            <button type="button" class="button theme-d5"><i class="fa fa-lock"></i>  Private</button> 
+                            <button type="button" id="btn-post" class="button theme-d1 right button-medium">  Post</button> 
                           </div>
                         </div>
                       </div>
@@ -177,6 +190,14 @@ export default () => {
   btnCerrar.addEventListener('click', (e) => {
     e.preventDefault();
     signOutUser();
+  });
+
+  // CARGAR LA IMAGEN PARA HACER UN POST
+  const btnImg = divElemt.querySelector('#icon-photo');
+  btnImg.addEventListener('click', () => {
+    console.log('Selecciona la img...!');
+    const uploadImg = divElemt.querySelector('#uploadImg');
+    uploadImg.addEventListener('change', subirImagenFirebase, false);
   });
 
   return divElemt;
