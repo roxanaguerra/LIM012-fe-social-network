@@ -13,14 +13,11 @@ export const createPost = (post, user) => {
   posts().add({
     post,
     date: new Date().toLocaleString(),
-    // date: new Date(),
     idUser: user.uid,
     username: user.displayName,
     photo: user.photoURL,
     // privacy: userObject.mode,
     // likes: userObject.like,
-    // registrationDate: firebase.firestore.FieldValue.Timestamp().fromDate(new Date()),
-    // registrationDate: firebase.firestore.FieldValue.Timestamp(),
   })
     .then((docRef) => {
       console.log('Document written with ID: ', docRef.id);
