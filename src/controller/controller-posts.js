@@ -12,7 +12,7 @@ export const createPost = (post, user) => {
   // const user = firebase.auth().currentUser.uid;
   posts().add({
     post,
-    date: new Date(),
+    date: new Date().toLocaleString(),
     // date: new Date(),
     idUser: user.uid,
     username: user.displayName,
