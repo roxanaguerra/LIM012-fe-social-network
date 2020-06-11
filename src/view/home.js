@@ -78,7 +78,7 @@ export default () => {
               </div>                                          
               <div class="container padding theme-d5">
                   <button type="button" class="button theme-d5"><i class="fa fa-image"></i>  Photo</button> 
-                  <button type="button" class="button theme-d5"><i class="fa fa-lock"></i>  Private</button> 
+                  <button type="button" id="btn-privacy" class="button theme-d5"><i class="fa fa-lock"></i>  Private <i class="fa fa-caret-down"></i></button> 
                   <button type="button" id="btn-post" class="button theme-d1 right button-medium" >Post</button>     
               </div>
             </div>
@@ -134,13 +134,29 @@ export default () => {
       // rray de mensajes ya generados usar data()
       // Con data se pinta en lenguaje humano los datos en la base de datos,
       // cada console corresponde a cada uno de los documentos
-      if (doc.data().uid === userNow.uid) {
+      // if (doc.data().idUser === userNow.uid && doc.data().privacy === 'public') {
+      //   newPost.innerHTML += `
+      //   <div class="container card white round margin"><br>
+      //   <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
+      //   <span class="right opacity"><i class="fa fa-edit"></i></span>
+      //   <h4>${doc.data().username}</h4>
+      //   <span class="opacity">${doc.data().date}</span>
+      //   <span class="opacity"><i class="fa fa-globe"></i></span>
+      //   <br>
+      //   <hr class="clear">
+      //   <p>${doc.data().post}</p>
+      //   <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+      //   <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+      // </div>
+      //   `;
+      // }
+      if (doc.data().idUser === userNow.uid && doc.data().privacy !== 'private') {
         newPost.innerHTML += `
         <div class="container card white round margin"><br>
-        <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
+        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
         <span class="right opacity"><i class="fa fa-edit"></i></span>
-        <h4>Ana Wong</h4>
-        <span class="opacity">Aquí va fecha Fecha y hora</span>
+        <h4>${doc.data().username}</h4>
+        <span class="opacity">${doc.data().date}</span>
         <span class="opacity"><i class="fa fa-globe"></i></span>
         <br>
         <hr class="clear">
@@ -149,13 +165,12 @@ export default () => {
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
       </div>
         `;
-      } else {
+      } else if (doc.data().idUser !== userNow.uid && doc.data().privacy !== 'private') {
         newPost.innerHTML += `
         <div class="container card white round margin"><br>
-        <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-        <span class="right opacity"><i class="fa fa-edit"></i></span>
-        <h4>${userNow.displayName}</h4>
-        <span class="opacity">Aquí va fecha Fecha y hora</span>
+        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
+        <h4>${doc.data().username}</h4>
+        <span class="opacity">${doc.data().date}</span>
         <span class="opacity"><i class="fa fa-globe"></i></span>
         <br>
         <hr class="clear">
