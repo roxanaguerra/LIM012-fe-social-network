@@ -12,8 +12,13 @@
 .container-form {
   width: 232px;
   height: 400px;
-  background: rgba(255, 255, 255, 0.62);
-  border-radius: 20px; }
+  background-color: #9EE2F8;
+  position: relative;
+}
+
+.delivery-drone {
+  color: #E0C162;
+}
 
 .data-register {
   width: 174px;
@@ -28,7 +33,11 @@
   background: none;
   border-bottom: 4px solid #201C50;
   padding-bottom: 8px;
-  padding-top: 17px; }
+  padding-top: 17px;
+  width: 200px;
+  height: 50px;
+}
+
 
 ::placeholder {
   color: #201C50;
@@ -43,11 +52,18 @@
   cursor: pointer;
   width: 170px;
   height: 38px;
-  border-radius: 20px;
-  background: #201C50;
-  color: white;
-  font-weight: 500;
-  letter-spacing: 1px; }
+  border-radius: 5px;
+  background: #2B3049;
+  color: #E0C162;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.btn-form:hover {
+  background-color: #E0C162;
+  color: #2B3049;
+  font-weight: 700;
+}
 
 .txt-register {
   font-size: 12px;
@@ -73,7 +89,22 @@ div .option {
   text-decoration: none;
   cursor: pointer;
   font-size: 12px;
-  color: #360C8E; }
+  color: #2B3049;
+  font-weight: 700;
+}
+
+.fa-key {
+  position: absolute;
+  left: 17px;
+  top: 93px;
+}
+
+.fa-user {
+  position: absolute;
+  left: 17px;
+  top: 43px;
+}
+
 
 .find-delivers {
   letter-spacing: 1px;
@@ -86,6 +117,28 @@ div .option {
   font-style: normal;
   text-align: center;
   padding: 5px; }
+
+@media (min-width: 993px) {
+  .container-form {
+    width: 300px;
+    height: 500px;
+    background-color: #9EE2F8;
+    position: relative;
+    top: 70px;
+    border-radius: 5px;
+  }
+  .fa-key {
+    left: 34px;
+    top: 137px;
+  }
+  .fa-user {
+    left: 35px;
+    top: 95px;
+  }
+  .btn-form {
+    width: 205px;
+  }
+}
 
 .hide {
   display: none; }
@@ -122,6 +175,18 @@ div.background-photo {
   height: 12px;
   width: 12px;
   margin: 5px; }
+
+.zero-padding {
+  padding: 0;
+}
+
+.inline-grid {
+  display: inline-grid;
+}
+
+.ctn-optpost {
+  height: 52px;
+}
 
 textarea {
   padding: 0;
@@ -259,8 +324,27 @@ a {
   white-space: nowrap; }
 
 .button-medium {
-  width: 100px;
-  border-radius: 10px; }
+  width: 75px;
+  border-radius: 10px;
+}
+
+.button-small {
+  border: none;
+  padding: 0;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+div #ctn-privacy {
+  width: 80px;
+}
+
+.button#private-privacy:focus,
+.button-small#privacy:focus,
+.button#public-privacy:focus {
+  outline: none;
+}
 
 .button:disabled {
   cursor: not-allowed;
@@ -406,7 +490,16 @@ a {
     height: 18rem;
     position: relative; }
   .button {
-    padding: 8px 16px !important; } }
+    padding: 8px 16px !important;
+  }
+  .button-medium {
+    width: 100px;
+    border-radius: 10px;
+  }
+  div #ctn-privacy {
+    width: 100px;
+  }
+}
 
 @media (max-width: 992px) and (min-width: 601px) {
   .hide-medium {
