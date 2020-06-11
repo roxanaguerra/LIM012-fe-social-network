@@ -215,8 +215,10 @@ export default () => {
     }
     if (publicMode.classList.contains('hide')) {
       createPost(inputPost, userNow, privateMode.value);
+      divElemt.querySelector('#input-post').value = '';
     } else {
       createPost(inputPost, userNow, publicMode.value);
+      divElemt.querySelector('#input-post').value = '';
     }
   });
 

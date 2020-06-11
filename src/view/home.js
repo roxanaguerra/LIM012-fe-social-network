@@ -75,9 +75,13 @@ export default () => {
                 <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
                 <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px" placeholder="What's on your mind?"></textarea>  
               </div>                                          
-              <div class="container padding theme-d5">
+              <div class="container padding theme-d5 ctn-optpost">
                   <button type="button" class="button theme-d5"><i class="fa fa-image"></i>  Photo</button> 
-                  <button type="button" id="btn-privacy" class="button theme-d5"><i class="fa fa-lock"></i>  Private <i class="fa fa-caret-down"></i></button> 
+                  <div id="ctn-privacy" class="zero-padding inline-grid">
+                    <button type="button" id="public-privacy" value="public" class="button theme-d5"><i class="fa fa-globe"></i>  Public</i></button>
+                    <button type="button" id="private-privacy" value="private" class="hide button theme-d5"><i class="fa fa-lock"></i>  Private</button>
+                  </div>
+                  <button type="button" id="privacy" class="button-small theme-d5 zero-padding"><i class="fa fa-caret-down"></i></button> 
                   <button type="button" id="btn-post" class="button theme-d1 right button-medium" >Post</button>     
               </div>
             </div>
@@ -111,6 +115,31 @@ export default () => {
     }
   });
 
+  const ctnPrivacy = divElemt.querySelector('#ctn-privacy');
+  const privacyOptions = divElemt.querySelector('#privacy');
+  const publicMode = divElemt.querySelector('#public-privacy');
+  const privateMode = divElemt.querySelector('#private-privacy');
+  privacyOptions.addEventListener('click', () => {
+    if (publicMode.classList.contains('hide')) {
+      publicMode.classList.remove('hide');
+    }
+    if (privateMode.classList.contains('hide')) {
+      privateMode.classList.remove('hide');
+    }
+  });
+
+  publicMode.addEventListener('click', () => {
+    publicMode.classList.remove('hide');
+    privateMode.classList.add('hide');
+    ctnPrivacy.appendChild(privateMode);
+  });
+
+  privateMode.addEventListener('click', () => {
+    publicMode.classList.add('hide');
+    privateMode.classList.remove('hide');
+    ctnPrivacy.appendChild(publicMode);
+  });
+
   const btnPost = divElemt.querySelector('#btn-post');
   btnPost.addEventListener('click', () => {
     const inputPost = divElemt.querySelector('#input-post').value;
@@ -120,8 +149,13 @@ export default () => {
       console.log('input vacío');
       return;
     }
-    divElemt.querySelector('#input-post').value = '';
-    createPost(inputPost, userNow);
+    if (publicMode.classList.contains('hide')) {
+      createPost(inputPost, userNow, privateMode.value);
+      divElemt.querySelector('#input-post').value = '';
+    } else {
+      createPost(inputPost, userNow, publicMode.value);
+      divElemt.querySelector('#input-post').value = '';
+    }
   });
 
   postsMain().onSnapshot((query) => {
