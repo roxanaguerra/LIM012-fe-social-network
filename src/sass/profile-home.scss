@@ -425,7 +425,7 @@ div #ctn-privacy {
         height: 106px;
         width: 106px;
         position: absolute;
-        left: 8em;
+        left: 7em;
         top: 10em;
     }
     div.background-photo {
@@ -441,6 +441,9 @@ div #ctn-privacy {
     }
     div #ctn-privacy {
         width: 100px;
+    }
+    .row-paddingl {
+        padding: 0;
     }
 }
 
@@ -478,6 +481,10 @@ div #ctn-privacy {
 .row-padding > .col,
 .row-padding > .half {
     padding: 0 8px;
+}
+
+.row-paddingl {
+    padding: 0 16px;
 }
 
 .container {
