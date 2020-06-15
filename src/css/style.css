@@ -14,22 +14,29 @@
 
 .container-form {
   width: 232px;
-  height: 400px;
+  height: 390px;
   background-color: #9EE2F8;
   position: relative;
+  border-radius: 5px;
+  top: 15px;
 }
 
 .delivery-drone {
   color: #E0C162;
+  margin: 0;
 }
 
 .data-register {
   width: 174px;
-  margin-bottom: 35px;
+  margin-bottom: 30px;
 }
 
 .inputs-form {
   padding: 0px 5px 45px 5px;
+}
+
+.inputs-formrg {
+  padding: 0px 5px 10px 5px;
 }
 
 .inputs-form input {
@@ -39,7 +46,18 @@
   border-bottom: 4px solid #201C50;
   padding-bottom: 8px;
   padding-top: 17px;
-  width: 200px;
+  width: 162px;
+  height: 50px;
+}
+
+.inputs-formrg input {
+  border: none;
+  outline: none;
+  background: none;
+  border-bottom: 4px solid #201C50;
+  padding-bottom: 8px;
+  padding-top: 17px;
+  width: 162px;
   height: 50px;
 }
 
@@ -128,6 +146,41 @@ div .option {
   padding: 5px;
 }
 
+.bg-img {
+  background-image: url(../assets/bg-mobile.png);
+  background-size: cover;
+  height: 100vh;
+}
+
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #9EE2F8 inset !important;
+}
+
+@media (min-width: 600px) {
+  .container-form {
+    top: 70px;
+    border-radius: 5px;
+  }
+  .inputs-form input {
+    width: 177px;
+  }
+  .inputs-formrg {
+    padding-bottom: 15px;
+  }
+  .bg-img {
+    background-image: url(../assets/bg-desktop-700.png);
+    background-size: cover;
+    height: 100vh;
+  }
+  .delivery-drone {
+    margin: 10px 0;
+  }
+}
+
 @media (min-width: 993px) {
   .container-form {
     width: 300px;
@@ -139,14 +192,32 @@ div .option {
   }
   .fa-key {
     left: 34px;
-    top: 137px;
+    top: 120px;
   }
   .fa-user {
     left: 35px;
-    top: 95px;
+    top: 70px;
+  }
+  .bg-img {
+    background-image: url(../assets/bg-desktop-1200.png);
+    background-size: cover;
+    height: 100vh;
+  }
+  .data-register {
+    width: 200px;
+    padding-bottom: 50px;
   }
   .btn-form {
     width: 205px;
+  }
+  .inputs-form input {
+    width: 200px;
+  }
+  .inputs-formrg input {
+    width: 200px;
+  }
+  .inputs-formrg {
+    padding-bottom: 40px;
   }
 }
 
@@ -577,7 +648,7 @@ div #ctn-privacy {
     height: 106px;
     width: 106px;
     position: absolute;
-    left: 8em;
+    left: 7em;
     top: 10em;
   }
   div.background-photo {
@@ -593,6 +664,9 @@ div #ctn-privacy {
   }
   div #ctn-privacy {
     width: 100px;
+  }
+  .row-paddingl {
+    padding: 0;
   }
 }
 
@@ -630,6 +704,10 @@ div #ctn-privacy {
 .row-padding > .col,
 .row-padding > .half {
   padding: 0 8px;
+}
+
+.row-paddingl {
+  padding: 0 16px;
 }
 
 .container {
