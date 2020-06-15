@@ -18,7 +18,11 @@ export const registerNewUser = (emailRegister, passwordRegister) => {
   signUp(emailRegister, passwordRegister)
     .then((result) => {
       const user = result.user;
-      verificationEmail()
+      const configuration = {
+        url: 'https://localhost:5000/#/',
+      };
+      result.user.sendEmailVerification(configuration)
+      // verificationEmail()
         .then(() => {
           createUserData(user.uid, user.email, username, profilePhotoDefault);
           span.innerHTML = '*Se envió un correo de verificación';

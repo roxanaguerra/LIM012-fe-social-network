@@ -156,7 +156,6 @@ export default () => {
   const btnPost = divElemt.querySelector('#btn-post');
   btnPost.addEventListener('click', () => {
     const inputPost = divElemt.querySelector('#input-post').value;
-    // const userName = divElemt.querySelector('#userName').value;
     console.log(inputPost);
     if (!inputPost.trim()) {
       console.log('input vacío');
@@ -220,7 +219,10 @@ export default () => {
   btnImg.addEventListener('click', () => {
     console.log('Selecciona la img...!');
     const uploadImg = divElemt.querySelector('#uploadImg');
-    uploadImg.addEventListener('change', subirImagenFirebase, false);
+    uploadImg.addEventListener('change', (e) => {
+      const imagenASubir = e.target.files[0];
+      subirImagenFirebase(imagenASubir, userNow.uid);
+    });
   });
 
   return divElemt;
