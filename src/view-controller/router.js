@@ -1,4 +1,5 @@
 import { componentsView } from '../view/view-index.js';
+import { signOutUser } from '../controller/controller-autentication.js';
 
 const container = document.getElementById('general-container');
 
@@ -8,6 +9,7 @@ const authenticate = (view) => {
     if (user) {
       html = container.appendChild(view());
     } else {
+      signOutUser();
       window.location.hash = '#/';
     }
   });
@@ -20,8 +22,13 @@ const changeView = (route) => {
   switch (route) {
     case '':
     case '#':
-    case '#/': { return container.appendChild(componentsView.login()); }
-    case '#/register': { return container.appendChild(componentsView.register()); }
+    case '#/': {
+      signOutUser();
+      return container.appendChild(componentsView.login());
+    }
+    case '#/register': {
+      signOutUser();
+      return container.appendChild(componentsView.register()); }
     case '#/home':
       // eslint-disable-next-line max-len
       return authenticate(componentsView.home);
