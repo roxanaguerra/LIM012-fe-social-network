@@ -35,9 +35,9 @@ export default () => {
                 <div class="row max-width">
           
                   <!-- Left Column -->
-                  <div class="col m4">
+                  <div class="col m4 row-paddingl">
                     
-                    <!-- Profile -->
+                    <!-- Profile -->                    
                     <div class="card round white">
                       <!-- Profile photo -->     
                       <div class="container theme-d5 background-photo flex">
@@ -58,7 +58,7 @@ export default () => {
                         </div>
                       </div>
                     <!-- End Profile -->  
-                    </div>
+                    </div>                
                     <br>
 
                   <!-- End Left Column -->
@@ -72,18 +72,16 @@ export default () => {
                       <div class="col m12">
                         <div class="card round white">
                           <div class="container padding flex">
-                            <p class="img-photo-post center"></p>
-                            <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
                             <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px; overflow: hidden;" placeholder="What's on your mind?"></textarea>
                           </div>
                           <div class="hide divImg">
                             <span class="deleteImg">❌</span>
                             <img class="picPost"/>
                           </div>
+                          <div class="containerProgress">
+                            <div class="progress"></div>
+                          </div>
                           <div class="container padding theme-d5 ctn-optpost">
-                            <div class="containerProgress">
-                              <div class="progress"></div>
-                            </div>
                             <div class="button theme-d5">
                               <input accept="image/*" type="file" id="uploadImg" class="hide">
                               <label id="icon-photo" for="uploadImg">                    
@@ -112,6 +110,8 @@ export default () => {
                       <hr class="clear">
                       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                       <img src="https://www.w3schools.com/w3images/nature.jpg" style="width:100%" alt="Nature" class="margin-bottom">
+                      <hr class="clear">
+                      <br>
                       <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
                       <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
                     </div>
@@ -125,6 +125,8 @@ export default () => {
                       <br>
                       <hr class="clear">
                       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                      <hr class="clear">
+                      <br>
                       <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
                       <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
                     </div>
@@ -250,6 +252,8 @@ export default () => {
         <br>
         <hr class="clear">
         <p>${doc.data().post}</p>
+        <hr class="clear">
+        <br>
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
       </div>
@@ -265,6 +269,8 @@ export default () => {
         <br>
         <hr class="clear">
         <p>${doc.data().post}</p>
+        <hr class="clear">
+        <br>
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
       </div>

@@ -97,11 +97,11 @@ export const authSignInGoogle = () => {
       createUserData(user.uid, user.email, user.displayName, user.photoURL);
       window.location.hash = '#/home';
     })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.email;
-      const credential = error.credential;
+    .catch(() => {
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
+      // const email = error.email;
+      // const credential = error.credential;
     });
 };
 

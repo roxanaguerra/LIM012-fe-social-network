@@ -28,4 +28,4 @@ export const currentUser = () => firebase.auth().currentUser;
 export const verificationEmail = () => firebase.auth().currentUser.sendEmailVerification();
 
 // OBSERVADOR
-export const observerUser = (user) => firebase.auth().onAuthStateChanged((user));
+export const observerUser = user => firebase.auth().onAuthStateChanged((user));
