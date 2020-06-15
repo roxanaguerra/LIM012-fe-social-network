@@ -8,7 +8,7 @@ export default () => {
   const viewRegister = `
 
   <!-- Page Container -->
-  <div class="container content" style="max-width:1400px;margin-top:20px">
+  <div class="container content bg-img" style="max-width:1400px;">
     <!-- The Grid -->
     <div class="row max-width ">
     
@@ -28,7 +28,7 @@ export default () => {
             <div class="content1 flex column">
               <div class="container-form card flex column">      
                 <div class="data-register flex column">
-                  <div class="inputs-form">
+                  <div class="inputs-formrg">
                     <input id="name-register" type="text" placeholder="Nombres y Apellidos">
                     <input id="email-register" type="email" placeholder="E-mail">
                     <input id="password-register" type="password" placeholder="Password">
@@ -47,7 +47,6 @@ export default () => {
                   <a class="option" id="comment-signin" href="#/">Sign In</a>
                 </div>
               </div>
-              <h4 class="find-delivers">FIND DELIVERIES TO <br> YOU SAFELY</h4>
             </div>
 
         </div>
