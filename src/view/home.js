@@ -40,7 +40,7 @@ export default () => {
     <!-- The Grid -->
     <div class="row max-width">
       <!-- Left Column -->
-      <div class="col m4">
+      <div class="col m4 row-paddingl">
         
         <!-- Profile -->
         <div class="card round white">
@@ -73,18 +73,16 @@ export default () => {
           <div class="col m12">
             <div class="card round white">
               <div class="container padding flex">
-                <p class="img-photo-post center"></p>
-                <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
                 <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px" placeholder="What's on your mind?"></textarea>
               </div>
               <div class="hide divImg">
                 <span class="deleteImg">❌</span>
                 <img class="picPost"/>
-              </div>                                
-              <div class="container padding theme-d5 ctn-optpost">
-                  <div class="containerProgress">
-                    <div class="progress"></div>
-                  </div>
+              </div>
+              <div class="containerProgress">
+                <div class="progress"></div>
+              </div>                               
+              <div class="container padding theme-d5 ctn-optpost">               
                   <div class="button theme-d5">
                     <input accept="image/*" type="file" id="uploadImg" class="hide">
                     <label id="icon-photo" for="uploadImg">                    
@@ -157,7 +155,6 @@ export default () => {
   const btnPost = divElemt.querySelector('#btn-post');
   btnPost.addEventListener('click', () => {
     const inputPost = divElemt.querySelector('#input-post').value;
-    // const userName = divElemt.querySelector('#userName').value;
     console.log(inputPost);
     if (!inputPost.trim()) {
       console.log('input vacío');
@@ -187,11 +184,19 @@ export default () => {
         <br>
         <hr class="clear">
         <p>${doc.data().post}</p>
+<<<<<<< HEAD
       <section class='content-likes'>
         <button type="button" id="like" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
         <button type="button" id="comment" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
       </section>
         </div>
+=======
+        <hr class="clear">
+        <br>
+        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+      </div>
+>>>>>>> 284a1939cdfb04f28abace01d80476ceff892b41
         `;
       } else if (doc.data().idUser !== userNow.uid && doc.data().privacy !== 'private') {
         newPost.innerHTML += `
@@ -203,6 +208,8 @@ export default () => {
         <br>
         <hr class="clear">
         <p>${doc.data().post}</p>
+        <hr class="clear">
+        <br>
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
       </div>
@@ -236,7 +243,10 @@ export default () => {
   btnImg.addEventListener('click', () => {
     console.log('Selecciona la img...!');
     const uploadImg = divElemt.querySelector('#uploadImg');
-    uploadImg.addEventListener('change', subirImagenFirebase, false);
+    uploadImg.addEventListener('change', (e) => {
+      const imagenASubir = e.target.files[0];
+      subirImagenFirebase(imagenASubir, userNow.uid);
+    });
   });
 
   return divElemt;

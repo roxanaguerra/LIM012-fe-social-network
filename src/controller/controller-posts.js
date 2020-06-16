@@ -4,9 +4,10 @@ import {
   readPostPrueba,
   increment,
 } from '../model/model-posts.js';
+import { storageRef } from '../model/model-storage.js';
 
 
-export const createPost = (post, user, mode) => {
+export const createPost = (post, user, mode, nameImg, urlImg) => {
   console.log(user);
 
   // return new Promise((resolve, reject) => {
@@ -18,6 +19,8 @@ export const createPost = (post, user, mode) => {
     username: user.displayName,
     photo: user.photoURL,
     privacy: mode,
+    nameImg,
+    urlImg,
     // likes: userObject.like,
   })
     .then((docRef) => {
@@ -26,7 +29,6 @@ export const createPost = (post, user, mode) => {
     .catch((error) => {
       console.error('Error adding document: ', error);
     });
-  // });
 };
 
 export const postsMain = () => posts().orderBy('date', 'desc');
@@ -41,4 +43,8 @@ export const postRead = () => {
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => doc.post);
     });
+};
+
+export const upLoadImagePost = (imagenASubir, uid) => {
+  storageRef(`photoPosts/${uid}/${imagenASubir.name}`).put(imagenASubir);
 };

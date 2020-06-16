@@ -7,7 +7,7 @@ import {
 export default () => {
   const viewLogin = `
   <!-- Page Container -->
-  <div class="container content" style="max-width:1400px;margin-top:20px">
+  <div class="container content bg-img" style="max-width:1400px;">
     <!-- The Grid -->
     <div class="row max-width ">
     

@@ -18,7 +18,11 @@ export const registerNewUser = (emailRegister, passwordRegister) => {
   signUp(emailRegister, passwordRegister)
     .then((result) => {
       const user = result.user;
-      verificationEmail()
+      const configuration = {
+        url: 'https://localhost:5000/#/',
+      };
+      result.user.sendEmailVerification(configuration)
+      // verificationEmail()
         .then(() => {
           createUserData(user.uid, user.email, username, profilePhotoDefault);
           span.innerHTML = '*Se envió un correo de verificación';
@@ -93,11 +97,11 @@ export const authSignInGoogle = () => {
       createUserData(user.uid, user.email, user.displayName, user.photoURL);
       window.location.hash = '#/home';
     })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.email;
-      const credential = error.credential;
+    .catch(() => {
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
+      // const email = error.email;
+      // const credential = error.credential;
     });
 };
 
