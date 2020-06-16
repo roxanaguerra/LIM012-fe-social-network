@@ -184,19 +184,11 @@ export default () => {
         <br>
         <hr class="clear">
         <p>${doc.data().post}</p>
-<<<<<<< HEAD
-      <section class='content-likes'>
-        <button type="button" id="like" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" id="comment" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </section>
-        </div>
-=======
         <hr class="clear">
         <br>
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
       </div>
->>>>>>> 284a1939cdfb04f28abace01d80476ceff892b41
         `;
       } else if (doc.data().idUser !== userNow.uid && doc.data().privacy !== 'private') {
         newPost.innerHTML += `
@@ -207,7 +199,7 @@ export default () => {
         <span class="opacity"><i class="fa fa-globe"></i></span>
         <br>
         <hr class="clear">
-        <p>${doc.data().post}</p>
+        <p>${doc.data().post}</p>s
         <hr class="clear">
         <br>
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
