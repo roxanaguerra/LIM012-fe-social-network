@@ -152,19 +152,22 @@ export default () => {
   });
 
   const btnPost = divElemt.querySelector('#btn-post');
+  const photo = sessionStorage.getItem('imgNewPost');
+  const divImg = divElemt.querySelector('.divImg');
   btnPost.addEventListener('click', () => {
     const inputPost = divElemt.querySelector('#input-post').value;
-    // const userName = divElemt.querySelector('#userName').value;
+    console.log('photo: ', photo);
     console.log(inputPost);
+    divImg.classList.add('hide');
     if (!inputPost.trim()) {
       console.log('input vacío');
       return;
     }
     if (publicMode.classList.contains('hide')) {
-      createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
+      createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'), photo);
       divElemt.querySelector('#input-post').value = '';
     } else {
-      createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
+      createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'),photo);
       divElemt.querySelector('#input-post').value = '';
     }
   });
@@ -174,22 +177,42 @@ export default () => {
     newPost.innerHTML = '';
     query.forEach((doc) => {
       if (doc.data().idUser === userNow.uid && doc.data().privacy !== 'private') {
-        newPost.innerHTML += `
-        <div class="container card white round margin"><br>
-        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
-        <span class="right opacity"><i class="fa fa-edit"></i></span>
-        <h4>${doc.data().username}</h4>
-        <span class="opacity">${doc.data().date}</span>
-        <span class="opacity"><i class="fa fa-globe"></i></span>
-        <br>
-        <hr class="clear">
-        <p>${doc.data().post}</p>
-        <hr class="clear">
-        <br>
-        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </div>
+        if (doc.data().urlImg === null) {
+          newPost.innerHTML += `
+          <div class="container card white round margin"><br>
+            <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
+            <span class="right opacity"><i class="fa fa-edit"></i></span>
+            <h4>${doc.data().username}</h4>
+            <span class="opacity">${doc.data().date}</span>
+            <span class="opacity"><i class="fa fa-globe"></i></span>
+            <br>
+            <hr class="clear">
+            <p>${doc.data().post}</p>            
+            <hr class="clear">
+            <br>
+            <button type="button" class="button theme-d1 margin-bottom" id="btn-like"><i class="fa fa-thumbs-up"></i>  Like</button> 
+            <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+          </div>
+          `;
+        } else {
+          newPost.innerHTML += `
+          <div class="container card white round margin"><br>
+            <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
+            <span class="right opacity"><i class="fa fa-edit"></i></span>
+            <h4>${doc.data().username}</h4>
+            <span class="opacity">${doc.data().date}</span>
+            <span class="opacity"><i class="fa fa-globe"></i></span>
+            <br>
+            <hr class="clear">
+            <p>${doc.data().post}</p>            
+            <img src=${doc.data().urlImg} style="width:100%" alt="Nature" class="margin-bottom">
+            <hr class="clear">
+            <br>
+            <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+            <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+          </div>
         `;
+        }
       } else if (doc.data().idUser !== userNow.uid && doc.data().privacy !== 'private') {
         newPost.innerHTML += `
         <div class="container card white round margin"><br>
@@ -222,8 +245,17 @@ export default () => {
   btnImg.addEventListener('click', () => {
     console.log('Selecciona la img...!');
     const uploadImg = divElemt.querySelector('#uploadImg');
-    uploadImg.addEventListener('change', subirImagenFirebase, false);
+    uploadImg.addEventListener('change', (e) => {
+      const imagenASubir = e.target.files[0];
+      subirImagenFirebase(imagenASubir, userNow.uid);
+    });
   });
+
+  // LIKE A LOS POST
+  // const btnLink = document.querySelector('#btn-like');
+  // btnLink.addEventListener('click', () => {
+  //   console.log('Di Like al Post!');
+  // });
 
   return divElemt;
 };

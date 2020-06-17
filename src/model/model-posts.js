@@ -1,4 +1,3 @@
-
 // CREAR LA COLECCION DE POST
 export const posts = () => firebase.firestore().collection('post');
 
