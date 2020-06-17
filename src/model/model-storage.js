@@ -72,7 +72,7 @@ export const subirImagenFirebase = (imagenASubir, uid) => {
         // const objFile = sessionStorage.getItem('imgNewPost');
           console.log(imagenASubir.name);
           deleteFileStorage(imagenASubir.name, uid);
-          sessionStorage.removeItem('imgNewPost');
+          // sessionStorage.removeItem('imgNewPost');
           btnDeleteImg.parentNode.classList.add('hide');
           pic.parentNode.classList.add('hide');
         });

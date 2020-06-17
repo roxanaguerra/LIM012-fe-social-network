@@ -18,6 +18,7 @@ export const createPost = (post, user, mode, urlImg) => {
     photo: user.photoURL,
     privacy: mode,
     urlImg,
+    likes: [],
     // likes: userObject.like,
   })
     .then((docRef) => {

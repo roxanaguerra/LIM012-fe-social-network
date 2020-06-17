@@ -152,6 +152,7 @@ export default () => {
   });
 
   const btnPost = divElemt.querySelector('#btn-post');
+  // Obtiene la información almacenada desde sessionStorage
   const photo = sessionStorage.getItem('imgNewPost');
   const divImg = divElemt.querySelector('.divImg');
   btnPost.addEventListener('click', () => {
