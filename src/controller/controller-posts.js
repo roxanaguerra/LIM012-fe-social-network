@@ -5,10 +5,9 @@ import {
 } from '../model/model-posts.js';
 import { storageRef } from '../model/model-storage.js';
 
-
-export const createPost = (post, user, mode, nameImg, urlImg) => {
+export const createPost = (post, user, mode, urlImg) => {
   console.log(user);
-
+  console.log('urlImg: ', urlImg);
   // return new Promise((resolve, reject) => {
   // const user = firebase.auth().currentUser.uid;
   posts().add({
@@ -18,12 +17,12 @@ export const createPost = (post, user, mode, nameImg, urlImg) => {
     username: user.displayName,
     photo: user.photoURL,
     privacy: mode,
-    nameImg,
     urlImg,
     // likes: userObject.like,
   })
     .then((docRef) => {
       console.log('Document written with ID: ', docRef.id);
+      // sessionStorage.removeItem('imgNewPost');
     })
     .catch((error) => {
       console.error('Error adding document: ', error);
@@ -31,7 +30,6 @@ export const createPost = (post, user, mode, nameImg, urlImg) => {
 };
 
 export const postsMain = () => posts().orderBy('date', 'desc');
-
 
 // LEER DOCUMENTOS
 export const postRead = () => {
