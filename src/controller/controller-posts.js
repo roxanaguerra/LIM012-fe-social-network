@@ -5,17 +5,13 @@ import {
 } from '../model/model-posts.js';
 
 
-export const createPost = (post, user, mode) => {
-  console.log(user);
-
-  // return new Promise((resolve, reject) => {
-  // const user = firebase.auth().currentUser.uid;
+export const createPost = (post, user, mode, username, photo) => {
   posts().add({
     post,
     date: new Date().toLocaleString(),
     idUser: user.uid,
-    username: user.displayName,
-    photo: user.photoURL,
+    username,
+    photo,
     privacy: mode,
     // likes: userObject.like,
   })
@@ -35,6 +31,6 @@ export const postsMain = () => posts().orderBy('date', 'desc');
 export const postRead = () => {
   readPostPrueba()
     .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => doc.post);
+      querySnapshot.forEach(doc => doc.post);
     });
 };
