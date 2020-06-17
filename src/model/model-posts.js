@@ -5,7 +5,23 @@ export const posts = () => firebase.firestore().collection('post');
 export const readPostPrueba = () => firebase.firestore().collection('post').get();
 
 export const editPost = (id, newPost) => firebase.firestore().collection('post').doc(id).update({
-  first: newPost,
+  post: newPost,
 });
 
-export const deletePost = (id) => firebase.firestore().collection('post').doc(id).delete();
+export const deletePost = id => firebase.firestore().collection('post').doc(id).delete();
+
+const updateUserNamePost = (id, username) => firebase.firestore().collection('post').doc(id).update({
+  username,
+});
+
+export const updateAllPostUsername = (userId, username) => {
+  firebase.firestore()
+    .collection('post').get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (doc.data().idUser === userId) {
+          updateUserNamePost(doc.id, username);
+        }
+      });
+    });
+};

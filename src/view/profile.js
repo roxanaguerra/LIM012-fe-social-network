@@ -1,6 +1,7 @@
 import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser } from '../model/model-authentication.js';
 import { updateUserName, updateUserAbout } from '../model/model-user.js';
+import { editPost, deletePost, updateAllPostUsername } from '../model/model-posts.js';
 import { createPost, postsMain } from '../controller/controller-posts.js';
 import { signOutUser } from '../controller/controller-autentication.js';
 import { subirImagenFirebase } from '../model/model-storage.js';
@@ -65,7 +66,7 @@ export default () => {
                   </div>
 
                   <!-- Right Column -->
-                  <div class="col m8">
+                  <div class="col m8 relative">
                     
                     <!-- Post -->
                     <div class="row-padding">
@@ -102,7 +103,12 @@ export default () => {
                     <div id="new-post" class=""></div>
                     <div class="container card white round margin"><br>
                       <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-                      <span class="right opacity"><i class="fa fa-edit"></i></span>
+                      <span class="right opacity"><i class="fa fa-ellipsis-h"></i></span>
+                      <div id="" class="tooltip hide">
+                        <span class="opacity"><i class="fa fa-edit"></i></span>
+                        <span class="opacity"><i class="fa fa-save"></i></span>
+                        <span class="opacity"><i class="fa fa-trash-o"></i></span>
+                      </div>
                       <h4>John Doe</h4>
                       <span class="opacity">23/05/2020 13:53</span>
                       <span class="opacity"><i class="fa fa-globe"></i></span>
@@ -110,21 +116,6 @@ export default () => {
                       <hr class="clear">
                       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                       <img src="https://www.w3schools.com/w3images/nature.jpg" style="width:100%" alt="Nature" class="margin-bottom">
-                      <hr class="clear">
-                      <br>
-                      <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-                      <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-                    </div>
-      
-                    <div class="container card white round margin"><br>
-                      <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-                      <span class="right opacity"><i class="fa fa-edit"></i></span>
-                      <h4>Jane Doe</h4>
-                      <span class="opacity">23/05/2020 13:53</span>
-                      <span class="opacity"><i class="fa fa-globe"></i></span>
-                      <br>
-                      <hr class="clear">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                       <hr class="clear">
                       <br>
                       <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
@@ -172,6 +163,7 @@ export default () => {
     bntSaveName.classList.add('hide');
     const newName = userName.innerText;
     updateUserName(userNow.uid, newName);
+    updateAllPostUsername(userNow.uid, newName);
     readUserProfile(userNow.uid);
   });
 
@@ -229,29 +221,36 @@ export default () => {
       return;
     }
     if (publicMode.classList.contains('hide')) {
-      createPost(inputPost, userNow, privateMode.value);
+      createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
       divElemt.querySelector('#input-post').value = '';
     } else {
-      createPost(inputPost, userNow, publicMode.value);
+      createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
       divElemt.querySelector('#input-post').value = '';
     }
   });
 
   postsMain().onSnapshot((query) => {
     const newPost = divElemt.querySelector('#new-post');
+    let idDoc;
     newPost.innerHTML = '';
     query.forEach((doc) => {
       if (doc.data().idUser === userNow.uid && doc.data().privacy === 'public') {
+        idDoc = doc.id;
         newPost.innerHTML += `
       <div class="container card white round margin"><br>
-        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
-        <span class="right opacity"><i class="fa fa-edit"></i></span>
-        <h4>${doc.data().username}</h4>
+        <img src=${doc.data().photo} alt="Avatar" class="avatar left circle margin-right" >
+        <span class="options-post right opacity"><i class="fa fa-ellipsis-h"></i></span>
+        <div idPost=${idDoc} class="tooltip hide inline-grid theme-d3">
+          <span idPost=${idDoc} class="edit-post opacity"><i class="fa fa-edit"> Editar</i></span>
+          <span idPost=${idDoc} class="delete-post opacity"><i class="fa fa-trash-o"> Eliminar</i></span>
+        </div>
+        <h4 class="h4">${doc.data().username}</h4>
         <span class="opacity">${doc.data().date}</span>
         <span class="opacity"><i class="fa fa-globe"></i></span>
         <br>
         <hr class="clear">
-        <p>${doc.data().post}</p>
+        <span idPost=${idDoc} class="right save-post opacity hide"><i class="fa fa-save"></i></span>
+        <p id="post-${idDoc}" class="margin-top">${doc.data().post}</p>
         <hr class="clear">
         <br>
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
@@ -259,16 +258,22 @@ export default () => {
       </div>
         `;
       } else if (doc.data().idUser === userNow.uid && doc.data().privacy === 'private') {
+        idDoc = doc.id;
         newPost.innerHTML += `
       <div class="container card white round margin"><br>
-        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
-        <span class="right opacity"><i class="fa fa-edit"></i></span>
-        <h4>${doc.data().username}</h4>
+        <img src=${doc.data().photo} alt="Avatar" class="avatar left circle margin-right">
+        <span  class="options-post right opacity"><i class="fa fa-ellipsis-h"></i></span>
+        <div idPost=${idDoc} class="tooltip hide inline-grid theme-d3">
+          <span idPost=${idDoc} class="edit-post opacity"><i class="fa fa-edit"> Editar</i></span>
+          <span idPost=${idDoc} class="delete-post opacity"><i class="fa fa-trash-o"> Elminar</i></span>
+        </div>
+        <h4 class="h4">${doc.data().username}</h4>
         <span class="opacity">${doc.data().date}</span>
         <span class="opacity"><i class="fa fa-lock"></i></i></span>
         <br>
         <hr class="clear">
-        <p>${doc.data().post}</p>
+        <span idPost=${idDoc} class="right save-post opacity hide"><i class="fa fa-save"></i></span>
+        <p id="post-${idDoc}" class="margin-top">${doc.data().post}</p>
         <hr class="clear">
         <br>
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
@@ -277,7 +282,67 @@ export default () => {
         `;
       }
     });
+
+    const bntOptPost = divElemt.querySelectorAll('.options-post');
+    const bntEditPost = divElemt.querySelectorAll('.edit-post');
+    const bntSavePost = divElemt.querySelectorAll('.save-post');
+    const bntDeletePost = divElemt.querySelectorAll('.delete-post');
+
+    if (bntOptPost.length) {
+      bntOptPost.forEach((btnOptions) => {
+        btnOptions.addEventListener('click', () => {
+          const ctnOpt = btnOptions.parentNode.querySelector('.tooltip');
+          if (ctnOpt.classList.contains('hide')) {
+            ctnOpt.classList.remove('hide');
+          } else {
+            ctnOpt.classList.add('hide');
+          }
+        });
+      });
+    }
+
+    if (bntEditPost.length) {
+      bntEditPost.forEach((btnEdit) => {
+        btnEdit.addEventListener('click', () => {
+          const idPost = btnEdit.getAttribute('idPost');
+          const textPost = divElemt.querySelector(`#post-${idPost}`);
+          textPost.setAttribute('contenteditable', 'true');
+          textPost.focus();
+          const ctnOpt = btnEdit.parentNode.parentNode.querySelector('.tooltip');
+          const btnSave = btnEdit.parentNode.parentNode.querySelector('.save-post');
+          if (ctnOpt.classList.contains('hide') === false) {
+            ctnOpt.classList.add('hide');
+          }
+          if (btnSave.classList.contains('hide')) {
+            btnSave.classList.remove('hide');
+          }
+        });
+      });
+    }
+
+    if (bntSavePost.length) {
+      bntSavePost.forEach((btnSave) => {
+        btnSave.addEventListener('click', () => {
+          const idPost = btnSave.getAttribute('idpost');
+          const textPost = divElemt.querySelector(`#post-${idPost}`);
+          textPost.setAttribute('contenteditable', 'false');
+          btnSave.classList.add('hide');
+          const lastPost = textPost.innerText;
+          editPost(idPost, lastPost);
+        });
+      });
+    }
+
+    if (bntDeletePost.length) {
+      bntDeletePost.forEach((btnDelete) => {
+        btnDelete.addEventListener('click', () => {
+          const idPost = btnDelete.getAttribute('idpost');
+          deletePost(idPost);
+        });
+      });
+    }
   });
+
 
   // CERRAR SESIÓN 'funcion para boton singOut'
   const btnCerrar = divElemt.querySelector('#btn-cerrar');
