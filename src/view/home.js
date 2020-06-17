@@ -161,10 +161,10 @@ export default () => {
       return;
     }
     if (publicMode.classList.contains('hide')) {
-      createPost(inputPost, userNow, privateMode.value);
+      createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
       divElemt.querySelector('#input-post').value = '';
     } else {
-      createPost(inputPost, userNow, publicMode.value);
+      createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
       divElemt.querySelector('#input-post').value = '';
     }
   });
