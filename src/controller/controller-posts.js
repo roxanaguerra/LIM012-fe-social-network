@@ -5,7 +5,7 @@ import {
 } from '../model/model-posts.js';
 import { storageRef } from '../model/model-storage.js';
 
-export const createPost = (post, user, mode, urlImg) => {
+export const createPost = (post, user, mode, username, photo, urlImg) => {
   console.log(user);
   console.log('urlImg: ', urlImg);
   // return new Promise((resolve, reject) => {
@@ -14,8 +14,8 @@ export const createPost = (post, user, mode, urlImg) => {
     post,
     date: new Date().toLocaleString(),
     idUser: user.uid,
-    username: user.displayName,
-    photo: user.photoURL,
+    username,
+    photo,
     privacy: mode,
     urlImg,
     // likes: userObject.like,
@@ -35,7 +35,7 @@ export const postsMain = () => posts().orderBy('date', 'desc');
 export const postRead = () => {
   readPostPrueba()
     .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => doc.post);
+      querySnapshot.forEach(doc => doc.post);
     });
 };
 
