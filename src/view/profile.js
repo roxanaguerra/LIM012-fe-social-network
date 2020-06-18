@@ -251,6 +251,9 @@ export default () => {
         <hr class="clear">
         <span idPost=${idDoc} class="right save-post opacity hide"><i class="fa fa-save"></i></span>
         <p id="post-${idDoc}" class="margin-top">${doc.data().post}</p>
+        <img class="${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? '' : 'hide'}" 
+            src=${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? doc.data().urlImg : ''} 
+            style="width:100%">
         <hr class="clear">
         <br>
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
