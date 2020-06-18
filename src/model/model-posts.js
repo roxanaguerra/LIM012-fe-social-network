@@ -8,7 +8,7 @@ export const editPost = (id, newPost) => firebase.firestore().collection('post')
   post: newPost,
 });
 
-export const deletePost = id => firebase.firestore().collection('post').doc(id).delete();
+export const deletePost = (id) => firebase.firestore().collection('post').doc(id).delete();
 
 const updateUserNamePost = (id, username) => firebase.firestore().collection('post').doc(id).update({
   username,
@@ -25,3 +25,10 @@ export const updateAllPostUsername = (userId, username) => {
       });
     });
 };
+
+// Con arrayUnion(), se pueden agregar elementos a un arreglo
+export const addLikePost = (idPost, idUser) => firebase.firestore().collection('post')
+  .doc(idPost)
+  .update({
+    likes: firebase.firestore.FieldValue.arrayUnion(idUser),
+  });
