@@ -158,12 +158,9 @@ export default () => {
   const btnPost = divElemt.querySelector('#btn-post');
   const divImg = divElemt.querySelector('.divImg');
 
-  // evento del botón post
+  // ALMACENAR EL POST EN LA COLECCION
   btnPost.addEventListener('click', () => {
     const inputPost = divElemt.querySelector('#input-post').value;
-    // const pic = divElemt.querySelector('.picPost');
-    // pic.classList.add('hide');
-    // console.log('photo: ', photo);
     console.log(inputPost);
     divImg.classList.add('hide');
     if (!inputPost.trim()) {
@@ -181,6 +178,7 @@ export default () => {
     }
   });
 
+  // PINTAR LOS DOCUMENTOS DE LA COLECCION POST
   postsMain().onSnapshot((query) => {
     const newPost = divElemt.querySelector('#new-post');
     let idDoc;
@@ -231,7 +229,8 @@ export default () => {
         `;
       }
       // LIKE A LOS POST
-      const btnLikes = newPost.querySelector('.btn-like');
+      const btnLikes = document.querySelector('.btn-like');
+      console.log('btnLikes: ', btnLikes);
       if (btnLikes) {
         btnLikes.addEventListener('click', () => {
           console.log('Di Like al Post!');
@@ -330,11 +329,6 @@ export default () => {
         };
         read.readAsDataURL(uploadImg.files[0]);
       }
-      // subirImagenFirebase()
-      //   .then((url) => console.log('url home: ', url))
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
     });
   });
 
