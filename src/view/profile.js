@@ -4,7 +4,6 @@ import { updateUserName, updateUserAbout } from '../model/model-user.js';
 import { editPost, deletePost, updateAllPostUsername } from '../model/model-posts.js';
 import { createPost, postsMain } from '../controller/controller-posts.js';
 import { signOutUser } from '../controller/controller-autentication.js';
-// import { subirImagenFirebase } from '../model/model-storage.js';
 
 export default () => {
   const userNow = currentUser();
@@ -116,7 +115,7 @@ export default () => {
   // divElemt.classList.add('position')
   divElemt.innerHTML = viewProfile;
 
-  // evento que despliega el menu en versión mobile
+  // EVENTO QUE DESPLIEGA EL MENU EN VERSION MOBILE
   const navbMobile = divElemt.querySelector('#navbar-mobile');
   navbMobile.addEventListener('click', () => {
     const navLinks = divElemt.querySelector('#nav-links');
@@ -128,7 +127,7 @@ export default () => {
     }
   });
 
-  // evento del botón para editar nombre del usuario
+  // EVENTO DEL BOTON PARA EDITAR NOMBRE DEL USUARIO
   const bntEditName = divElemt.querySelector('#edit-name');
   const bntSaveName = divElemt.querySelector('#save-name');
   const userName = divElemt.querySelector('#username');
@@ -139,7 +138,7 @@ export default () => {
     bntSaveName.classList.remove('hide');
   });
 
-  // evento del botón para guardar nombre editado del usuario
+  // EVENTO DEL BOTON PARA GUARDAR NOMBRE EDITADO DEL USUARIO
   bntSaveName.addEventListener('click', () => {
     userName.setAttribute('contenteditable', 'false');
     bntEditName.classList.remove('hide');
@@ -150,7 +149,7 @@ export default () => {
     readUserProfile(userNow.uid);
   });
 
-  // evento del botón para editar descripción del usuario
+  // EVENTO DEL BOTON PARA EDITAR DESCRIPCION DEL USUARIO
   const bntEditAbout = divElemt.querySelector('#edit-about');
   const bntSaveAbout = divElemt.querySelector('#save-about');
   const userAbout = divElemt.querySelector('#userabout');
@@ -161,7 +160,7 @@ export default () => {
     bntSaveAbout.classList.remove('hide');
   });
 
-  // evento del botón para guardar la descripción editada del usuario
+  // EVENTO DEL BOTON PARA GUARDAR LA DESCRIPCION EDITADA DEL USUARIO
   bntSaveAbout.addEventListener('click', () => {
     userAbout.setAttribute('contenteditable', 'false');
     bntEditAbout.classList.remove('hide');
@@ -176,7 +175,7 @@ export default () => {
   const publicMode = divElemt.querySelector('#public-privacy');
   const privateMode = divElemt.querySelector('#private-privacy');
 
-  // evento que muestra las opciones de privacidad
+  // EVENTO QUE MUESTRA LAS OPCIONES DE PRIVACIDAD
   privacyOptions.addEventListener('click', () => {
     if (publicMode.classList.contains('hide')) {
       publicMode.classList.remove('hide');
@@ -186,26 +185,28 @@ export default () => {
     }
   });
 
-  // evento que selecciona el modo público
+  // EVENTO QUE SELECCIONA EL MODO PUBLICO
   publicMode.addEventListener('click', () => {
     publicMode.classList.remove('hide');
     privateMode.classList.add('hide');
     ctnPrivacy.appendChild(privateMode);
   });
 
-  // evento que selecciona el modo privado
+  // EVENTO QUE SELECCIONA EL MODO PRIVADO
   privateMode.addEventListener('click', () => {
     publicMode.classList.add('hide');
     privateMode.classList.remove('hide');
     ctnPrivacy.appendChild(publicMode);
   });
 
-  // evento del botón post
+  // ALMACENAR EL POST EN LA COLECCION
   const btnPost = divElemt.querySelector('#btn-post');
+  const divImg = divElemt.querySelector('.divImg');
+
   btnPost.addEventListener('click', () => {
     const inputPost = divElemt.querySelector('#input-post').value;
-    // const userName = divElemt.querySelector('#userName').value;
     console.log(inputPost);
+    divImg.classList.add('hide');
     if (!inputPost.trim()) {
       console.log('input vacío');
       return;
@@ -267,6 +268,9 @@ export default () => {
         <hr class="clear">
         <span idPost=${idDoc} class="right save-post opacity hide"><i class="fa fa-save"></i></span>
         <p id="post-${idDoc}" class="margin-top">${doc.data().post}</p>
+        <img class="${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? '' : 'hide'}" 
+            src=${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? doc.data().urlImg : ''} 
+            style="width:100%">
         <hr class="clear">
         <br>
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
@@ -281,7 +285,7 @@ export default () => {
     const bntSavePost = divElemt.querySelectorAll('.save-post');
     const bntDeletePost = divElemt.querySelectorAll('.delete-post');
 
-    // asigna el evento de desplegar las opciones de editar y eliminar a todos los posts
+    // ASIGNA EL EVENTO DE DESPLEGAR LAS OPCIONES DE EDITAR Y ELIMINAR A TODOS LOS POSTS
     if (bntOptPost.length) {
       bntOptPost.forEach((btnOptions) => {
         btnOptions.addEventListener('click', () => {
@@ -295,7 +299,7 @@ export default () => {
       });
     }
 
-    // asigna el evento de editar post a todos los posts
+    // ASIGNA EL EVENTO DE EDITAR POST A TODOS LOS POSTS
     if (bntEditPost.length) {
       bntEditPost.forEach((btnEdit) => {
         btnEdit.addEventListener('click', () => {
@@ -315,7 +319,7 @@ export default () => {
       });
     }
 
-    // asigna el evento de guardar post editado a todos los posts
+    // ASIGNA EL EVENTO DE GUARDAR POST EDITADO A TODOS LOS POSTS
     if (bntSavePost.length) {
       bntSavePost.forEach((btnSave) => {
         btnSave.addEventListener('click', () => {
@@ -329,7 +333,7 @@ export default () => {
       });
     }
 
-    // asigna el evento de eliminar post a todos los posts
+    // ASIGNA EL EVENTO DE ELIMINAR POST A TODOS LOS POSTS
     if (bntDeletePost.length) {
       bntDeletePost.forEach((btnDelete) => {
         btnDelete.addEventListener('click', () => {
@@ -340,8 +344,7 @@ export default () => {
     }
   });
 
-
-  // CERRAR SESIÓN 'funcion para boton singOut'
+  // CERRAR SESIÓN 'función para boton singOut'
   const btnCerrar = divElemt.querySelector('#btn-cerrar');
   btnCerrar.addEventListener('click', (e) => {
     e.preventDefault();
@@ -352,6 +355,20 @@ export default () => {
   const btnImg = divElemt.querySelector('#icon-photo');
   btnImg.addEventListener('click', () => {
     console.log('Selecciona la img...!');
+    const uploadImg = divElemt.querySelector('#uploadImg');
+    uploadImg.addEventListener('change', () => {
+      console.log('change');
+      if (uploadImg.files && uploadImg.files[0]) {
+        const read = new FileReader();
+        read.onload = (e) => {
+          const pic = divElemt.querySelector('.picPost');
+          pic.parentNode.classList.remove('hide');
+          pic.setAttribute('src', e.target.result);
+          console.log('pic: ', pic);
+        };
+        read.readAsDataURL(uploadImg.files[0]);
+      }
+    });
   });
 
   return divElemt;
