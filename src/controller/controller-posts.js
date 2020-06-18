@@ -5,6 +5,7 @@ import {
 } from '../model/model-posts.js';
 import { storageRef, storage } from '../model/model-storage.js';
 
+// SUBIR LA IMAGEN AL STORAGE, PARA OBTENER LA URL DE LA IMG
 export const subirImagenFirebase = () => new Promise((resolve, reject) => {
   const imagenASubir = document.querySelector('#uploadImg').files[0];
   const nameImg = `${+new Date()}- ${imagenASubir.name}`;
@@ -12,9 +13,6 @@ export const subirImagenFirebase = () => new Promise((resolve, reject) => {
   const uploadTask = storage.ref().child(nameImg).put(imagenASubir, metadata);
   uploadTask.then((snapshot) => {
     snapshot.ref.getDownloadURL().then((url) => {
-      // const pic = document.querySelector('.picPost');
-      // pic.parentNode.classList.remove('hide');
-      // pic.setAttribute('src', url);
       resolve(url);
       console.log('url: ', url);
     }).catch((err) => {
@@ -72,6 +70,7 @@ export const createPost = (post, user, mode, username, photo) => {
   }
 };
 
+// EL ORDEN COMO QUE SE PINTARAN LOS POST
 export const postsMain = () => posts().orderBy('date', 'desc');
 
 // LEER DOCUMENTOS
@@ -80,8 +79,4 @@ export const postRead = () => {
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => doc.post);
     });
-};
-
-export const upLoadImagePost = (imagenASubir, uid) => {
-  storageRef(`photoPosts/${uid}/${imagenASubir.name}`).put(imagenASubir);
 };

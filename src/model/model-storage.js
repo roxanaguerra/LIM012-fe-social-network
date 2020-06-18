@@ -8,10 +8,7 @@ export const storageRef = storage.ref();
 // Create a child reference
 export const imagenRefChild = storageRef.child('photoPost');
 
-// Servicio database
-// export const imagenHref = firebase.database().ref().child('imgPost');
-export const imagenHref = firebase.firestore().collection('imgPost');
-
+// FUNCION PARA ELIMINAR LA IMG DEL STORAGE, ANTES DE AGREGAR A LA COLECCION POST
 export const deleteFileStorage = (file, uid) => storageRef.child(`photoPost/${uid}/${file}`).delete()
   .then(() => {
     console.log('Se elimino la Imagen!');
