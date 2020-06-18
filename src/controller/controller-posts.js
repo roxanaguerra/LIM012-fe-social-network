@@ -3,31 +3,73 @@ import {
   posts,
   readPostPrueba,
 } from '../model/model-posts.js';
-import { storageRef } from '../model/model-storage.js';
+import { storageRef, storage } from '../model/model-storage.js';
 
-export const createPost = (post, user, mode, username, photo, urlImg) => {
-  console.log(user);
-  console.log('urlImg: ', urlImg);
-  // return new Promise((resolve, reject) => {
-  // const user = firebase.auth().currentUser.uid;
-  posts().add({
-    post,
-    date: new Date().toLocaleString(),
-    idUser: user.uid,
-    username,
-    photo,
-    privacy: mode,
-    urlImg,
-    likes: [],
-    // likes: userObject.like,
-  })
-    .then((docRef) => {
-      console.log('Document written with ID: ', docRef.id);
-      // sessionStorage.removeItem('imgNewPost');
-    })
-    .catch((error) => {
-      console.error('Error adding document: ', error);
+export const subirImagenFirebase = () => new Promise((resolve, reject) => {
+  const imagenASubir = document.querySelector('#uploadImg').files[0];
+  const nameImg = `${+new Date()}- ${imagenASubir.name}`;
+  const metadata = { tipoFile: imagenASubir.type };
+  const uploadTask = storage.ref().child(nameImg).put(imagenASubir, metadata);
+  uploadTask.then((snapshot) => {
+    snapshot.ref.getDownloadURL().then((url) => {
+      // const pic = document.querySelector('.picPost');
+      // pic.parentNode.classList.remove('hide');
+      // pic.setAttribute('src', url);
+      resolve(url);
+      console.log('url: ', url);
+    }).catch((err) => {
+      reject(err);
     });
+  });
+});
+
+export const createPost = (post, user, mode, username, photo) => {
+  console.log(user);
+  const imagenASubir = document.querySelector('#uploadImg');
+  if (imagenASubir.files[0] === undefined) {
+    posts().add({
+      post,
+      date: new Date().toLocaleString(),
+      idUser: user.uid,
+      username,
+      photo,
+      privacy: mode,
+      urlImg: '',
+      likes: [],
+      // likes: userObject.like,
+    })
+      .then((docRef) => {
+        console.log('Document written with ID: ', docRef.id);
+        // sessionStorage.removeItem('imgNewPost');
+      })
+      .catch((error) => {
+        console.error('Error adding document: ', error);
+      });
+  } else {
+    subirImagenFirebase()
+      .then((url) => {
+        posts().add({
+          post,
+          date: new Date().toLocaleString(),
+          idUser: user.uid,
+          username,
+          photo,
+          privacy: mode,
+          urlImg: url,
+          likes: [],
+          // likes: userObject.like,
+        })
+          .then((docRef) => {
+            console.log('Document written with ID: ', docRef.id);
+            // sessionStorage.removeItem('imgNewPost');
+            imagenASubir.value = '';
+            imagenASubir.dispatchEvent(new Event('change'));
+          })
+          .catch((error) => {
+            console.error('Error adding document: ', error);
+          });
+      });
+  }
 };
 
 export const postsMain = () => posts().orderBy('date', 'desc');
@@ -36,7 +78,7 @@ export const postsMain = () => posts().orderBy('date', 'desc');
 export const postRead = () => {
   readPostPrueba()
     .then((querySnapshot) => {
-      querySnapshot.forEach(doc => doc.post);
+      querySnapshot.forEach((doc) => doc.post);
     });
 };
 
