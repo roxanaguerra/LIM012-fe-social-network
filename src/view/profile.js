@@ -101,27 +101,7 @@ export default () => {
                     </div>
                     
                     <div id="new-post" class=""></div>
-                    <div class="container card white round margin"><br>
-                      <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-                      <span class="right opacity"><i class="fa fa-ellipsis-h"></i></span>
-                      <div id="" class="tooltip hide">
-                        <span class="opacity"><i class="fa fa-edit"></i></span>
-                        <span class="opacity"><i class="fa fa-save"></i></span>
-                        <span class="opacity"><i class="fa fa-trash-o"></i></span>
-                      </div>
-                      <h4>John Doe</h4>
-                      <span class="opacity">23/05/2020 13:53</span>
-                      <span class="opacity"><i class="fa fa-globe"></i></span>
-                      <br>
-                      <hr class="clear">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                      <img src="https://www.w3schools.com/w3images/nature.jpg" style="width:100%" alt="Nature" class="margin-bottom">
-                      <hr class="clear">
-                      <br>
-                      <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-                      <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-                    </div>
-
+                    
                     
                   <!-- End Right Column -->
                   </div>
@@ -136,6 +116,7 @@ export default () => {
   // divElemt.classList.add('position')
   divElemt.innerHTML = viewProfile;
 
+  // evento que despliega el menu en versión mobile
   const navbMobile = divElemt.querySelector('#navbar-mobile');
   navbMobile.addEventListener('click', () => {
     const navLinks = divElemt.querySelector('#nav-links');
@@ -147,6 +128,7 @@ export default () => {
     }
   });
 
+  // evento del botón para editar nombre del usuario
   const bntEditName = divElemt.querySelector('#edit-name');
   const bntSaveName = divElemt.querySelector('#save-name');
   const userName = divElemt.querySelector('#username');
@@ -157,6 +139,7 @@ export default () => {
     bntSaveName.classList.remove('hide');
   });
 
+  // evento del botón para guardar nombre editado del usuario
   bntSaveName.addEventListener('click', () => {
     userName.setAttribute('contenteditable', 'false');
     bntEditName.classList.remove('hide');
@@ -167,6 +150,7 @@ export default () => {
     readUserProfile(userNow.uid);
   });
 
+  // evento del botón para editar descripción del usuario
   const bntEditAbout = divElemt.querySelector('#edit-about');
   const bntSaveAbout = divElemt.querySelector('#save-about');
   const userAbout = divElemt.querySelector('#userabout');
@@ -177,6 +161,7 @@ export default () => {
     bntSaveAbout.classList.remove('hide');
   });
 
+  // evento del botón para guardar la descripción editada del usuario
   bntSaveAbout.addEventListener('click', () => {
     userAbout.setAttribute('contenteditable', 'false');
     bntEditAbout.classList.remove('hide');
@@ -190,6 +175,8 @@ export default () => {
   const privacyOptions = divElemt.querySelector('#privacy');
   const publicMode = divElemt.querySelector('#public-privacy');
   const privateMode = divElemt.querySelector('#private-privacy');
+
+  // evento que muestra las opciones de privacidad
   privacyOptions.addEventListener('click', () => {
     if (publicMode.classList.contains('hide')) {
       publicMode.classList.remove('hide');
@@ -199,18 +186,21 @@ export default () => {
     }
   });
 
+  // evento que selecciona el modo público
   publicMode.addEventListener('click', () => {
     publicMode.classList.remove('hide');
     privateMode.classList.add('hide');
     ctnPrivacy.appendChild(privateMode);
   });
 
+  // evento que selecciona el modo privado
   privateMode.addEventListener('click', () => {
     publicMode.classList.add('hide');
     privateMode.classList.remove('hide');
     ctnPrivacy.appendChild(publicMode);
   });
 
+  // evento del botón post
   const btnPost = divElemt.querySelector('#btn-post');
   btnPost.addEventListener('click', () => {
     const inputPost = divElemt.querySelector('#input-post').value;
@@ -238,7 +228,7 @@ export default () => {
         idDoc = doc.id;
         newPost.innerHTML += `
       <div class="container card white round margin"><br>
-        <img src=${doc.data().photo} alt="Avatar" class="avatar left circle margin-right" >
+        <img src=${doc.data().photo} alt="Avatar" class="avatar left circle margin-right">
         <span class="options-post right opacity"><i class="fa fa-ellipsis-h"></i></span>
         <div idPost=${idDoc} class="tooltip hide inline-grid theme-d3">
           <span idPost=${idDoc} class="edit-post opacity"><i class="fa fa-edit"> Editar</i></span>
@@ -291,6 +281,7 @@ export default () => {
     const bntSavePost = divElemt.querySelectorAll('.save-post');
     const bntDeletePost = divElemt.querySelectorAll('.delete-post');
 
+    // asigna el evento de desplegar las opciones de editar y eliminar a todos los posts
     if (bntOptPost.length) {
       bntOptPost.forEach((btnOptions) => {
         btnOptions.addEventListener('click', () => {
@@ -304,6 +295,7 @@ export default () => {
       });
     }
 
+    // asigna el evento de editar post a todos los posts
     if (bntEditPost.length) {
       bntEditPost.forEach((btnEdit) => {
         btnEdit.addEventListener('click', () => {
@@ -323,6 +315,7 @@ export default () => {
       });
     }
 
+    // asigna el evento de guardar post editado a todos los posts
     if (bntSavePost.length) {
       bntSavePost.forEach((btnSave) => {
         btnSave.addEventListener('click', () => {
@@ -336,6 +329,7 @@ export default () => {
       });
     }
 
+    // asigna el evento de eliminar post a todos los posts
     if (bntDeletePost.length) {
       bntDeletePost.forEach((btnDelete) => {
         btnDelete.addEventListener('click', () => {

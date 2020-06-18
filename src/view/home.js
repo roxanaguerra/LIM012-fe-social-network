@@ -6,7 +6,7 @@ import {
 import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser } from '../model/model-authentication.js';
 import { signOutUser } from '../controller/controller-autentication.js';
-import { addLikePost } from '../model/model-posts.js';
+import { addLikePost, editPost, deletePost } from '../model/model-posts.js';
 // import Header from './header.js';
 
 export default () => {
@@ -114,6 +114,7 @@ export default () => {
   const divElemt = document.createElement('div');
   divElemt.innerHTML = viewHome;
 
+  // evento que despliega el menu en versión mobile
   const navbMobile = divElemt.querySelector('#navbar-mobile');
   navbMobile.addEventListener('click', () => {
     const navLinks = divElemt.querySelector('#nav-links');
@@ -129,6 +130,8 @@ export default () => {
   const privacyOptions = divElemt.querySelector('#privacy');
   const publicMode = divElemt.querySelector('#public-privacy');
   const privateMode = divElemt.querySelector('#private-privacy');
+
+  // evento que muestra las opciones de privacidad
   privacyOptions.addEventListener('click', () => {
     if (publicMode.classList.contains('hide')) {
       publicMode.classList.remove('hide');
@@ -138,12 +141,14 @@ export default () => {
     }
   });
 
+  // evento que selecciona el modo público
   publicMode.addEventListener('click', () => {
     publicMode.classList.remove('hide');
     privateMode.classList.add('hide');
     ctnPrivacy.appendChild(privateMode);
   });
 
+  // evento que selecciona el modo privado
   privateMode.addEventListener('click', () => {
     publicMode.classList.add('hide');
     privateMode.classList.remove('hide');
@@ -176,20 +181,27 @@ export default () => {
   // PINTAR LOS DOCUMENTOS DE LA COLECCION POST
   postsMain().onSnapshot((query) => {
     const newPost = divElemt.querySelector('#new-post');
+    let idDoc;
     newPost.innerHTML = '';
     query.forEach((doc) => {
       if (doc.data().idUser === userNow.uid && doc.data().privacy !== 'private') {
         // if (doc.data().urlImg === undefined) {
+        idDoc = doc.id;
         newPost.innerHTML += `
           <div class="container card white round margin"><br>
-            <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
-            <span class="right opacity"><i class="fa fa-edit"></i></span>
-            <h4>${doc.data().username}</h4>
+            <img src=${doc.data().photo} alt="Avatar" class="avatar left circle margin-right">
+            <span class="options-post right opacity"><i class="fa fa-ellipsis-h"></i></span>  
+            <div idPost=${idDoc} class="tooltip hide inline-grid theme-d3">
+              <span idPost=${idDoc} class="edit-post opacity"><i class="fa fa-edit"> Editar</i></span>
+              <span idPost=${idDoc} class="delete-post opacity"><i class="fa fa-trash-o"> Eliminar</i></span>
+            </div>
+            <h4 class="h4">${doc.data().username}</h4>
             <span class="opacity">${doc.data().date}</span>
             <span class="opacity"><i class="fa fa-globe"></i></span>
             <br>
             <hr class="clear">
-            <p>${doc.data().post}</p> 
+            <span idPost=${idDoc} class="right save-post opacity hide"><i class="fa fa-save"></i></span>
+            <p id="post-${idDoc}" class="margin-top">${doc.data().post}</p> 
             <img class="${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? '' : 'hide'}" 
             src=${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? doc.data().urlImg : ''} 
             style="width:100%">
@@ -202,8 +214,8 @@ export default () => {
       } else if (doc.data().idUser !== userNow.uid && doc.data().privacy !== 'private') {
         newPost.innerHTML += `
         <div class="container card white round margin"><br>
-        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
-        <h4>${doc.data().username}</h4>
+        <img src=${doc.data().photo} alt="Avatar" class="avatar left circle margin-right">
+        <h4 class="h4">${doc.data().username}</h4>
         <span class="opacity">${doc.data().date}</span>
         <span class="opacity"><i class="fa fa-globe"></i></span>
         <br>
@@ -228,6 +240,69 @@ export default () => {
         });
       }
     });
+
+    const bntOptPost = divElemt.querySelectorAll('.options-post');
+    const bntEditPost = divElemt.querySelectorAll('.edit-post');
+    const bntSavePost = divElemt.querySelectorAll('.save-post');
+    const bntDeletePost = divElemt.querySelectorAll('.delete-post');
+
+    // asigna el evento de desplegar las opciones de editar y eliminar a todos los posts
+    if (bntOptPost.length) {
+      bntOptPost.forEach((btnOptions) => {
+        btnOptions.addEventListener('click', () => {
+          const ctnOpt = btnOptions.parentNode.querySelector('.tooltip');
+          if (ctnOpt.classList.contains('hide')) {
+            ctnOpt.classList.remove('hide');
+          } else {
+            ctnOpt.classList.add('hide');
+          }
+        });
+      });
+    }
+
+    // asigna el evento de editar post a todos los posts
+    if (bntEditPost.length) {
+      bntEditPost.forEach((btnEdit) => {
+        btnEdit.addEventListener('click', () => {
+          const idPost = btnEdit.getAttribute('idPost');
+          const textPost = divElemt.querySelector(`#post-${idPost}`);
+          textPost.setAttribute('contenteditable', 'true');
+          textPost.focus();
+          const ctnOpt = btnEdit.parentNode.parentNode.querySelector('.tooltip');
+          const btnSave = btnEdit.parentNode.parentNode.querySelector('.save-post');
+          if (ctnOpt.classList.contains('hide') === false) {
+            ctnOpt.classList.add('hide');
+          }
+          if (btnSave.classList.contains('hide')) {
+            btnSave.classList.remove('hide');
+          }
+        });
+      });
+    }
+
+    // asigna el evento de guardar post editado a todos los posts
+    if (bntSavePost.length) {
+      bntSavePost.forEach((btnSave) => {
+        btnSave.addEventListener('click', () => {
+          const idPost = btnSave.getAttribute('idpost');
+          const textPost = divElemt.querySelector(`#post-${idPost}`);
+          textPost.setAttribute('contenteditable', 'false');
+          btnSave.classList.add('hide');
+          const lastPost = textPost.innerText;
+          editPost(idPost, lastPost);
+        });
+      });
+    }
+
+    // asigna el evento de eliminar post a todos los posts
+    if (bntDeletePost.length) {
+      bntDeletePost.forEach((btnDelete) => {
+        btnDelete.addEventListener('click', () => {
+          const idPost = btnDelete.getAttribute('idpost');
+          deletePost(idPost);
+        });
+      });
+    }
   });
 
   // CERRAR SESIÓN 'funcion para boton singOut'
