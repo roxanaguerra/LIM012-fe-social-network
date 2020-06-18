@@ -7,10 +7,8 @@ import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser } from '../model/model-authentication.js';
 import { signOutUser } from '../controller/controller-autentication.js';
 import { addLikePost, editPost, deletePost } from '../model/model-posts.js';
-// import Header from './header.js';
 
 export default () => {
-  // droneImg.classList.add('hide');
   const userNow = currentUser();
   readUserProfile(userNow.uid);
   const viewHome = `
@@ -114,7 +112,7 @@ export default () => {
   const divElemt = document.createElement('div');
   divElemt.innerHTML = viewHome;
 
-  // evento que despliega el menu en versión mobile
+  // EVENTO QUE DESPLIEGA EL MENU EN VERSION MOBILE
   const navbMobile = divElemt.querySelector('#navbar-mobile');
   navbMobile.addEventListener('click', () => {
     const navLinks = divElemt.querySelector('#nav-links');
@@ -131,7 +129,7 @@ export default () => {
   const publicMode = divElemt.querySelector('#public-privacy');
   const privateMode = divElemt.querySelector('#private-privacy');
 
-  // evento que muestra las opciones de privacidad
+  // EVENTO QUE MUESTRA LAS OPCIONES DE PRIVACIDAD
   privacyOptions.addEventListener('click', () => {
     if (publicMode.classList.contains('hide')) {
       publicMode.classList.remove('hide');
@@ -141,14 +139,14 @@ export default () => {
     }
   });
 
-  // evento que selecciona el modo público
+  // EVENTO QUE SELECCIONA EL MODO PUBLICO
   publicMode.addEventListener('click', () => {
     publicMode.classList.remove('hide');
     privateMode.classList.add('hide');
     ctnPrivacy.appendChild(privateMode);
   });
 
-  // evento que selecciona el modo privado
+  // EVENTO QUE SELECCIONA EL MODO PRIVADO
   privateMode.addEventListener('click', () => {
     publicMode.classList.add('hide');
     privateMode.classList.remove('hide');
@@ -185,7 +183,6 @@ export default () => {
     newPost.innerHTML = '';
     query.forEach((doc) => {
       if (doc.data().idUser === userNow.uid && doc.data().privacy !== 'private') {
-        // if (doc.data().urlImg === undefined) {
         idDoc = doc.id;
         newPost.innerHTML += `
           <div class="container card white round margin"><br>
@@ -221,6 +218,9 @@ export default () => {
         <br>
         <hr class="clear">
         <p>${doc.data().post}</p>
+        <img class="${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? '' : 'hide'}" 
+            src=${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? doc.data().urlImg : ''} 
+            style="width:100%">
         <hr class="clear">
         <br>
         <button type="button" class="button theme-d1 margin-bottom btn-like"><i class="fa fa-thumbs-up"></i>  Like</button> 
@@ -246,7 +246,7 @@ export default () => {
     const bntSavePost = divElemt.querySelectorAll('.save-post');
     const bntDeletePost = divElemt.querySelectorAll('.delete-post');
 
-    // asigna el evento de desplegar las opciones de editar y eliminar a todos los posts
+    // ASIGNA EL EVENTO DE DESPLEGAR LAS OPCIONES DE EDITAR Y ELIMINAR A TODOS LOS POSTS
     if (bntOptPost.length) {
       bntOptPost.forEach((btnOptions) => {
         btnOptions.addEventListener('click', () => {
@@ -260,7 +260,7 @@ export default () => {
       });
     }
 
-    // asigna el evento de editar post a todos los posts
+    // ASIGNA EL EVENTO DE EDITAR POST A TODOS LOS POSTS
     if (bntEditPost.length) {
       bntEditPost.forEach((btnEdit) => {
         btnEdit.addEventListener('click', () => {
@@ -280,7 +280,7 @@ export default () => {
       });
     }
 
-    // asigna el evento de guardar post editado a todos los posts
+    // ASIGNA EL EVENTO DE GUARDAR POST EDITADO A TODOS LOS POSTS
     if (bntSavePost.length) {
       bntSavePost.forEach((btnSave) => {
         btnSave.addEventListener('click', () => {
@@ -294,7 +294,7 @@ export default () => {
       });
     }
 
-    // asigna el evento de eliminar post a todos los posts
+    // ASIGNA EL EVENTO DE ELIMINAR POST A TODOS LOS POSTS
     if (bntDeletePost.length) {
       bntDeletePost.forEach((btnDelete) => {
         btnDelete.addEventListener('click', () => {
@@ -305,7 +305,7 @@ export default () => {
     }
   });
 
-  // CERRAR SESIÓN 'funcion para boton singOut'
+  // CERRAR SESIÓN 'función para boton singOut'
   const btnCerrar = divElemt.querySelector('#btn-cerrar');
   btnCerrar.addEventListener('click', (e) => {
     e.preventDefault();
