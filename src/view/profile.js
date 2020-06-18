@@ -4,7 +4,7 @@ import { updateUserName, updateUserAbout } from '../model/model-user.js';
 import { editPost, deletePost, updateAllPostUsername } from '../model/model-posts.js';
 import { createPost, postsMain } from '../controller/controller-posts.js';
 import { signOutUser } from '../controller/controller-autentication.js';
-import { subirImagenFirebase } from '../model/model-storage.js';
+// import { subirImagenFirebase } from '../model/model-storage.js';
 
 export default () => {
   const userNow = currentUser();
@@ -355,8 +355,6 @@ export default () => {
   const btnImg = divElemt.querySelector('#icon-photo');
   btnImg.addEventListener('click', () => {
     console.log('Selecciona la img...!');
-    const uploadImg = divElemt.querySelector('#uploadImg');
-    uploadImg.addEventListener('change', subirImagenFirebase, false);
   });
 
   return divElemt;
