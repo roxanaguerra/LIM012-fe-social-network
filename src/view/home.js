@@ -6,8 +6,7 @@ import {
 import { readUserProfile } from '../controller/controller-user.js';
 import { currentUser } from '../model/model-authentication.js';
 import { signOutUser } from '../controller/controller-autentication.js';
-// import { readPostPrueba } from '../model/model-posts.js';
-import { subirImagenFirebase } from '../model/model-storage.js';
+import { addLikePost } from '../model/model-posts.js';
 // import Header from './header.js';
 
 export default () => {
@@ -85,7 +84,7 @@ export default () => {
                   <div class="button theme-d5">
                     <input accept="image/*" type="file" id="uploadImg" class="hide">
                     <label id="icon-photo" for="uploadImg">                    
-                      <i class="fa fa-image"></i>  Photo
+                      <i class="fa fa-image" ></i>  Photo
                     </laber>                  
                   </div>
                   <div id="ctn-privacy" class="zero-padding inline-grid">
@@ -152,12 +151,13 @@ export default () => {
   });
 
   const btnPost = divElemt.querySelector('#btn-post');
-  // Obtiene la información almacenada desde sessionStorage
-  const photo = sessionStorage.getItem('imgNewPost');
   const divImg = divElemt.querySelector('.divImg');
+
   btnPost.addEventListener('click', () => {
     const inputPost = divElemt.querySelector('#input-post').value;
-    console.log('photo: ', photo);
+    // const pic = divElemt.querySelector('.picPost');
+    // pic.classList.add('hide');
+    // console.log('photo: ', photo);
     console.log(inputPost);
     divImg.classList.add('hide');
     if (!inputPost.trim()) {
@@ -165,10 +165,12 @@ export default () => {
       return;
     }
     if (publicMode.classList.contains('hide')) {
-      createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'), photo);
+      createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
       divElemt.querySelector('#input-post').value = '';
+      const pic = divElemt.querySelector('.picPost');
+      pic.classList.add('hide');
     } else {
-      createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'),photo);
+      createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
       divElemt.querySelector('#input-post').value = '';
     }
   });
@@ -178,8 +180,8 @@ export default () => {
     newPost.innerHTML = '';
     query.forEach((doc) => {
       if (doc.data().idUser === userNow.uid && doc.data().privacy !== 'private') {
-        if (doc.data().urlImg === null) {
-          newPost.innerHTML += `
+        // if (doc.data().urlImg === undefined) {
+        newPost.innerHTML += `
           <div class="container card white round margin"><br>
             <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
             <span class="right opacity"><i class="fa fa-edit"></i></span>
@@ -188,32 +190,16 @@ export default () => {
             <span class="opacity"><i class="fa fa-globe"></i></span>
             <br>
             <hr class="clear">
-            <p>${doc.data().post}</p>            
+            <p>${doc.data().post}</p> 
+            <img class="${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? '' : 'hide'}" 
+            src=${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? doc.data().urlImg : ''} 
+            style="width:100%">
             <hr class="clear">
             <br>
-            <button type="button" class="button theme-d1 margin-bottom" id="btn-like"><i class="fa fa-thumbs-up"></i>  Like</button> 
+            <button type="button" class="button theme-d1 margin-bottom btn-like"><i class="fa fa-thumbs-up"></i>  Like</button> 
             <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
           </div>
           `;
-        } else {
-          newPost.innerHTML += `
-          <div class="container card white round margin"><br>
-            <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
-            <span class="right opacity"><i class="fa fa-edit"></i></span>
-            <h4>${doc.data().username}</h4>
-            <span class="opacity">${doc.data().date}</span>
-            <span class="opacity"><i class="fa fa-globe"></i></span>
-            <br>
-            <hr class="clear">
-            <p>${doc.data().post}</p>            
-            <img src=${doc.data().urlImg} style="width:100%" alt="Nature" class="margin-bottom">
-            <hr class="clear">
-            <br>
-            <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-            <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-          </div>
-        `;
-        }
       } else if (doc.data().idUser !== userNow.uid && doc.data().privacy !== 'private') {
         newPost.innerHTML += `
         <div class="container card white round margin"><br>
@@ -226,10 +212,20 @@ export default () => {
         <p>${doc.data().post}</p>
         <hr class="clear">
         <br>
-        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+        <button type="button" class="button theme-d1 margin-bottom btn-like"><i class="fa fa-thumbs-up"></i>  Like</button> 
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
       </div>
         `;
+      }
+      // LIKE A LOS POST
+      const btnLikes = newPost.querySelector('.btn-like');
+      if (btnLikes) {
+        btnLikes.addEventListener('click', () => {
+          console.log('Di Like al Post!');
+          console.log('doc.id: ', doc.id);
+          console.log('userId: ', userNow.uid);
+          addLikePost(doc.id, userNow.uid);
+        });
       }
     });
   });
@@ -246,17 +242,25 @@ export default () => {
   btnImg.addEventListener('click', () => {
     console.log('Selecciona la img...!');
     const uploadImg = divElemt.querySelector('#uploadImg');
-    uploadImg.addEventListener('change', (e) => {
-      const imagenASubir = e.target.files[0];
-      subirImagenFirebase(imagenASubir, userNow.uid);
+    uploadImg.addEventListener('change', () => {
+      console.log('change');
+      if (uploadImg.files && uploadImg.files[0]) {
+        const read = new FileReader();
+        read.onload = (e) => {
+          const pic = divElemt.querySelector('.picPost');
+          pic.parentNode.classList.remove('hide');
+          pic.setAttribute('src', e.target.result);
+          console.log('pic: ', pic);
+        };
+        read.readAsDataURL(uploadImg.files[0]);
+      }
+      // subirImagenFirebase()
+      //   .then((url) => console.log('url home: ', url))
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
     });
   });
-
-  // LIKE A LOS POST
-  // const btnLink = document.querySelector('#btn-like');
-  // btnLink.addEventListener('click', () => {
-  //   console.log('Di Like al Post!');
-  // });
 
   return divElemt;
 };
