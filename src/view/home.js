@@ -1,16 +1,10 @@
-/* eslint-disable no-console */
-import {
-  createPost,
-  postsMain,
-} from '../controller/controller-posts.js';
-import { readUserProfile } from '../controller/controller-user.js';
-import { currentUser } from '../model/model-authentication.js';
-import { signOutUser } from '../controller/controller-autentication.js';
-import { addLikePost, editPost, deletePost } from '../model/model-posts.js';
+import { models } from '../model/model-index.js';
+// eslint-disable-next-line import/no-cycle
+import { controllers } from '../controller/controller-index.js';
 
 export default () => {
-  const userNow = currentUser();
-  readUserProfile(userNow.uid);
+  const userNow = models.currentUser();
+  controllers.readUserProfile(userNow.uid);
   const viewHome = `
   <!-- Navbar -->
   <div class="top">
@@ -166,18 +160,18 @@ export default () => {
       return;
     }
     if (publicMode.classList.contains('hide')) {
-      createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
+      models.createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
       divElemt.querySelector('#input-post').value = '';
       const pic = divElemt.querySelector('.picPost');
       pic.classList.add('hide');
     } else {
-      createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
+      models.createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
       divElemt.querySelector('#input-post').value = '';
     }
   });
 
   // PINTAR LOS DOCUMENTOS DE LA COLECCION POST
-  postsMain().onSnapshot((query) => {
+  models.postsMain().onSnapshot((query) => {
     const newPost = divElemt.querySelector('#new-post');
     let idDoc;
     newPost.innerHTML = '';
@@ -236,7 +230,7 @@ export default () => {
           console.log('Di Like al Post!');
           console.log('doc.id: ', doc.id);
           console.log('userId: ', userNow.uid);
-          addLikePost(doc.id, userNow.uid);
+          models.addLikePost(doc.id, userNow.uid);
         });
       }
     });
@@ -289,7 +283,7 @@ export default () => {
           textPost.setAttribute('contenteditable', 'false');
           btnSave.classList.add('hide');
           const lastPost = textPost.innerText;
-          editPost(idPost, lastPost);
+          models.editPost(idPost, lastPost);
         });
       });
     }
@@ -299,7 +293,7 @@ export default () => {
       bntDeletePost.forEach((btnDelete) => {
         btnDelete.addEventListener('click', () => {
           const idPost = btnDelete.getAttribute('idpost');
-          deletePost(idPost);
+          models.deletePost(idPost);
         });
       });
     }
@@ -309,7 +303,7 @@ export default () => {
   const btnCerrar = divElemt.querySelector('#btn-cerrar');
   btnCerrar.addEventListener('click', (e) => {
     e.preventDefault();
-    signOutUser();
+    models.signOutUser();
   });
 
   // CARGAR LA IMAGEN PARA HACER UN POST
