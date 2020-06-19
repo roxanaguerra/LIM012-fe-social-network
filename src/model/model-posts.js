@@ -108,6 +108,7 @@ const postRead = () => {
       querySnapshot.forEach((doc) => doc.post);
     });
 };
+
 export default {
   editPost,
   deletePost,
