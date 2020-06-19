@@ -4,7 +4,7 @@ import { models } from '../model/model-index.js';
 import { componentsView } from '../view/view-index.js';
 
 export default () => {
-  const view = componentsView.login();
+  const view = componentsView.register();
   console.log(view);
 
   const validateEmail = (email) => {

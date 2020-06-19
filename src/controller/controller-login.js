@@ -23,6 +23,7 @@ export default () => {
 
   // INICIO DE SESIÓN CON GOOGLE
   const btnGoogle = view.querySelector('#google-login');
+  console.log('btngoogle: ', btnGoogle);
   btnGoogle.addEventListener('click', (e) => {
     e.preventDefault(); // cancelar el evento de reinicio de formulario
     console.log('Google Prueba');

@@ -5,6 +5,8 @@ import user from './controller-user.js';
 import login from './controller-login.js';
 // eslint-disable-next-line import/no-cycle
 import register from './controller-register.js';
+// eslint-disable-next-line import/no-cycle
+import home from './controller-home.js';
 
 export const controllers = {
   // comments,
@@ -12,4 +14,5 @@ export const controllers = {
   user,
   login,
   register,
+  home,
 };
