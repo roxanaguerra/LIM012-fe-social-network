@@ -1,15 +1,16 @@
-import Home from './home.js';
-import Register from './register.js';
-import Login from './login.js';
+// eslint-disable-next-line import/no-cycle
+import home from './home.js';
+// eslint-disable-next-line import/no-cycle
+import register from './register.js';
+import login from './login.js';
 import errorMessage from './error.js';
-import Profile from './profile.js';
+// eslint-disable-next-line import/no-cycle
+import profile from './profile.js';
 
-const componentsView = {
-  home: Home,
-  register: Register,
-  login: Login,
-  error: errorMessage,
-  profile: Profile,
+export const componentsView = {
+  home,
+  register,
+  login,
+  errorMessage,
+  profile,
 };
-
-export { componentsView };
