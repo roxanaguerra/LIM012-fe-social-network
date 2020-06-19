@@ -1,7 +1,7 @@
-import { userProfile } from '../model/model-user.js';
+import { models } from '../model/model-index.js';
 
-export const readUserProfile = (id) => {
-  userProfile(id)
+const readUserProfile = (id) => {
+  models.user.userProfile(id)
     .then((doc) => {
       if (doc.exists) {
         // console.log(doc.data());
@@ -23,4 +23,8 @@ export const readUserProfile = (id) => {
     .catch(() => {
 
     });
+};
+
+export default {
+  readUserProfile,
 };
