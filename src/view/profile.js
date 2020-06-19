@@ -1,13 +1,10 @@
-import { readUserProfile } from '../controller/controller-user.js';
-import { currentUser } from '../model/model-authentication.js';
-import { updateUserName, updateUserAbout } from '../model/model-user.js';
-import { editPost, deletePost, updateAllPostUsername } from '../model/model-posts.js';
-import { createPost, postsMain } from '../controller/controller-posts.js';
-import { signOutUser } from '../controller/controller-autentication.js';
+import { models } from '../model/model-index.js';
+// eslint-disable-next-line import/no-cycle
+import { controllers } from '../controller/controller-index.js';
 
 export default () => {
-  const userNow = currentUser();
-  readUserProfile(userNow.uid);
+  const userNow = models.currentUser();
+  controllers.readUserProfile(userNow.uid);
   const viewProfile = `
     
             <!-- Navbar -->
@@ -144,9 +141,9 @@ export default () => {
     bntEditName.classList.remove('hide');
     bntSaveName.classList.add('hide');
     const newName = userName.innerText;
-    updateUserName(userNow.uid, newName);
-    updateAllPostUsername(userNow.uid, newName);
-    readUserProfile(userNow.uid);
+    models.updateUserName(userNow.uid, newName);
+    models.updateAllPostUsername(userNow.uid, newName);
+    controllers.readUserProfile(userNow.uid);
   });
 
   // EVENTO DEL BOTON PARA EDITAR DESCRIPCION DEL USUARIO
@@ -166,8 +163,8 @@ export default () => {
     bntEditAbout.classList.remove('hide');
     bntSaveAbout.classList.add('hide');
     const newAbout = userAbout.innerText;
-    updateUserAbout(userNow.uid, newAbout);
-    readUserProfile(userNow.uid);
+    models.updateUserAbout(userNow.uid, newAbout);
+    controllers.readUserProfile(userNow.uid);
   });
 
   const ctnPrivacy = divElemt.querySelector('#ctn-privacy');
@@ -212,15 +209,15 @@ export default () => {
       return;
     }
     if (publicMode.classList.contains('hide')) {
-      createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
+      models.createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
       divElemt.querySelector('#input-post').value = '';
     } else {
-      createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
+      models.createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
       divElemt.querySelector('#input-post').value = '';
     }
   });
 
-  postsMain().onSnapshot((query) => {
+  models.postsMain().onSnapshot((query) => {
     const newPost = divElemt.querySelector('#new-post');
     let idDoc;
     newPost.innerHTML = '';
@@ -328,7 +325,7 @@ export default () => {
           textPost.setAttribute('contenteditable', 'false');
           btnSave.classList.add('hide');
           const lastPost = textPost.innerText;
-          editPost(idPost, lastPost);
+          models.editPost(idPost, lastPost);
         });
       });
     }
@@ -338,7 +335,7 @@ export default () => {
       bntDeletePost.forEach((btnDelete) => {
         btnDelete.addEventListener('click', () => {
           const idPost = btnDelete.getAttribute('idpost');
-          deletePost(idPost);
+          models.deletePost(idPost);
         });
       });
     }
@@ -348,7 +345,7 @@ export default () => {
   const btnCerrar = divElemt.querySelector('#btn-cerrar');
   btnCerrar.addEventListener('click', (e) => {
     e.preventDefault();
-    signOutUser();
+    models.signOutUser();
   });
 
   // CARGAR LA IMAGEN PARA HACER UN POST
