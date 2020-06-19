@@ -1,5 +1,6 @@
 import { componentsView } from '../view/view-index.js';
 import { models } from '../model/model-index.js';
+import { controllers } from '../controller/controller-index.js';
 
 const container = document.getElementById('general-container');
 
@@ -10,7 +11,7 @@ const authenticate = (view) => {
     if (user) {
       html = container.appendChild(view());
     } else {
-      models.signOutUser();
+      models.authentication.signOutUser();
       window.location.hash = '#/';
     }
   });
@@ -23,17 +24,17 @@ const changeView = (route) => {
     case '':
     case '#':
     case '#/': {
-      models.authentication.signOutUser();
-      return container.appendChild(componentsView.login());
+      // models.authentication.signOutUser();
+      return container.appendChild(controllers.login());
     }
     case '#/register': {
-      models.authentication.signOutUser();
-      return container.appendChild(componentsView.register()); }
+      // models.authentication.signOutUser();
+      return container.appendChild(controllers.register()); }
     case '#/home':
       // eslint-disable-next-line max-len
-      return authenticate(componentsView.home);
+      return authenticate(controllers.home);
     case '#/profile':
-      return authenticate(componentsView.profile);
+      return authenticate(controllers.home);
     default:
       return container.appendChild(componentsView.errorMessage());
   }
