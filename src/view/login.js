@@ -1,9 +1,3 @@
-import {
-  authSignIn,
-  authSignInGoogle,
-  authSignInFacebook,
-} from '../controller/controller-autentication.js';
-
 export default () => {
   const viewLogin = `
   <!-- Page Container -->
@@ -63,36 +57,5 @@ export default () => {
 
   const divElemt = document.createElement('div');
   divElemt.innerHTML = viewLogin;
-
-  const btnLogin = divElemt.querySelector('#btn-login');
-  btnLogin.addEventListener('click', (e) => {
-    e.preventDefault();
-    const emailLogin = divElemt.querySelector('#email-login').value;
-    const passwordLogin = divElemt.querySelector('#password-login').value;
-    const span = document.querySelector('#span');
-    if (emailLogin === '') {
-      span.innerHTML = '*Debe ingresar su correo';
-    } else if (passwordLogin === '') {
-      span.innerHTML = '*Debe ingresar su contraseña';
-    }
-    authSignIn(emailLogin, passwordLogin);
-  });
-
-  // INICIO DE SESIÓN CON GOOGLE
-  const btnGoogle = divElemt.querySelector('#google-login');
-  btnGoogle.addEventListener('click', (e) => {
-    e.preventDefault(); // cancelar el evento de reinicio de formulario
-    console.log('Google Prueba');
-    authSignInGoogle();
-  });
-
-  // INICIO DE SESIÓN CON FACEBOOK
-  const btnFacebook = divElemt.querySelector('#facebook-login');
-  btnFacebook.addEventListener('click', (e) => {
-    e.preventDefault(); // cancelar el evento de reinicio de formulario
-    console.log('Facebook Prueba');
-    authSignInFacebook();
-  });
-
   return divElemt;
 };
