@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 // eslint-disable-next-line import/no-cycle
 import home from './home.js';
 // eslint-disable-next-line import/no-cycle
@@ -6,6 +7,8 @@ import login from './login.js';
 import errorMessage from './error.js';
 // eslint-disable-next-line import/no-cycle
 import profile from './profile.js';
+// eslint-disable-next-line import/no-named-as-default
+import postView from './post.js';
 
 export const componentsView = {
   home,
@@ -13,4 +16,5 @@ export const componentsView = {
   login,
   errorMessage,
   profile,
+  postView,
 };
