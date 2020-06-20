@@ -6,7 +6,7 @@ import register from './register.js';
 import login from './login.js';
 import errorMessage from './error.js';
 // eslint-disable-next-line import/no-cycle
-import profile from './profile.js';
+import user from './user.js';
 // eslint-disable-next-line import/no-named-as-default
 import postView from './post.js';
 
@@ -15,6 +15,6 @@ export const componentsView = {
   register,
   login,
   errorMessage,
-  profile,
+  user,
   postView,
 };

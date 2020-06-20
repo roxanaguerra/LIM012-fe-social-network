@@ -24,11 +24,11 @@ const changeView = (route) => {
     case '':
     case '#':
     case '#/': {
-      // models.authentication.signOutUser();
+      models.authentication.signOutUser();
       return container.appendChild(controllers.login());
     }
     case '#/register': {
-      // models.authentication.signOutUser();
+      models.authentication.signOutUser();
       return container.appendChild(controllers.register()); }
     case '#/home':
       // eslint-disable-next-line max-len
