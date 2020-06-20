@@ -2,44 +2,35 @@
 import { models } from '../model/model-index.js';
 // eslint-disable-next-line import/no-cycle
 import { componentsView } from '../view/view-index.js';
-// eslint-disable-next-line import/no-cycle
-// import { controllers } from './controller-index.js';
 
-export default () => {
-  const view = componentsView.postView();
-  console.log('view: ', view);
-
+export default (viewHome) => {
+  const allPosts = models.posts.postsMain();
   const userNow = models.authentication.currentUser();
 
-  const bntOptPost = view.querySelectorAll('.options-post');
-  const bntEditPost = view.querySelectorAll('.edit-post');
-  const bntSavePost = view.querySelectorAll('.save-post');
-  const bntDeletePost = view.querySelectorAll('.delete-post');
-
+  const eventsUpdateDeletePost = (viewPost) => {
   // ASIGNA EL EVENTO DE DESPLEGAR LAS OPCIONES DE EDITAR Y ELIMINAR A TODOS LOS POSTS
-  if (bntOptPost.length) {
-    bntOptPost.forEach((btnOptions) => {
-      btnOptions.addEventListener('click', () => {
-        const ctnOpt = btnOptions.parentNode.querySelector('.tooltip');
+    const btnOptPost = viewPost.querySelector('.options-post');
+    if (btnOptPost) {
+      btnOptPost.addEventListener('click', () => {
+        const ctnOpt = btnOptPost.parentNode.querySelector('.tooltip');
         if (ctnOpt.classList.contains('hide')) {
           ctnOpt.classList.remove('hide');
         } else {
           ctnOpt.classList.add('hide');
         }
       });
-    });
-  }
+    }
 
-  // ASIGNA EL EVENTO DE EDITAR POST A TODOS LOS POSTS
-  if (bntEditPost.length) {
-    bntEditPost.forEach((btnEdit) => {
-      btnEdit.addEventListener('click', () => {
-        const idPost = btnEdit.getAttribute('idPost');
-        const textPost = view.querySelector(`#post-${idPost}`);
+    // ASIGNA EL EVENTO DE EDITAR POST A TODOS LOS POSTS
+    const bntEditPost = viewPost.querySelector('.edit-post');
+    if (bntEditPost) {
+      bntEditPost.addEventListener('click', () => {
+        const idPost = bntEditPost.getAttribute('idPost');
+        const textPost = viewPost.querySelector(`#post-${idPost}`);
         textPost.setAttribute('contenteditable', 'true');
         textPost.focus();
-        const ctnOpt = btnEdit.parentNode.parentNode.querySelector('.tooltip');
-        const btnSave = btnEdit.parentNode.parentNode.querySelector('.save-post');
+        const ctnOpt = bntEditPost.parentNode.parentNode.querySelector('.tooltip');
+        const btnSave = bntEditPost.parentNode.parentNode.querySelector('.save-post');
         if (ctnOpt.classList.contains('hide') === false) {
           ctnOpt.classList.add('hide');
         }
@@ -47,44 +38,45 @@ export default () => {
           btnSave.classList.remove('hide');
         }
       });
-    });
-  }
+    }
 
-  // ASIGNA EL EVENTO DE GUARDAR POST EDITADO A TODOS LOS POSTS
-  if (bntSavePost.length) {
-    bntSavePost.forEach((btnSave) => {
-      btnSave.addEventListener('click', () => {
-        const idPost = btnSave.getAttribute('idpost');
-        const textPost = view.querySelector(`#post-${idPost}`);
+    // ASIGNA EL EVENTO DE GUARDAR POST EDITADO A TODOS LOS POSTS
+    const btnSavePost = viewPost.querySelector('.save-post');
+    if (btnSavePost) {
+      btnSavePost.addEventListener('click', () => {
+        const idPost = btnSavePost.getAttribute('idpost');
+        const textPost = viewPost.querySelector(`#post-${idPost}`);
         textPost.setAttribute('contenteditable', 'false');
-        btnSave.classList.add('hide');
+        btnSavePost.classList.add('hide');
         const lastPost = textPost.innerText;
-        models.editPost(idPost, lastPost);
+        models.posts.editPost(idPost, lastPost);
       });
-    });
-  }
+    }
 
-  // ASIGNA EL EVENTO DE ELIMINAR POST A TODOS LOS POSTS
-  if (bntDeletePost.length) {
-    bntDeletePost.forEach((btnDelete) => {
-      btnDelete.addEventListener('click', () => {
-        const idPost = btnDelete.getAttribute('idpost');
-        models.deletePost(idPost);
+    // ASIGNA EL EVENTO DE ELIMINAR POST A TODOS LOS POSTS
+    const btnDeletePost = viewPost.querySelector('.delete-post');
+    if (btnDeletePost) {
+      btnDeletePost.addEventListener('click', () => {
+        const idPost = btnDeletePost.getAttribute('idpost');
+        models.posts.deletePost(idPost);
       });
-    });
-  }
+    }
+  };
 
   // PINTAR LOS DOCUMENTOS DE LA COLECCION POST
-  models.post.postsMain().onSnapshot((query) => {
-    const newPost = view.querySelector('#new-post');
+  allPosts.onSnapshot((query) => {
+    const newPost = viewHome.querySelector('#new-post');
     let idDoc;
     newPost.innerHTML = '';
+
     query.forEach((doc) => {
       const postUser = doc.data();
       idDoc = doc.id;
       const viewPost = componentsView.postView(postUser, userNow, idDoc);
       newPost.appendChild(viewPost);
+      eventsUpdateDeletePost(viewPost);
     });
   });
-  return view;
+
+  return viewHome;
 };

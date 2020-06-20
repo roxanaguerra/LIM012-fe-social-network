@@ -5,6 +5,11 @@ import { controllers } from '../controller/controller-index.js';
 export default () => {
   const userNow = models.currentUser();
   controllers.readUserProfile(userNow.uid);
+  const viewEditUsername = `<span class="right opacity option-edit" id="edit-name"><i class="fa fa-edit"></i></span>
+                            <span class="right opacity option-save hide" id="save-name"><i class="fa fa-save"></i></span> `;
+  const viewEditUserAbout = `<span class="right opacity option-edit" id="edit-about"> <i class="fa fa-edit"></i></span>
+                            <span class="right opacity option-save hide" id="save-about"> <i class="fa fa-save"></i></span>`;
+
   const viewProfile = `
     
             <!-- Navbar -->
@@ -45,11 +50,13 @@ export default () => {
                       <div class="container">
                         <div class="flex">
                           <h4 class="center username" id="username"></h4>
+
                           <span class="right opacity option-edit" id="edit-name"><i class="fa fa-edit"></i></span>
                           <span class="right opacity option-save hide" id="save-name"><i class="fa fa-save"></i></span>
                         </div>
                         <div class="flex">
                           <p class="theme-d3 userabout" id="userabout"></p>
+
                           <span class="right opacity option-edit" id="edit-about"> <i class="fa fa-edit"></i></span>
                           <span class="right opacity option-save hide" id="save-about"> <i class="fa fa-save"></i></span>
                         </div>
@@ -345,7 +352,7 @@ export default () => {
   const btnCerrar = divElemt.querySelector('#btn-cerrar');
   btnCerrar.addEventListener('click', (e) => {
     e.preventDefault();
-    models.signOutUser();
+    models.authentication.signOutUser();
   });
 
   // CARGAR LA IMAGEN PARA HACER UN POST

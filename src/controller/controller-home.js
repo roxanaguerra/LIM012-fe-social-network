@@ -6,12 +6,10 @@ import { componentsView } from '../view/view-index.js';
 import { controllers } from './controller-index.js';
 
 export default () => {
-  const view = componentsView.home();
-  console.log('view home: ', view);
-
+  let view = componentsView.home();
   const userNow = models.authentication.currentUser();
-  console.log('userNow home: ', userNow);
-  controllers.user.readUserProfile(userNow.uid);
+  console.log('userNow: ', userNow.uid);
+
   // EVENTO QUE DESPLIEGA EL MENU EN VERSION MOBILE
   const navbMobile = view.querySelector('#navbar-mobile');
   navbMobile.addEventListener('click', () => {
@@ -59,6 +57,10 @@ export default () => {
   // ALMACENAR EL POST EN LA COLECCION
   btnPost.addEventListener('click', () => {
     const inputPost = view.querySelector('#input-post').value;
+    // const imagenASubir = view.querySelector('#uploadImg');
+    const imagenASubir = document.querySelector('#uploadImg');
+
+
     console.log(inputPost);
     divImg.classList.add('hide');
     if (!inputPost.trim()) {
@@ -66,12 +68,12 @@ export default () => {
       return;
     }
     if (publicMode.classList.contains('hide')) {
-      models.post.createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
+      models.posts.createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'), imagenASubir);
       view.querySelector('#input-post').value = '';
       const pic = view.querySelector('.picPost');
       pic.classList.add('hide');
     } else {
-      models.post.createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
+      models.posts.createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'), imagenASubir);
       view.querySelector('#input-post').value = '';
     }
   });
@@ -102,5 +104,8 @@ export default () => {
       }
     });
   });
+
+  controllers.user(view);
+  view = controllers.posts(view);
   return view;
 };

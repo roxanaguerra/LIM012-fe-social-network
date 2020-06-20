@@ -15,6 +15,54 @@ export default () => {
   };
 
   // REGISTRAR USUARIO
+  const registerNewUser = (emailRegister, passwordRegister) => {
+    const span = document.querySelector('#span');
+    const username = document.querySelector('#name-register').value;
+    const profilePhotoDefault = 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png';
+    models.authentication.signUp(emailRegister, passwordRegister)
+      .then((result) => {
+        const user = result.user;
+        const configuration = {
+          url: 'https://localhost:5000/#/',
+        };
+        result.user.sendEmailVerification(configuration)
+        // verificationEmail()
+          .then(() => {
+            models.user.createUserData(user.uid, user.email, username, profilePhotoDefault);
+            span.innerHTML = '*Se envió un correo de verificación';
+          }).catch(() => {
+            // An error happened.
+            console.log('No se envío correo');
+          });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        switch (errorCode) {
+          case 'auth/invalid-email':
+            span.innerHTML = '*Ingresa un correo válido';
+            break;
+          case 'auth/weak-password':
+            span.innerHTML = '*Ingresa mínimo 6 caracteres';
+            break;
+          case 'auth/email-already-in-use':
+            span.innerHTML = '*Este correo ya está en uso';
+            break;
+          case 'auth/operation-not-allowed':
+            span.innerHTML = '*Comunícate con el administrador';
+            break;
+          default:
+            span.innerHTML = '*Error inesperado';
+            break;
+        }
+        setTimeout(
+        // eslint-disable-next-line no-return-assign
+          () => (span.innerHTML = ''),
+          7000,
+        );
+      });
+  };
+
+  // REGISTRAR USUARIO
   const btnRegister = view.querySelector('#btn-register');
   btnRegister.addEventListener('click', (e) => {
     e.preventDefault(); // cancelar el evento de reinicio de formulario
@@ -33,7 +81,7 @@ export default () => {
     } else if (!validateSintaxEmail) {
       span.innerHTML = '*Formato de correo inválido';
     } else {
-      models.authentication.registerNewUser(emailRegister, passwordRegister);
+      registerNewUser(emailRegister, passwordRegister);
     }
     setTimeout(
       // eslint-disable-next-line no-return-assign
@@ -57,5 +105,6 @@ export default () => {
     console.log('Facebook Prueba');
     models.authentication.authSignInFacebook();
   });
+
   return view;
 };

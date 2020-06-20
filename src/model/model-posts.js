@@ -8,7 +8,7 @@ const editPost = (id, newPost) => firebase.firestore().collection('post').doc(id
   post: newPost,
 });
 
-const deletePost = (id) => firebase.firestore().collection('post').doc(id).delete();
+const deletePost = id => firebase.firestore().collection('post').doc(id).delete();
 
 const updateUserNamePost = (id, username) => firebase.firestore().collection('post').doc(id).update({
   username,
@@ -34,8 +34,8 @@ const addLikePost = (idPost, idUser) => firebase.firestore().collection('post')
   });
 
 // SUBIR LA IMAGEN AL STORAGE, PARA OBTENER LA URL DE LA IMG
-const subirImagenFirebase = () => new Promise((resolve, reject) => {
-  const imagenASubir = document.querySelector('#uploadImg').files[0];
+const subirImagenFirebase = imagenASubir => new Promise((resolve, reject) => {
+  // const imagenASubir = document.querySelector('#uploadImg').files[0];
   const nameImg = `${+new Date()}- ${imagenASubir.name}`;
   const metadata = { tipoFile: imagenASubir.type };
   const uploadTask = firebase.storage().ref().child(nameImg).put(imagenASubir, metadata);
@@ -49,10 +49,10 @@ const subirImagenFirebase = () => new Promise((resolve, reject) => {
   });
 });
 
-const createPost = (post, user, mode, username, photo) => {
+const createPost = (post, user, mode, username, photo, imagenASubir) => {
   console.log(user);
-  const imagenASubir = document.querySelector('#uploadImg');
-  if (imagenASubir.files[0] === undefined) {
+  const imagenASubir1 = imagenASubir.files[0];
+  if (imagenASubir1 === undefined) {
     posts().add({
       post,
       date: new Date().toLocaleString(),
@@ -72,7 +72,7 @@ const createPost = (post, user, mode, username, photo) => {
         console.error('Error adding document: ', error);
       });
   } else {
-    subirImagenFirebase()
+    subirImagenFirebase(imagenASubir1)
       .then((url) => {
         posts().add({
           post,
@@ -88,7 +88,7 @@ const createPost = (post, user, mode, username, photo) => {
           .then((docRef) => {
             console.log('Document written with ID: ', docRef.id);
             // sessionStorage.removeItem('imgNewPost');
-            imagenASubir.value = '';
+            imagenASubir1.value = '';
             imagenASubir.dispatchEvent(new Event('change'));
           })
           .catch((error) => {
@@ -105,7 +105,7 @@ const postsMain = () => posts().orderBy('date', 'desc');
 const postRead = () => {
   readPostPrueba()
     .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => doc.post);
+      querySnapshot.forEach(doc => doc.post);
     });
 };
 

@@ -27,21 +27,8 @@ export default () => {
       <div class="col m4 row-paddingl">
         
         <!-- Profile -->
-        <div class="card round white">
-          <!-- Profile photo -->     
-          <div class="container theme-d5 background-photo">
-            <p class="img-photo-post photo-medium center"></p>
-          </div>
+        <div id="userInfo" class="card round white">
 
-          <!-- Description -->     
-          <div class="container">
-            <div class="flex">
-              <h4 class="center username" id="username"></h4>
-            </div>
-            <div class="flex">
-              <p class="theme-d3 userabout" id="userabout"></p>
-            </div>
-          </div>
         <!-- End Profile -->  
         </div>
         <br>
