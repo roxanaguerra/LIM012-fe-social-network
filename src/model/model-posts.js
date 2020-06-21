@@ -1,14 +1,11 @@
 // CREAR LA COLECCION DE POST
 const posts = () => firebase.firestore().collection('post');
 
-// LEER LA COLECCION DE POST
-const readPostPrueba = () => firebase.firestore().collection('post').get();
-
 const editPost = (id, newPost) => firebase.firestore().collection('post').doc(id).update({
   post: newPost,
 });
 
-const deletePost = id => firebase.firestore().collection('post').doc(id).delete();
+const deletePost = (id) => firebase.firestore().collection('post').doc(id).delete();
 
 const updateUserNamePost = (id, username) => firebase.firestore().collection('post').doc(id).update({
   username,
@@ -34,7 +31,7 @@ const addLikePost = (idPost, idUser) => firebase.firestore().collection('post')
   });
 
 // SUBIR LA IMAGEN AL STORAGE, PARA OBTENER LA URL DE LA IMG
-const subirImagenFirebase = imagenASubir => new Promise((resolve, reject) => {
+const subirImagenFirebase = (imagenASubir) => new Promise((resolve, reject) => {
   // const imagenASubir = document.querySelector('#uploadImg').files[0];
   const nameImg = `${+new Date()}- ${imagenASubir.name}`;
   const metadata = { tipoFile: imagenASubir.type };
@@ -52,6 +49,7 @@ const subirImagenFirebase = imagenASubir => new Promise((resolve, reject) => {
 const createPost = (post, user, mode, username, photo, imagenASubir) => {
   console.log(user);
   const imagenASubir1 = imagenASubir.files[0];
+  console.log('imagenAsubir: ', imagenASubir1);
   if (imagenASubir1 === undefined) {
     posts().add({
       post,
@@ -87,9 +85,7 @@ const createPost = (post, user, mode, username, photo, imagenASubir) => {
         })
           .then((docRef) => {
             console.log('Document written with ID: ', docRef.id);
-            // sessionStorage.removeItem('imgNewPost');
-            imagenASubir1.value = '';
-            imagenASubir.dispatchEvent(new Event('change'));
+            // imagenASubir.dispatchEvent(new Event('change'));
           })
           .catch((error) => {
             console.error('Error adding document: ', error);
@@ -101,13 +97,8 @@ const createPost = (post, user, mode, username, photo, imagenASubir) => {
 // EL ORDEN COMO QUE SE PINTARAN LOS POST
 const postsMain = () => posts().orderBy('date', 'desc');
 
-// LEER DOCUMENTOS
-const postRead = () => {
-  readPostPrueba()
-    .then((querySnapshot) => {
-      querySnapshot.forEach(doc => doc.post);
-    });
-};
+// LEER DOCUMENTOS PARA PROFILE
+const readPostProfile = (uid) => posts().where('idUser', '==', uid).orderBy('date', 'desc');
 
 export default {
   editPost,
@@ -116,5 +107,5 @@ export default {
   addLikePost,
   createPost,
   postsMain,
-  postRead,
+  readPostProfile,
 };
