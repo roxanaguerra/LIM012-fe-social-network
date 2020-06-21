@@ -187,9 +187,10 @@ export default () => {
         <hr class="clear">
         <br>
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+        <button id="comment" type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
       </div>
         `;
+        
       } else if (doc.data().idUser !== userNow.uid && doc.data().privacy !== 'private') {
         newPost.innerHTML += `
         <div class="container card white round margin"><br>
@@ -207,8 +208,32 @@ export default () => {
       </div>
         `;
       }
+      const comment = newPost.querySelector('#comment')
+      console.log(comment);
+      comment.addEventListener('click', () => {
+        const div = document.createElement('div');
+        newPost.appendChild(div);
+        div.innerHTML += `
+        <div class="container card white round margin"><br>
+        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
+        <span class="right opacity"><i class="fa fa-edit"></i></span>
+        <h4>${doc.data().username}</h4>
+        <span class="opacity">${doc.data().date}</span>
+        <span class="opacity"><i class="fa fa-globe"></i></span>
+        <br>
+        <hr class="clear">
+        <p>${doc.data().post}</p>
+        <hr class="clear">
+        <br>
+        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+        <button id="comment" type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+      </div>
+        `
+      })
     });
+
   });
+
 
   const btnLike = divElemt.querySelector('#like');
   const contentLikes = divElemt.querySelector('.content-likes');

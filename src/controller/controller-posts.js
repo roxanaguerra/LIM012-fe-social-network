@@ -2,12 +2,12 @@
 import {
   posts,
   readPostPrueba,
-  increment,
+  // increment,
 } from '../model/model-posts.js';
 import { storageRef } from '../model/model-storage.js';
 
 
-export const createPost = (post, user, mode, nameImg, urlImg) => {
+export const createPost = (post, user, mode) => {
   console.log(user);
 
   // return new Promise((resolve, reject) => {
@@ -19,9 +19,9 @@ export const createPost = (post, user, mode, nameImg, urlImg) => {
     username: user.displayName,
     photo: user.photoURL,
     privacy: mode,
-    nameImg,
-    urlImg,
-    // likes: userObject.like,
+    // nameImg,
+    // urlImg,
+    // likes: [],
   })
     .then((docRef) => {
       console.log('Document written with ID: ', docRef.id);

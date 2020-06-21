@@ -9,6 +9,6 @@ export const editPost = (id, newPost) => firebase.firestore().collection('post')
   first: newPost,
 });
 
-export const increment = firebase.firestore.FielValue.increment(1);
+// export const increment = firebase.firestore.FielValue.increment(1);
 
 export const deletePost = id => firebase.firestore().collection('post').doc(id).delete();
