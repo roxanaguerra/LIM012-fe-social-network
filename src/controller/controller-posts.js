@@ -49,6 +49,10 @@ export default (viewHome) => {
         textPost.setAttribute('contenteditable', 'false');
         btnSavePost.classList.add('hide');
         const lastPost = textPost.innerText;
+        if (!lastPost.trim()) {
+          console.log('input vacío');
+          return;
+        }
         models.posts.editPost(idPost, lastPost);
       });
     }
