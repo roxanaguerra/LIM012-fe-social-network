@@ -1,15 +1,20 @@
-import Home from './home.js';
-import Register from './register.js';
-import Login from './login.js';
+/* eslint-disable import/no-named-as-default-member */
+// eslint-disable-next-line import/no-cycle
+import home from './home.js';
+// eslint-disable-next-line import/no-cycle
+import register from './register.js';
+import login from './login.js';
 import errorMessage from './error.js';
-import Profile from './profile.js';
+// eslint-disable-next-line import/no-cycle
+import user from './user.js';
+// eslint-disable-next-line import/no-named-as-default
+import postView from './post.js';
 
-const componentsView = {
-  home: Home,
-  register: Register,
-  login: Login,
-  error: errorMessage,
-  profile: Profile,
+export const componentsView = {
+  home,
+  register,
+  login,
+  errorMessage,
+  user,
+  postView,
 };
-
-export { componentsView };

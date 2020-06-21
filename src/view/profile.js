@@ -1,13 +1,15 @@
-import { readUserProfile } from '../controller/controller-user.js';
-import { currentUser } from '../model/model-authentication.js';
-import { updateUserName, updateUserAbout } from '../model/model-user.js';
-import { createPost, postsMain } from '../controller/controller-posts.js';
-import { signOutUser } from '../controller/controller-autentication.js';
-import { subirImagenFirebase } from '../model/model-storage.js';
+import { models } from '../model/model-index.js';
+// eslint-disable-next-line import/no-cycle
+import { controllers } from '../controller/controller-index.js';
 
 export default () => {
-  const userNow = currentUser();
-  readUserProfile(userNow.uid);
+  const userNow = models.currentUser();
+  controllers.readUserProfile(userNow.uid);
+  const viewEditUsername = `<span class="right opacity option-edit" id="edit-name"><i class="fa fa-edit"></i></span>
+                            <span class="right opacity option-save hide" id="save-name"><i class="fa fa-save"></i></span> `;
+  const viewEditUserAbout = `<span class="right opacity option-edit" id="edit-about"> <i class="fa fa-edit"></i></span>
+                            <span class="right opacity option-save hide" id="save-about"> <i class="fa fa-save"></i></span>`;
+
   const viewProfile = `
     
             <!-- Navbar -->
@@ -48,11 +50,13 @@ export default () => {
                       <div class="container">
                         <div class="flex">
                           <h4 class="center username" id="username"></h4>
+
                           <span class="right opacity option-edit" id="edit-name"><i class="fa fa-edit"></i></span>
                           <span class="right opacity option-save hide" id="save-name"><i class="fa fa-save"></i></span>
                         </div>
                         <div class="flex">
                           <p class="theme-d3 userabout" id="userabout"></p>
+
                           <span class="right opacity option-edit" id="edit-about"> <i class="fa fa-edit"></i></span>
                           <span class="right opacity option-save hide" id="save-about"> <i class="fa fa-save"></i></span>
                         </div>
@@ -65,7 +69,7 @@ export default () => {
                   </div>
 
                   <!-- Right Column -->
-                  <div class="col m8">
+                  <div class="col m8 relative">
                     
                     <!-- Post -->
                     <div class="row-padding">
@@ -100,37 +104,7 @@ export default () => {
                     </div>
                     
                     <div id="new-post" class=""></div>
-                    <div class="container card white round margin"><br>
-                      <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-                      <span class="right opacity"><i class="fa fa-edit"></i></span>
-                      <h4>John Doe</h4>
-                      <span class="opacity">23/05/2020 13:53</span>
-                      <span class="opacity"><i class="fa fa-globe"></i></span>
-                      <br>
-                      <hr class="clear">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                      <img src="https://www.w3schools.com/w3images/nature.jpg" style="width:100%" alt="Nature" class="margin-bottom">
-                      <hr class="clear">
-                      <br>
-                      <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-                      <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-                    </div>
-      
-                    <div class="container card white round margin"><br>
-                      <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-                      <span class="right opacity"><i class="fa fa-edit"></i></span>
-                      <h4>Jane Doe</h4>
-                      <span class="opacity">23/05/2020 13:53</span>
-                      <span class="opacity"><i class="fa fa-globe"></i></span>
-                      <br>
-                      <hr class="clear">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                      <hr class="clear">
-                      <br>
-                      <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-                      <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-                    </div>
-
+                    
                     
                   <!-- End Right Column -->
                   </div>
@@ -145,6 +119,7 @@ export default () => {
   // divElemt.classList.add('position')
   divElemt.innerHTML = viewProfile;
 
+  // EVENTO QUE DESPLIEGA EL MENU EN VERSION MOBILE
   const navbMobile = divElemt.querySelector('#navbar-mobile');
   navbMobile.addEventListener('click', () => {
     const navLinks = divElemt.querySelector('#nav-links');
@@ -156,6 +131,7 @@ export default () => {
     }
   });
 
+  // EVENTO DEL BOTON PARA EDITAR NOMBRE DEL USUARIO
   const bntEditName = divElemt.querySelector('#edit-name');
   const bntSaveName = divElemt.querySelector('#save-name');
   const userName = divElemt.querySelector('#username');
@@ -166,15 +142,18 @@ export default () => {
     bntSaveName.classList.remove('hide');
   });
 
+  // EVENTO DEL BOTON PARA GUARDAR NOMBRE EDITADO DEL USUARIO
   bntSaveName.addEventListener('click', () => {
     userName.setAttribute('contenteditable', 'false');
     bntEditName.classList.remove('hide');
     bntSaveName.classList.add('hide');
     const newName = userName.innerText;
-    updateUserName(userNow.uid, newName);
-    readUserProfile(userNow.uid);
+    models.updateUserName(userNow.uid, newName);
+    models.updateAllPostUsername(userNow.uid, newName);
+    controllers.readUserProfile(userNow.uid);
   });
 
+  // EVENTO DEL BOTON PARA EDITAR DESCRIPCION DEL USUARIO
   const bntEditAbout = divElemt.querySelector('#edit-about');
   const bntSaveAbout = divElemt.querySelector('#save-about');
   const userAbout = divElemt.querySelector('#userabout');
@@ -185,19 +164,22 @@ export default () => {
     bntSaveAbout.classList.remove('hide');
   });
 
+  // EVENTO DEL BOTON PARA GUARDAR LA DESCRIPCION EDITADA DEL USUARIO
   bntSaveAbout.addEventListener('click', () => {
     userAbout.setAttribute('contenteditable', 'false');
     bntEditAbout.classList.remove('hide');
     bntSaveAbout.classList.add('hide');
     const newAbout = userAbout.innerText;
-    updateUserAbout(userNow.uid, newAbout);
-    readUserProfile(userNow.uid);
+    models.updateUserAbout(userNow.uid, newAbout);
+    controllers.readUserProfile(userNow.uid);
   });
 
   const ctnPrivacy = divElemt.querySelector('#ctn-privacy');
   const privacyOptions = divElemt.querySelector('#privacy');
   const publicMode = divElemt.querySelector('#public-privacy');
   const privateMode = divElemt.querySelector('#private-privacy');
+
+  // EVENTO QUE MUESTRA LAS OPCIONES DE PRIVACIDAD
   privacyOptions.addEventListener('click', () => {
     if (publicMode.classList.contains('hide')) {
       publicMode.classList.remove('hide');
@@ -207,51 +189,66 @@ export default () => {
     }
   });
 
+  // EVENTO QUE SELECCIONA EL MODO PUBLICO
   publicMode.addEventListener('click', () => {
     publicMode.classList.remove('hide');
     privateMode.classList.add('hide');
     ctnPrivacy.appendChild(privateMode);
   });
 
+  // EVENTO QUE SELECCIONA EL MODO PRIVADO
   privateMode.addEventListener('click', () => {
     publicMode.classList.add('hide');
     privateMode.classList.remove('hide');
     ctnPrivacy.appendChild(publicMode);
   });
 
+  // ALMACENAR EL POST EN LA COLECCION
   const btnPost = divElemt.querySelector('#btn-post');
+  const divImg = divElemt.querySelector('.divImg');
+
   btnPost.addEventListener('click', () => {
     const inputPost = divElemt.querySelector('#input-post').value;
-    // const userName = divElemt.querySelector('#userName').value;
     console.log(inputPost);
+    divImg.classList.add('hide');
     if (!inputPost.trim()) {
       console.log('input vacío');
       return;
     }
     if (publicMode.classList.contains('hide')) {
-      createPost(inputPost, userNow, privateMode.value);
+      models.createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
       divElemt.querySelector('#input-post').value = '';
     } else {
-      createPost(inputPost, userNow, publicMode.value);
+      models.createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'));
       divElemt.querySelector('#input-post').value = '';
     }
   });
 
-  postsMain().onSnapshot((query) => {
+  models.postsMain().onSnapshot((query) => {
     const newPost = divElemt.querySelector('#new-post');
+    let idDoc;
     newPost.innerHTML = '';
     query.forEach((doc) => {
       if (doc.data().idUser === userNow.uid && doc.data().privacy === 'public') {
+        idDoc = doc.id;
         newPost.innerHTML += `
       <div class="container card white round margin"><br>
-        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
-        <span class="right opacity"><i class="fa fa-edit"></i></span>
-        <h4>${doc.data().username}</h4>
+        <img src=${doc.data().photo} alt="Avatar" class="avatar left circle margin-right">
+        <span class="options-post right opacity"><i class="fa fa-ellipsis-h"></i></span>
+        <div idPost=${idDoc} class="tooltip hide inline-grid theme-d3">
+          <span idPost=${idDoc} class="edit-post opacity"><i class="fa fa-edit"> Editar</i></span>
+          <span idPost=${idDoc} class="delete-post opacity"><i class="fa fa-trash-o"> Eliminar</i></span>
+        </div>
+        <h4 class="h4">${doc.data().username}</h4>
         <span class="opacity">${doc.data().date}</span>
         <span class="opacity"><i class="fa fa-globe"></i></span>
         <br>
         <hr class="clear">
-        <p>${doc.data().post}</p>
+        <span idPost=${idDoc} class="right save-post opacity hide"><i class="fa fa-save"></i></span>
+        <p id="post-${idDoc}" class="margin-top">${doc.data().post}</p>
+        <img class="${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? '' : 'hide'}" 
+            src=${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? doc.data().urlImg : ''} 
+            style="width:100%">
         <hr class="clear">
         <br>
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
@@ -259,16 +256,25 @@ export default () => {
       </div>
         `;
       } else if (doc.data().idUser === userNow.uid && doc.data().privacy === 'private') {
+        idDoc = doc.id;
         newPost.innerHTML += `
       <div class="container card white round margin"><br>
-        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
-        <span class="right opacity"><i class="fa fa-edit"></i></span>
-        <h4>${doc.data().username}</h4>
+        <img src=${doc.data().photo} alt="Avatar" class="avatar left circle margin-right">
+        <span  class="options-post right opacity"><i class="fa fa-ellipsis-h"></i></span>
+        <div idPost=${idDoc} class="tooltip hide inline-grid theme-d3">
+          <span idPost=${idDoc} class="edit-post opacity"><i class="fa fa-edit"> Editar</i></span>
+          <span idPost=${idDoc} class="delete-post opacity"><i class="fa fa-trash-o"> Elminar</i></span>
+        </div>
+        <h4 class="h4">${doc.data().username}</h4>
         <span class="opacity">${doc.data().date}</span>
         <span class="opacity"><i class="fa fa-lock"></i></i></span>
         <br>
         <hr class="clear">
-        <p>${doc.data().post}</p>
+        <span idPost=${idDoc} class="right save-post opacity hide"><i class="fa fa-save"></i></span>
+        <p id="post-${idDoc}" class="margin-top">${doc.data().post}</p>
+        <img class="${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? '' : 'hide'}" 
+            src=${typeof doc.data().urlImg !== 'undefined' && doc.data().urlImg !== 'null' ? doc.data().urlImg : ''} 
+            style="width:100%">
         <hr class="clear">
         <br>
         <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
@@ -277,13 +283,76 @@ export default () => {
         `;
       }
     });
+
+    const bntOptPost = divElemt.querySelectorAll('.options-post');
+    const bntEditPost = divElemt.querySelectorAll('.edit-post');
+    const bntSavePost = divElemt.querySelectorAll('.save-post');
+    const bntDeletePost = divElemt.querySelectorAll('.delete-post');
+
+    // ASIGNA EL EVENTO DE DESPLEGAR LAS OPCIONES DE EDITAR Y ELIMINAR A TODOS LOS POSTS
+    if (bntOptPost.length) {
+      bntOptPost.forEach((btnOptions) => {
+        btnOptions.addEventListener('click', () => {
+          const ctnOpt = btnOptions.parentNode.querySelector('.tooltip');
+          if (ctnOpt.classList.contains('hide')) {
+            ctnOpt.classList.remove('hide');
+          } else {
+            ctnOpt.classList.add('hide');
+          }
+        });
+      });
+    }
+
+    // ASIGNA EL EVENTO DE EDITAR POST A TODOS LOS POSTS
+    if (bntEditPost.length) {
+      bntEditPost.forEach((btnEdit) => {
+        btnEdit.addEventListener('click', () => {
+          const idPost = btnEdit.getAttribute('idPost');
+          const textPost = divElemt.querySelector(`#post-${idPost}`);
+          textPost.setAttribute('contenteditable', 'true');
+          textPost.focus();
+          const ctnOpt = btnEdit.parentNode.parentNode.querySelector('.tooltip');
+          const btnSave = btnEdit.parentNode.parentNode.querySelector('.save-post');
+          if (ctnOpt.classList.contains('hide') === false) {
+            ctnOpt.classList.add('hide');
+          }
+          if (btnSave.classList.contains('hide')) {
+            btnSave.classList.remove('hide');
+          }
+        });
+      });
+    }
+
+    // ASIGNA EL EVENTO DE GUARDAR POST EDITADO A TODOS LOS POSTS
+    if (bntSavePost.length) {
+      bntSavePost.forEach((btnSave) => {
+        btnSave.addEventListener('click', () => {
+          const idPost = btnSave.getAttribute('idpost');
+          const textPost = divElemt.querySelector(`#post-${idPost}`);
+          textPost.setAttribute('contenteditable', 'false');
+          btnSave.classList.add('hide');
+          const lastPost = textPost.innerText;
+          models.editPost(idPost, lastPost);
+        });
+      });
+    }
+
+    // ASIGNA EL EVENTO DE ELIMINAR POST A TODOS LOS POSTS
+    if (bntDeletePost.length) {
+      bntDeletePost.forEach((btnDelete) => {
+        btnDelete.addEventListener('click', () => {
+          const idPost = btnDelete.getAttribute('idpost');
+          models.deletePost(idPost);
+        });
+      });
+    }
   });
 
-  // CERRAR SESIÓN 'funcion para boton singOut'
+  // CERRAR SESIÓN 'función para boton singOut'
   const btnCerrar = divElemt.querySelector('#btn-cerrar');
   btnCerrar.addEventListener('click', (e) => {
     e.preventDefault();
-    signOutUser();
+    models.authentication.signOutUser();
   });
 
   // CARGAR LA IMAGEN PARA HACER UN POST
@@ -291,7 +360,19 @@ export default () => {
   btnImg.addEventListener('click', () => {
     console.log('Selecciona la img...!');
     const uploadImg = divElemt.querySelector('#uploadImg');
-    uploadImg.addEventListener('change', subirImagenFirebase, false);
+    uploadImg.addEventListener('change', () => {
+      console.log('change');
+      if (uploadImg.files && uploadImg.files[0]) {
+        const read = new FileReader();
+        read.onload = (e) => {
+          const pic = divElemt.querySelector('.picPost');
+          pic.parentNode.classList.remove('hide');
+          pic.setAttribute('src', e.target.result);
+          console.log('pic: ', pic);
+        };
+        read.readAsDataURL(uploadImg.files[0]);
+      }
+    });
   });
 
   return divElemt;

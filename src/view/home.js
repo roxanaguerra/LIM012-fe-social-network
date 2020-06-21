@@ -1,20 +1,4 @@
-/* eslint-disable no-console */
-import {
-  createPost,
-  postsMain,
-  addLike,
-} from '../controller/controller-posts.js';
-import { readUserProfile } from '../controller/controller-user.js';
-import { currentUser } from '../model/model-authentication.js';
-import { signOutUser } from '../controller/controller-autentication.js';
-// import { readPostPrueba } from '../model/model-posts.js';
-import { subirImagenFirebase } from '../model/model-storage.js';
-// import Header from './header.js';
-
 export default () => {
-  // droneImg.classList.add('hide');
-  const userNow = currentUser();
-  readUserProfile(userNow.uid);
   const viewHome = `
   <!-- Navbar -->
   <div class="top">
@@ -43,21 +27,8 @@ export default () => {
       <div class="col m4 row-paddingl">
         
         <!-- Profile -->
-        <div class="card round white">
-          <!-- Profile photo -->     
-          <div class="container theme-d5 background-photo">
-            <p class="img-photo-post photo-medium center"></p>
-          </div>
+        <div id="userInfo" class="card round white">
 
-          <!-- Description -->     
-          <div class="container">
-            <div class="flex">
-              <h4 class="center username" id="username"></h4>
-            </div>
-            <div class="flex">
-              <p class="theme-d3 userabout" id="userabout"></p>
-            </div>
-          </div>
         <!-- End Profile -->  
         </div>
         <br>
@@ -86,7 +57,7 @@ export default () => {
                   <div class="button theme-d5">
                     <input accept="image/*" type="file" id="uploadImg" class="hide">
                     <label id="icon-photo" for="uploadImg">                    
-                      <i class="fa fa-image"></i>  Photo
+                      <i class="fa fa-image" ></i>  Photo
                     </laber>                  
                   </div>
                   <div id="ctn-privacy" class="zero-padding inline-grid">
@@ -115,156 +86,5 @@ export default () => {
 
   const divElemt = document.createElement('div');
   divElemt.innerHTML = viewHome;
-
-  const navbMobile = divElemt.querySelector('#navbar-mobile');
-  navbMobile.addEventListener('click', () => {
-    const navLinks = divElemt.querySelector('#nav-links');
-    if (navLinks.className.indexOf('show') === -1) {
-      navLinks.className += ' show';
-    } else {
-      navLinks.style.display = 'block';
-      navLinks.className = navLinks.className.replace(' show', '');
-    }
-  });
-
-  const ctnPrivacy = divElemt.querySelector('#ctn-privacy');
-  const privacyOptions = divElemt.querySelector('#privacy');
-  const publicMode = divElemt.querySelector('#public-privacy');
-  const privateMode = divElemt.querySelector('#private-privacy');
-  privacyOptions.addEventListener('click', () => {
-    if (publicMode.classList.contains('hide')) {
-      publicMode.classList.remove('hide');
-    }
-    if (privateMode.classList.contains('hide')) {
-      privateMode.classList.remove('hide');
-    }
-  });
-
-  publicMode.addEventListener('click', () => {
-    publicMode.classList.remove('hide');
-    privateMode.classList.add('hide');
-    ctnPrivacy.appendChild(privateMode);
-  });
-
-  privateMode.addEventListener('click', () => {
-    publicMode.classList.add('hide');
-    privateMode.classList.remove('hide');
-    ctnPrivacy.appendChild(publicMode);
-  });
-
-  const btnPost = divElemt.querySelector('#btn-post');
-  btnPost.addEventListener('click', () => {
-    const inputPost = divElemt.querySelector('#input-post').value;
-    console.log(inputPost);
-    if (!inputPost.trim()) {
-      console.log('input vacío');
-      return;
-    }
-    if (publicMode.classList.contains('hide')) {
-      createPost(inputPost, userNow, privateMode.value);
-      divElemt.querySelector('#input-post').value = '';
-    } else {
-      createPost(inputPost, userNow, publicMode.value);
-      divElemt.querySelector('#input-post').value = '';
-    }
-  });
-
-  postsMain().onSnapshot((query) => {
-    const newPost = divElemt.querySelector('#new-post');
-    newPost.innerHTML = '';
-    query.forEach((doc) => {
-      if (doc.data().idUser === userNow.uid && doc.data().privacy !== 'private') {
-        newPost.innerHTML += `
-        <div class="container card white round margin"><br>
-        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
-        <span class="right opacity"><i class="fa fa-edit"></i></span>
-        <h4>${doc.data().username}</h4>
-        <span class="opacity">${doc.data().date}</span>
-        <span class="opacity"><i class="fa fa-globe"></i></span>
-        <br>
-        <hr class="clear">
-        <p>${doc.data().post}</p>
-        <hr class="clear">
-        <br>
-        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button id="comment" type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </div>
-        `;
-        
-      } else if (doc.data().idUser !== userNow.uid && doc.data().privacy !== 'private') {
-        newPost.innerHTML += `
-        <div class="container card white round margin"><br>
-        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
-        <h4>${doc.data().username}</h4>
-        <span class="opacity">${doc.data().date}</span>
-        <span class="opacity"><i class="fa fa-globe"></i></span>
-        <br>
-        <hr class="clear">
-        <p>${doc.data().post}</p>s
-        <hr class="clear">
-        <br>
-        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </div>
-        `;
-      }
-      const comment = newPost.querySelector('#comment')
-      console.log(comment);
-      comment.addEventListener('click', () => {
-        const div = document.createElement('div');
-        newPost.appendChild(div);
-        div.innerHTML += `
-        <div class="container card white round margin"><br>
-        <img src=${doc.data().photo} alt="Avatar" class="left circle margin-right" style="width:60px">
-        <span class="right opacity"><i class="fa fa-edit"></i></span>
-        <h4>${doc.data().username}</h4>
-        <span class="opacity">${doc.data().date}</span>
-        <span class="opacity"><i class="fa fa-globe"></i></span>
-        <br>
-        <hr class="clear">
-        <p>${doc.data().post}</p>
-        <hr class="clear">
-        <br>
-        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button id="comment" type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </div>
-        `
-      })
-    });
-
-  });
-
-
-  const btnLike = divElemt.querySelector('#like');
-  const contentLikes = divElemt.querySelector('.content-likes');
-
-  const view = () => {
-    btnLike.addEventListener('click', (e) => {
-      e.preventDefault();
-      addLike(e.currentTarget.dataset.publication);
-    });
-  };
-
-  contentLikes.innerHTML = view();
-
-
-  // CERRAR SESIÓN 'funcion para boton singOut'
-  const btnCerrar = divElemt.querySelector('#btn-cerrar');
-  btnCerrar.addEventListener('click', (e) => {
-    e.preventDefault();
-    signOutUser();
-  });
-
-  // CARGAR LA IMAGEN PARA HACER UN POST
-  const btnImg = divElemt.querySelector('#icon-photo');
-  btnImg.addEventListener('click', () => {
-    console.log('Selecciona la img...!');
-    const uploadImg = divElemt.querySelector('#uploadImg');
-    uploadImg.addEventListener('change', (e) => {
-      const imagenASubir = e.target.files[0];
-      subirImagenFirebase(imagenASubir, userNow.uid);
-    });
-  });
-
   return divElemt;
 };

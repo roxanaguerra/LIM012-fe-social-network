@@ -254,6 +254,10 @@ input:-webkit-autofill:active {
   margin: 5px;
 }
 
+.relative {
+  position: relative;
+}
+
 div.background-photo {
   background-image: url(https://www.rolandberger.com/img/Tiles/roland_berger_305_uam_cargo_drones_urban_parcel_delivery_st.jpg);
   background-size: cover;
@@ -415,6 +419,10 @@ h6 {
   margin: 10px 0;
 }
 
+.h4 {
+  font-size: 17px;
+}
+
 hr {
   border: 0;
   border-top: 1px solid #eee;
@@ -425,8 +433,19 @@ img {
   vertical-align: middle;
 }
 
+.avatar {
+  width: 45px;
+}
+
 a {
   color: inherit;
+}
+
+.fa-edit,
+.fa-save,
+.fa-ellipsis-h,
+.fa-trash-o {
+  cursor: pointer;
 }
 
 .button {
@@ -536,6 +555,22 @@ div #ctn-privacy {
 .half {
   float: left;
   width: 100%;
+}
+
+.margin-top {
+  margin-top: 25px;
+}
+
+.tooltip {
+  width: 20%;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 7px;
+  padding: 5px 0;
+  position: absolute;
+  right: 16%;
+  font-size: 12px;
+  z-index: 1;
 }
 
 @media (min-width: 601px) {
@@ -668,11 +703,34 @@ div #ctn-privacy {
   .row-paddingl {
     padding: 0;
   }
+  .tooltip {
+    font-size: 15px;
+    right: 8%;
+    padding: 5px 0;
+    width: 15%;
+  }
+  .margin-right {
+    margin-right: 16px !important;
+  }
+  .h4 {
+    font-size: 20px;
+  }
 }
 
 @media (max-width: 992px) and (min-width: 601px) {
   .hide-medium {
     display: none !important;
+  }
+  .tooltip {
+    font-size: 15px;
+    right: 9%;
+    width: 15%;
+  }
+  .margin-right {
+    margin-right: 16px !important;
+  }
+  .h4 {
+    font-size: 20px;
   }
 }
 
@@ -747,7 +805,7 @@ div #ctn-privacy {
 }
 
 .margin-right {
-  margin-right: 16px !important;
+  margin-right: 5px;
 }
 
 .padding {

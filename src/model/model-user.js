@@ -1,4 +1,4 @@
-export const createUserData = (id, email, name, photo) => {
+const createUserData = (id, email, name, photo) => {
   firebase.firestore()
     .collection('usersData').doc(id).set({
       userID: id,
@@ -9,25 +9,22 @@ export const createUserData = (id, email, name, photo) => {
     });
 };
 
-export const allUsers = () => {
-  firebase.firestore()
-    .collection('usersData').get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        console.log('all Data', doc.data());
-      });
-    });
-};
-
-export const userProfile = (id) => {
+const userProfile = (id) => {
   const getProfile = firebase.firestore().collection('usersData').doc(id).get();
   return getProfile;
 };
 
-export const updateUserName = (id, username) => firebase.firestore().collection('usersData').doc(id).update({
+const updateUserName = (id, username) => firebase.firestore().collection('usersData').doc(id).update({
   username,
 });
 
-export const updateUserAbout = (id, about) => firebase.firestore().collection('usersData').doc(id).update({
+const updateUserAbout = (id, about) => firebase.firestore().collection('usersData').doc(id).update({
   about,
 });
+
+export default {
+  createUserData,
+  userProfile,
+  updateUserName,
+  updateUserAbout,
+};
