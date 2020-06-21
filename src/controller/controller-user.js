@@ -51,6 +51,10 @@ export default (viewHome) => {
       bntEditName.classList.remove('hide');
       bntSaveName.classList.add('hide');
       const newName = userName.innerText;
+      if (!newName.trim()) {
+        console.log('input vacío');
+        return;
+      }
       models.user.updateUserName(userNow.uid, newName);
       models.posts.updateAllPostUsername(userNow.uid, newName);
       readUserProfile(userNow.uid);
@@ -70,6 +74,10 @@ export default (viewHome) => {
       bntEditAbout.classList.remove('hide');
       bntSaveAbout.classList.add('hide');
       const newAbout = userAbout.innerText;
+      if (!newAbout.trim()) {
+        console.log('input vacío');
+        return;
+      }
       models.user.updateUserAbout(userNow.uid, newAbout);
       readUserProfile(userNow.uid);
     });
