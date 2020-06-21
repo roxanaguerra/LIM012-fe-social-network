@@ -4,8 +4,9 @@ import { models } from '../model/model-index.js';
 import { componentsView } from '../view/view-index.js';
 
 export default (viewHome) => {
-  const allPosts = models.posts.postsMain();
   const userNow = models.authentication.currentUser();
+  const allPosts = models.posts.postsMain();
+  const allPostsProfile = models.posts.readPostProfile(userNow.uid);
 
   const eventsUpdateDeletePost = (viewPost) => {
   // ASIGNA EL EVENTO DE DESPLEGAR LAS OPCIONES DE EDITAR Y ELIMINAR A TODOS LOS POSTS
@@ -68,19 +69,38 @@ export default (viewHome) => {
   };
 
   // PINTAR LOS DOCUMENTOS DE LA COLECCION POST
-  allPosts.onSnapshot((query) => {
-    const newPost = viewHome.querySelector('#new-post');
-    let idDoc;
-    newPost.innerHTML = '';
+  const ruta = window.location.hash;
+  if (ruta === '#/home') {
+    allPosts.onSnapshot((query) => {
+      const newPost = viewHome.querySelector('#new-post');
+      let idDoc;
+      newPost.innerHTML = '';
 
-    query.forEach((doc) => {
-      const postUser = doc.data();
-      idDoc = doc.id;
-      const viewPost = componentsView.postView(postUser, userNow, idDoc);
-      newPost.appendChild(viewPost);
-      eventsUpdateDeletePost(viewPost);
+      query.forEach((doc) => {
+        const postUser = doc.data();
+        if (postUser.privacy === 'public') {
+          idDoc = doc.id;
+          const viewPost = componentsView.postView(postUser, userNow, idDoc);
+          newPost.appendChild(viewPost);
+          eventsUpdateDeletePost(viewPost);
+        }
+      });
     });
-  });
+  } else if (ruta === '#/profile') {
+    allPostsProfile.onSnapshot((query) => {
+      const newPost = viewHome.querySelector('#new-post');
+      let idDoc;
+      newPost.innerHTML = '';
+
+      query.forEach((doc) => {
+        const postUser = doc.data();
+        idDoc = doc.id;
+        const viewPost = componentsView.postView(postUser, userNow, idDoc);
+        newPost.appendChild(viewPost);
+        eventsUpdateDeletePost(viewPost);
+      });
+    });
+  }
 
   return viewHome;
 };
