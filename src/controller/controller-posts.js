@@ -2,9 +2,12 @@
 import { models } from '../model/model-index.js';
 // eslint-disable-next-line import/no-cycle
 import { componentsView } from '../view/view-index.js';
+import comment from '../view/comment.js';
+import controllerComments from './controller-comments.js';
 
 export default (viewHome) => {
   const userNow = models.authentication.currentUser();
+  // const collectionPost = componentsView.postView();
   const allPosts = models.posts.postsMain();
   const allPostsProfile = models.posts.readPostProfile(userNow.uid);
 
@@ -64,6 +67,22 @@ export default (viewHome) => {
     }
   };
 
+
+  
+  const toDoComment = (viewPost, userNow) => { 
+    const btnComment = viewPost.querySelector('.btn-comment');
+    btnComment.addEventListener('click', () => {
+      const userPhoto = userNow.photoURL;
+    const viewComment = componentsView.writeComment(userPhoto);
+    // console.log(componentsView.comments());
+    
+    console.log(viewComment);
+    
+    viewPost.appendChild(viewComment);
+      // console.log('userNow', userNow);
+      // console.log('postUser: ', postUser);
+  })
+}
   // PINTAR LOS DOCUMENTOS DE LA COLECCION POST
   const ruta = window.location.hash;
   if (ruta === '#/home') {
@@ -79,6 +98,8 @@ export default (viewHome) => {
           const viewPost = componentsView.postView(postUser, userNow, idDoc);
           newPost.appendChild(viewPost);
           eventsUpdateDeletePost(viewPost);
+          toDoComment(viewPost, userNow);
+
         }
       });
     });
@@ -94,9 +115,10 @@ export default (viewHome) => {
         const viewPost = componentsView.postView(postUser, userNow, idDoc);
         newPost.appendChild(viewPost);
         eventsUpdateDeletePost(viewPost);
+        prueba(viewPost);
+
       });
     });
   }
-
   return viewHome;
 };

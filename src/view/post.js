@@ -24,8 +24,10 @@ export default (postUser, userNow, idDoc) => {
       <hr class="clear">
       <br>
       <button type="button" class="button theme-d1 margin-bottom btn-like"><i class="fa fa-thumbs-up"></i>  Like</button> 
-      <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-    </div>
+      <button type="button" class="button theme-d1 margin-bottom btn-comment"><i class="fa fa-comment"></i>  Comment</button> 
+      <div id="comment-space"></div>
+
+      </div>
     `;
 
   const divElemt = document.createElement('div');
