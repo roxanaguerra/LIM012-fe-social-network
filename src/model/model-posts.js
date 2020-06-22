@@ -100,6 +100,9 @@ const postsMain = () => posts().orderBy('date', 'desc');
 // LEER DOCUMENTOS PARA PROFILE
 const readPostProfile = (uid) => posts().where('idUser', '==', uid).orderBy('date', 'desc');
 
+
+
+
 export default {
   editPost,
   deletePost,
