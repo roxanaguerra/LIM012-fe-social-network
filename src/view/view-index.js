@@ -10,6 +10,7 @@ import user from './user.js';
 // eslint-disable-next-line import/no-named-as-default
 import postView from './post.js';
 import comments from './comment.js';
+import comment from './comment.js';
 
 
 export const componentsView = {
@@ -19,5 +20,6 @@ export const componentsView = {
   errorMessage,
   user,
   postView,
-  comments,
+  writeComment: comments.templateWriteComment,
+  readComment: comments.templateReadComment,
 };
