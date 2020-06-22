@@ -1,3 +1,32 @@
+body {
+    margin: 0;
+    height: 100%;
+    display: flex;    
+    // align-items: center;
+    justify-content: center;
+    // color: white;
+    overflow: hidden;
+}
+
+h1 {
+    color: rgb(16, 255, 36);
+    margin: 0;
+    font-size: 30px;
+}
+
+h4 {
+    color: #3cff00;
+    margin-bottom: 0%;
+    margin-top: 35px;
+    font-size: 80px;
+}
+h6 {
+    color: #F6A13E;
+    font-size: 12px;
+    margin-top: 0;
+    letter-spacing: 0.7px;
+}
+
 .flex {
     display: flex;    
     align-items: center;

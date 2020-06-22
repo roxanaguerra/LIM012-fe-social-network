@@ -1,3 +1,31 @@
+body {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+h1 {
+  color: #10ff24;
+  margin: 0;
+  font-size: 30px;
+}
+
+h4 {
+  color: #3cff00;
+  margin-bottom: 0%;
+  margin-top: 35px;
+  font-size: 80px;
+}
+
+h6 {
+  color: #F6A13E;
+  font-size: 12px;
+  margin-top: 0;
+  letter-spacing: 0.7px;
+}
+
 .flex {
   display: flex;
   align-items: center;
@@ -235,17 +263,10 @@ input:-webkit-autofill:active {
   width: 106px;
 }
 
-.border {
-  border-color: white;
-  border-style: solid;
-  border-width: 2px;
-}
-
-.userabout {
-  border-radius: 5px;
-  padding: 11px;
-  width: 100%;
-  text-align: center;
+.topnav {
+  overflow: hidden;
+  background-image: linear-gradient(to right, #120136, rgba(144, 112, 185, 0.42));
+  position: relative;
 }
 
 .option-edit .fa {
@@ -911,4 +932,16 @@ div #ctn-privacy {
   top: 0;
   right: 0;
   cursor: pointer;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  font-family: "Lato", sans-serif;
 }

@@ -13,17 +13,13 @@
     width: 106px;
 }
 
-.border {
-    border-color: white;
-    border-style: solid;
-    border-width: 2px;
-}
 
-.userabout {
-    border-radius: 5px;
-    padding: 11px;
-    width: 100%;
-    text-align: center;
+
+
+.topnav {
+    overflow: hidden;
+    background-image: linear-gradient(to right, #120136, rgba(144, 112, 185, 0.42));
+    position: relative;
 }
 
 .option-edit .fa {
@@ -46,7 +42,6 @@ div.background-photo {
     width: 12px;
     margin: 5px;
 }
-
 .zero-padding {
     padding: 0;
 }
