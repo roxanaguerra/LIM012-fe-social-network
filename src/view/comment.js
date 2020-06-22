@@ -1,0 +1,39 @@
+export default (photoUser) => {
+    // const photoUser = postUser.photo;
+    // console.log(photoUser);
+    
+  const viewComment = `
+  <div class="container card white round margin"><br>
+    <img src=${photoUser} alt="Avatar" class="avatar left circle margin-right">
+    <div class="container padding flex">
+      <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px"></textarea>
+    </div>
+    <button type="button" id="btn-post" class="button theme-d1 right button-medium" >Post</button>     
+
+  </div>
+`;
+  // console.log(postUser);
+  
+    const divElemt = document.createElement('div');
+    divElemt.innerHTML = viewComment;
+    return divElemt
+
+    // const route = window.location.hash;
+    // const viewComment = `
+    //   <div class="container card white round margin"><br>
+    //   <img src=${postUser.photo} alt="Avatar" class="avatar left circle margin-right">
+
+    //     <h4 class="h4">${postUser.username}</h4>
+    //     <br>
+    //     <hr class="clear">
+    //     <textarea name="" id="comment"></textarea>
+    //     <hr class="clear">
+    //     <br>
+    //       <button type="button" id="btn-post" class="button theme-d1 right button-medium" >Post</button>     
+    //     </div>
+    //   `;
+  
+    // const divElemt = document.createElement('div');
+    // divElemt.innerHTML = viewComment;
+    // return divElemt;
+  };
