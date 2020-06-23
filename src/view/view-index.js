@@ -11,7 +11,6 @@ import user from './user.js';
 import postView from './post.js';
 import comments from './comment.js';
 
-
 export const componentsView = {
   home,
   register,
