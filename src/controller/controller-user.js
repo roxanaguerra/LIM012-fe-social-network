@@ -21,7 +21,7 @@ export default (viewHome) => {
           localStorage.setItem('username', doc.data().username);
           localStorage.setItem('profileImg', doc.data().profileImg);
         } else {
-          console.log('this doc does not exists');
+          // console.log('this doc does not exists');
         }
       })
       .catch(() => {

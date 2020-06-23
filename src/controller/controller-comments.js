@@ -15,7 +15,7 @@ export default (viewPost, userNow, idPost) => {
       btnPost.addEventListener('click', () => {
         const inputComment = viewComment.querySelector('#input-comment').value;
         if (!inputComment.trim()) {
-          console.log('comentario vacìo');
+          // console.log('comentario vacìo');
         } else {
           models.comment.createComment(inputComment, userNow, userName, userPhoto, idPost);
           viewComment.querySelector('#input-comment').value = '';

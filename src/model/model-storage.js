@@ -8,9 +8,9 @@ const storageRef = () => storage.ref();
 // FUNCION PARA ELIMINAR LA IMG DEL STORAGE, ANTES DE AGREGAR A LA COLECCION POST
 const deleteFileStorage = (file, uid) => storageRef.child(`photoPost/${uid}/${file}`).delete()
   .then(() => {
-    console.log('Se elimino la Imagen!');
-  }).catch((error) => {
-    console.log('Error al eliminar!', error);
+    // console.log('Se elimino la Imagen!');
+  }).catch(() => {
+    // console.log('Error al eliminar!', error);
   });
 
 export default {

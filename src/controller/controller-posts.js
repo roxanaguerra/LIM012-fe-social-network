@@ -5,9 +5,6 @@ import { controllers } from './controller-index.js';
 
 export default (viewHome) => {
   const userNow = models.authentication.currentUser();
-  // const collectionPost = componentsView.postView();
-  const allPosts = models.posts.postsMain();
-  const allPostsProfile = models.posts.readPostProfile(userNow.uid);
 
   const eventsUpdateDeletePost = (viewPost) => {
   // ASIGNA EL EVENTO DE DESPLEGAR LAS OPCIONES DE EDITAR Y ELIMINAR A TODOS LOS POSTS
@@ -72,15 +69,15 @@ export default (viewHome) => {
   // PINTAR LOS POST
   const ruta = window.location.hash;
   if (ruta === '#/home') {
-    allPosts.onSnapshot((query) => {
+    models.posts.postsMain((getPost) => {
       const newPost = viewHome.querySelector('#new-post');
       let idDoc;
       newPost.innerHTML = '';
 
-      query.forEach((doc) => {
-        const postUser = doc.data();
+      getPost.forEach((postUser) => {
+        // const postUser = doc.data();
         if (postUser.privacy === 'public') {
-          idDoc = doc.id;
+          idDoc = postUser.id;
           const viewPost = componentsView.postView(postUser, userNow, idDoc);
           newPost.appendChild(viewPost);
           eventsUpdateDeletePost(viewPost);
@@ -89,14 +86,15 @@ export default (viewHome) => {
       });
     });
   } else if (ruta === '#/profile') {
-    allPostsProfile.onSnapshot((query) => {
+    const user = userNow.uid;
+    models.posts.readPostProfile(user, (getPost) => {
       const newPost = viewHome.querySelector('#new-post');
       let idDoc;
       newPost.innerHTML = '';
 
-      query.forEach((doc) => {
-        const postUser = doc.data();
-        idDoc = doc.id;
+      getPost.forEach((postUser) => {
+        // const postUser = doc.data();
+        idDoc = postUser.id;
         const viewPost = componentsView.postView(postUser, userNow, idDoc);
         newPost.appendChild(viewPost);
         eventsUpdateDeletePost(viewPost);
