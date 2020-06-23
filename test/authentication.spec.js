@@ -1,10 +1,5 @@
-import {
-  signUp,
-  signIn,
-  signOut,
-  signInGoogle,
-  signInFacebook,
-} from '../src/model/model-authentication.js';
+// eslint-disable-next-line import/named
+import { models } from '../src/model/model-index.js';
 
 // configurando firebase mock
 // eslint-disable-next-line import/no-unresolved
@@ -22,10 +17,9 @@ global.firebase = firebasemock.MockFirebaseSdk(
 // TEST: REGISTRAR NUEVO USUARIO
 describe('auth-signUp: Crear un usuario', () => {
   it('Deberia de registrarse con email prueba2@gmail.com y password prueba2', (done) => {
-    signUp('prueba2@gmail.com', 'prueba2')
+    models.authentication.signUp('prueba2@gmail.com', 'prueba2')
       .then((user) => {
         expect(user.email).toBe('prueba2@gmail.com');
-        expect(user.password).toBe('prueba2');
         done();
       });
   });
@@ -34,7 +28,7 @@ describe('auth-signUp: Crear un usuario', () => {
 // TEST: INICIAR SESION
 describe('auth-signIn: Iniciar sesion', () => {
   it('Deberia poder iniciar sesion', (done) => {
-    signIn('rguerra@gmail.com', 'guerra123')
+    models.authentication.signIn('rguerra@gmail.com', 'guerra123')
       .then((user) => {
         expect(user.email).toBe('rguerra@gmail.com');
         expect(user.isAnonymous).toBe(false);
@@ -46,7 +40,7 @@ describe('auth-signIn: Iniciar sesion', () => {
 // TEST: CERRAR SESION
 describe('auth-signOut: Cerrar sesion', () => {
   it('Deberia de cerrar sesion', () => {
-    signOut()
+    models.authentication.signOut()
       .then((user) => {
         expect(user).toBe(null);
       });
@@ -56,7 +50,7 @@ describe('auth-signOut: Cerrar sesion', () => {
 // TEST: INICIAR SESION CON GOOGLE
 describe('auth-signInGoogle: Iniciar sesion con Google', () => {
   it('Deberia de iniciar sesion con Google', () => {
-    signInGoogle()
+    models.authentication.signInGoogle()
       .then((user) => {
         expect(user.isAnonymous).toBe(false);
       });
@@ -66,7 +60,7 @@ describe('auth-signInGoogle: Iniciar sesion con Google', () => {
 // TEST: INICIAR SESION CON FACEBOOK
 describe('auth-signInFacebook: Iniciar sesion con Facebook', () => {
   it('Deberia de iniciar sesion con Facebook', () => {
-    signInFacebook()
+    models.authentication.signInFacebook()
       .then((user) => {
         expect(user.isAnonymous).toBe(false);
       });
