@@ -42,7 +42,7 @@ const subirImagenFirebase = (imagenASubir) => new Promise((resolve, reject) => {
   uploadTask.then((snapshot) => {
     snapshot.ref.getDownloadURL().then((url) => {
       resolve(url);
-      console.log('url: ', url);
+      // console.log('url: ', url);
     }).catch((err) => {
       reject(err);
     });
@@ -50,9 +50,9 @@ const subirImagenFirebase = (imagenASubir) => new Promise((resolve, reject) => {
 });
 
 const createPost = (post, user, mode, username, photo, imagenASubir) => {
-  console.log(user);
+  // console.log(user);
   const imagenASubir1 = imagenASubir.files[0];
-  console.log('imagenAsubir: ', imagenASubir1);
+  // console.log('imagenAsubir: ', imagenASubir1);
   if (imagenASubir1 === undefined) {
     posts().add({
       post,
@@ -65,12 +65,13 @@ const createPost = (post, user, mode, username, photo, imagenASubir) => {
       likes: [],
       // likes: userObject.like,
     })
-      .then((docRef) => {
-        console.log('Document written with ID: ', docRef.id);
+      .then(() => {
+        // .then((docRef) => {
+        // console.log('Document written with ID: ', docRef.id);
         // sessionStorage.removeItem('imgNewPost');
       })
-      .catch((error) => {
-        console.error('Error adding document: ', error);
+      .catch(() => {
+        // console.error('Error adding document: ', error);
       });
   } else {
     subirImagenFirebase(imagenASubir1)
@@ -86,12 +87,12 @@ const createPost = (post, user, mode, username, photo, imagenASubir) => {
           likes: [],
           // likes: userObject.like,
         })
-          .then((docRef) => {
-            console.log('Document written with ID: ', docRef.id);
+          .then(() => {
+            // console.log('Document written with ID: ', docRef.id);
             // imagenASubir.dispatchEvent(new Event('change'));
           })
-          .catch((error) => {
-            console.error('Error adding document: ', error);
+          .catch(() => {
+            // console.error('Error adding document: ', error);
           });
       });
   }

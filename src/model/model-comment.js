@@ -10,11 +10,11 @@ const createComment = (comments, user, username, photo, idPost) => {
     photo,
     idPost,
   })
-    .then((docRef) => {
-      console.log('Document written with ID Comment: ', docRef.id);
+    .then(() => {
+      // console.log('Document written with ID Comment: ', docRef.id);
     })
-    .catch((error) => {
-      console.error('Error adding document: ', error);
+    .catch(() => {
+      // console.error('Error adding document: ', error);
     });
 };
 

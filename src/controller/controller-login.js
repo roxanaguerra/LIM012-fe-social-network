@@ -5,7 +5,7 @@ import { componentsView } from '../view/view-index.js';
 
 export default () => {
   const view = componentsView.login();
-  console.log('view: ', view);
+  // console.log('view: ', view);
 
   // INICIAR SESIÓN
   const authSignIn = (emailLogin, passwordLogin) => {
@@ -18,7 +18,6 @@ export default () => {
         } else {
           span.innerHTML = '*Debes validar tu correo';
           models.authentication.signOut();
-          // signOut();
         }
       })
       .catch((error) => {
@@ -48,12 +47,11 @@ export default () => {
         models.user.createUserData(user.uid, user.email, user.displayName, user.photoURL);
         window.location.hash = '#/home';
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        console.log(errorCode);
-      // const errorMessage = error.message;
-      // const email = error.email;
-      // const credential = error.credential;
+      .catch(() => {
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        // const email = error.email;
+        // const credential = error.credential;
       });
   };
 
@@ -66,8 +64,8 @@ export default () => {
         models.user.createUserData(user.uid, user.email, user.displayName, user.photoURL);
         window.location.hash = '#/home';
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        // console.log(error);
       });
   };
 
@@ -87,10 +85,10 @@ export default () => {
 
   // INICIO DE SESIÓN CON GOOGLE
   const btnGoogle = view.querySelector('#google-login');
-  console.log('btngoogle: ', btnGoogle);
+  // console.log('btngoogle: ', btnGoogle);
   btnGoogle.addEventListener('click', (e) => {
     e.preventDefault(); // cancelar el evento de reinicio de formulario
-    console.log('Google Prueba');
+    // console.log('Google Prueba');
     authSignInGoogle();
   });
 
@@ -98,7 +96,7 @@ export default () => {
   const btnFacebook = view.querySelector('#facebook-login');
   btnFacebook.addEventListener('click', (e) => {
     e.preventDefault(); // cancelar el evento de reinicio de formulario
-    console.log('Facebook Prueba');
+    // console.log('Facebook Prueba');
     authSignInFacebook();
   });
 
