@@ -9,7 +9,7 @@ export default (viewPost, userNow, idPost) => {
     const btnComment = viewPost.querySelector('.btn-comment');
     btnComment.addEventListener('click', () => {
       const userPhoto = localStorage.getItem('profileImg');
-      // const userName = userNow.displayName;
+      const userName = localStorage.getItem('username');
       const viewComment = componentsView.writeComment(userPhoto);
       console.log(viewComment);
       viewPost.appendChild(viewComment);
@@ -22,7 +22,7 @@ export default (viewPost, userNow, idPost) => {
         if (!inputComment.trim()) {
           console.log('comentario vacìo');
         } else {
-          models.comment.createComment(inputComment, userNow, localStorage.getItem('username'), localStorage.getItem('profileImg'), idPost);
+          models.comment.createComment(inputComment, userNow, userName, userPhoto, idPost);
           viewComment.querySelector('#input-comment').value = '';
         }
       });
