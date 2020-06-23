@@ -1,4 +1,7 @@
+/* eslint-disable no-undef */
 // CREAR LA COLECCION DE POST
+// import { models } from '../model/model-index.js';
+
 const posts = () => firebase.firestore().collection('post');
 
 const editPost = (id, newPost) => firebase.firestore().collection('post').doc(id).update({
@@ -99,9 +102,6 @@ const postsMain = () => posts().orderBy('date', 'desc');
 
 // LEER DOCUMENTOS PARA PROFILE
 const readPostProfile = (uid) => posts().where('idUser', '==', uid).orderBy('date', 'desc');
-
-
-
 
 export default {
   editPost,
