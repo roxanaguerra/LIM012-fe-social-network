@@ -14,19 +14,11 @@ export default () => {
     <div class="container">
     <div class="flex">
         <h4 class="center username" id="username"></h4>
-        ${
-  route === '#/profile'
-    ? viewEditUserName
-    : ' '
-}
+        ${route === '#/profile' ? viewEditUserName : ' '}
     </div>
     <div class="flex">
         <p class="theme-d3 userabout" id="userabout"></p>
-        ${
-  route === '#/profile'
-    ? viewEditUserAbout
-    : ' '
-}
+        ${route === '#/profile' ? viewEditUserAbout : ' '}
     </div>
     </div>`;
 

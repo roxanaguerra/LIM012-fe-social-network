@@ -1,5 +1,6 @@
 import { models } from '../model/model-index.js';
 import { componentsView } from '../view/view-index.js';
+// eslint-disable-next-line import/no-cycle
 import { controllers } from './controller-index.js';
 
 export default (viewHome) => {
@@ -65,9 +66,6 @@ export default (viewHome) => {
     }
   };
 
-
-  
-
   const ruta = window.location.hash;
   if (ruta === '#/home') {
     allPosts.onSnapshot((query) => {
@@ -83,7 +81,6 @@ export default (viewHome) => {
           newPost.appendChild(viewPost);
           eventsUpdateDeletePost(viewPost);
           controllers.comment(viewPost, userNow);
-
         }
       });
     });
@@ -100,7 +97,6 @@ export default (viewHome) => {
         newPost.appendChild(viewPost);
         eventsUpdateDeletePost(viewPost);
         controllers.comment(viewPost, userNow);
-
       });
     });
   }

@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-  const templateWriteComment = (photoUser) => {
+const templateWriteComment = (photoUser) => {
   const viewComment = `
       <div class="container card white round margin"><br>
         <img src=${photoUser} alt="Avatar" class="avatar left circle margin-right">
@@ -10,14 +10,13 @@
 
       </div>
     `;
-    const divElemt = document.createElement('div');
-    divElemt.innerHTML = viewComment;
-    return divElemt
+  const divElemt = document.createElement('div');
+  divElemt.innerHTML = viewComment;
+  return divElemt;
+};
 
-  };
-
-  const templateReadComment= (photoUser) => {
-    const viewComment = `
+const templateReadComment = (photoUser) => {
+  const viewComment = `
         <div class="container card white round margin"><br>
           <div> 
             <img src=${photoUser} alt="Avatar" class="avatar left circle margin-right">
@@ -29,12 +28,11 @@
           </div>  
         </div>
       `;
-      const divElemt = document.createElement('div');
-      divElemt.innerHTML = viewComment;
-      return divElemt
-  
-    };
-  export default {
-    templateWriteComment,
-    templateReadComment
-  };
+  const divElemt = document.createElement('div');
+  divElemt.innerHTML = viewComment;
+  return divElemt;
+};
+export default {
+  templateWriteComment,
+  templateReadComment,
+};
