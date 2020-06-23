@@ -1,5 +1,4 @@
 // CREAR LA COLECCIÒN DE COMMENT
-
 const comment = () => firebase.firestore().collection('comment');
 
 const createComment = (comments, user, username, photo, idPost) => {
@@ -13,22 +12,15 @@ const createComment = (comments, user, username, photo, idPost) => {
   })
     .then((docRef) => {
       console.log('Document written with ID Comment: ', docRef.id);
-      // sessionStorage.removeItem('imgNewPost');
     })
     .catch((error) => {
       console.error('Error adding document: ', error);
     });
 };
 
-const orderComment = (uid) => comment().where('uid', '==', 'idUser').orderBy('date', 'desc').onSnapshot((query) => {
-  console.log(query);
-
-  //   query.forEach(element => {
-
-// });
-});
+const readComment = (postUid) => comment().where('idPost', '==', postUid).orderBy('date', 'desc');
 
 export default {
   createComment,
-  orderComment,
+  readComment,
 };
