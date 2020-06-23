@@ -1,4 +1,5 @@
 //CREAR LA COLECCIÒN DE COMMENT
+
 const comment = () => firebase.firestore().collection('comment');
 
 const createComment = (comment, user, username, photo) => {
@@ -19,7 +20,13 @@ const createComment = (comment, user, username, photo) => {
       });
 };
 
-const orderComment = () => comment().orderBy('date', 'desc');
+const orderComment = (uid) => comment().where('uid','==','idUser').orderBy('date', 'desc').onSnapshot((query) => {
+console.log(query);
+
+//   query.forEach(element => {
+  
+// });
+})
 
 export default {
     createComment,

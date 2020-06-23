@@ -1,8 +1,5 @@
-// eslint-disable-next-line import/no-cycle
 import { models } from '../model/model-index.js';
-// eslint-disable-next-line import/no-cycle
 import { componentsView } from '../view/view-index.js';
-// eslint-disable-next-line import/no-cycle
 import { controllers } from './controller-index.js';
 
 export default () => {
