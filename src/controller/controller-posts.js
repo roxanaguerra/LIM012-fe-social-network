@@ -7,7 +7,6 @@ export default (viewHome) => {
   const userNow = models.authentication.currentUser();
   // const collectionPost = componentsView.postView();
   const allPosts = models.posts.postsMain();
-
   const allPostsProfile = models.posts.readPostProfile(userNow.uid);
 
   const eventsUpdateDeletePost = (viewPost) => {
@@ -76,7 +75,6 @@ export default (viewHome) => {
 
       query.forEach((doc) => {
         const postUser = doc.data();
-        // console.log('post: ', idPost);
         if (postUser.privacy === 'public') {
           idDoc = doc.id;
           const viewPost = componentsView.postView(postUser, userNow, idDoc);
@@ -98,7 +96,7 @@ export default (viewHome) => {
         const viewPost = componentsView.postView(postUser, userNow, idDoc);
         newPost.appendChild(viewPost);
         eventsUpdateDeletePost(viewPost);
-        controllers.comment(viewPost, userNow);
+        controllers.comment(viewPost, userNow, idDoc);
       });
     });
   }
