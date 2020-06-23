@@ -1,15 +1,15 @@
 import { componentsView } from '../view/view-index.js';
 import { models } from '../model/model-index.js';
 
-export default (viewPost, userNow) => {
+export default (viewPost, userNow, idPost) => {
   // const userNow = models.authentication.currentUser();
   // const allComments = models.comment.orderComment();
 
   const toDoComment = () => {
     const btnComment = viewPost.querySelector('.btn-comment');
     btnComment.addEventListener('click', () => {
-      const userPhoto = userNow.photoURL;
-      const userName = userNow.displayName;
+      const userPhoto = localStorage.getItem('profileImg');
+      // const userName = userNow.displayName;
       const viewComment = componentsView.writeComment(userPhoto);
       console.log(viewComment);
       viewPost.appendChild(viewComment);
@@ -18,17 +18,17 @@ export default (viewPost, userNow) => {
       const btnPost = viewComment.querySelector('#btn-postComment');
       btnPost.addEventListener('click', () => {
         // alert('hola');
-        const inputComment = viewComment.querySelector('#input-comment').nodeValue;
+        const inputComment = viewComment.querySelector('#input-comment').value;
         if (!inputComment.trim()) {
           console.log('comentario vacìo');
         } else {
-          models.comment.createComment(inputComment, userNow, userName, userPhoto);
+          models.comment.createComment(inputComment, userNow, localStorage.getItem('username'), localStorage.getItem('profileImg'), idPost);
+          viewComment.querySelector('#input-comment').value = '';
         }
       });
     });
+
   };
 
   return toDoComment();
-
-  // btnPost.querySelector('.btn-postComment');
 };

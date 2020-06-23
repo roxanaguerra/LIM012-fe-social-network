@@ -75,12 +75,14 @@ export default (viewHome) => {
 
       query.forEach((doc) => {
         const postUser = doc.data();
+        const idPost = doc.id;
+        // console.log('post: ', idPost);
         if (postUser.privacy === 'public') {
           idDoc = doc.id;
           const viewPost = componentsView.postView(postUser, userNow, idDoc);
           newPost.appendChild(viewPost);
           eventsUpdateDeletePost(viewPost);
-          controllers.comment(viewPost, userNow);
+          controllers.comment(viewPost, userNow, idPost);
         }
       });
     });

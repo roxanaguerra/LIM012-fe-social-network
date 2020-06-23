@@ -2,17 +2,17 @@
 
 const comment = () => firebase.firestore().collection('comment');
 
-const createComment = (comment, user, username, photo) => {
+const createComment = (comments, user, username, photo, idPost) => {
   comment().add({
-    // comment,
+    comments,
     date: new Date().toLocaleString(),
     idUser: user.uid,
     username,
     photo,
-
+    idPost,
   })
     .then((docRef) => {
-      console.log('Document written with ID: ', docRef.id);
+      console.log('Document written with ID Comment: ', docRef.id);
       // sessionStorage.removeItem('imgNewPost');
     })
     .catch((error) => {
