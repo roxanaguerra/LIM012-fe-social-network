@@ -4,14 +4,13 @@ import { models } from '../model/model-index.js';
 export default (viewPost, userNow, idPost) => {
   // const userNow = models.authentication.currentUser();
   // const allComments = models.comment.orderComment();
-
+  const allComments = models.comment.readComment(idPost);
+  const userPhoto = localStorage.getItem('profileImg');
+  const userName = localStorage.getItem('username');
+  const viewComment = componentsView.writeComment(userPhoto);
   const toDoComment = () => {
     const btnComment = viewPost.querySelector('.btn-comment');
     btnComment.addEventListener('click', () => {
-      const userPhoto = localStorage.getItem('profileImg');
-      const userName = localStorage.getItem('username');
-      const viewComment = componentsView.writeComment(userPhoto);
-      console.log(viewComment);
       viewPost.appendChild(viewComment);
       //   console.log('userNow', userNow);
       //   console.log('postUser: ', postUser);
@@ -27,7 +26,17 @@ export default (viewPost, userNow, idPost) => {
         }
       });
     });
-
+    allComments.onSnapshot((query) => {
+      const newComment = viewComment.querySelector('#new-comment');
+      let idComment;
+      newComment.innerHTML = '';
+      query.forEach((doc) => {
+        const commentUser = doc.data();
+        idComment = doc.id;
+        const viewComment = componentsView.readComment(idComment, commentUser);
+        newComment.appendChild(viewComment);
+      });
+    });
   };
 
   return toDoComment();

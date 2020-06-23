@@ -66,6 +66,7 @@ export default (viewHome) => {
     }
   };
 
+  // PINTAR LOS POST
   const ruta = window.location.hash;
   if (ruta === '#/home') {
     allPosts.onSnapshot((query) => {

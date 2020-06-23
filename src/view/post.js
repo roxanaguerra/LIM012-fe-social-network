@@ -20,14 +20,14 @@ export default (postUser, userNow, idDoc) => {
       <hr class="clear">
       <span idPost=${idDoc} class="right save-post opacity hide"><i class="fa fa-save"></i></span>
       <p id="post-${idDoc}" class="margin-top">${postUser.post}</p> 
-      ${typeof postUser.urlImg !== undefined && postUser.urlImg !== null ? viewImgPost : ' '}
+      ${typeof postUser.urlImg !== 'undefined' && postUser.urlImg !== null ? viewImgPost : ' '}
       <hr class="clear">
       <br>
       <button type="button" class="button theme-d1 margin-bottom btn-like"><i class="fa fa-thumbs-up"></i>  Like</button> 
       <button type="button" class="button theme-d1 margin-bottom btn-comment"><i class="fa fa-comment"></i>  Comment</button> 
+      <div id="comment-write"></div>
       <div id="comment-space"></div>
-
-      </div>
+    </div>
     `;
 
   const divElemt = document.createElement('div');
