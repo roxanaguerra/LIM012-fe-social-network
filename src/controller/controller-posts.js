@@ -1,13 +1,12 @@
 import { models } from '../model/model-index.js';
 import { componentsView } from '../view/view-index.js';
+import comment from '../view/comment.js';
 import { controllers } from './controller-index.js';
 
 export default (viewHome) => {
   const userNow = models.authentication.currentUser();
   // const collectionPost = componentsView.postView();
-  const allPosts = models.posts.postsMain();
 
-  const allPostsProfile = models.posts.readPostProfile(userNow.uid);
 
   const eventsUpdateDeletePost = (viewPost) => {
   // ASIGNA EL EVENTO DE DESPLEGAR LAS OPCIONES DE EDITAR Y ELIMINAR A TODOS LOS POSTS
@@ -65,42 +64,37 @@ export default (viewHome) => {
     }
   };
 
-
-  
-
+  // PINTAR LOS DOCUMENTOS DE LA COLECCION POST
   const ruta = window.location.hash;
   if (ruta === '#/home') {
-    allPosts.onSnapshot((query) => {
+    models.posts.postsMain((getPost) => {
       const newPost = viewHome.querySelector('#new-post');
       let idDoc;
       newPost.innerHTML = '';
-
-      query.forEach((doc) => {
-        const postUser = doc.data();
+      getPost.forEach((postUser) => {
+        // console.log(postUser);
         if (postUser.privacy === 'public') {
-          idDoc = doc.id;
+          idDoc = postUser.id;
           const viewPost = componentsView.postView(postUser, userNow, idDoc);
           newPost.appendChild(viewPost);
           eventsUpdateDeletePost(viewPost);
           controllers.comment(viewPost, userNow);
-
+          // console.log(controllers.comment(viewPost, userNow));
         }
       });
     });
   } else if (ruta === '#/profile') {
-    allPostsProfile.onSnapshot((query) => {
+    const user = userNow.uid;
+    models.posts.readPostProfile(user, (getpost) => {
       const newPost = viewHome.querySelector('#new-post');
       let idDoc;
       newPost.innerHTML = '';
-
-      query.forEach((doc) => {
-        const postUser = doc.data();
-        idDoc = doc.id;
+      getpost.forEach((postUser) => {
+        idDoc = postUser.id;
         const viewPost = componentsView.postView(postUser, userNow, idDoc);
         newPost.appendChild(viewPost);
         eventsUpdateDeletePost(viewPost);
-        controllers.comment(viewPost, userNow);
-
+        controllers.comment(viewPost, userNow, idDoc);
       });
     });
   }

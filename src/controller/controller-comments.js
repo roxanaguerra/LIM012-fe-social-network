@@ -13,7 +13,7 @@ export default (viewPost, userNow) => {
         const viewComment = componentsView.writeComment(userPhoto);
         console.log(viewComment);
         viewPost.appendChild(viewComment);
-        //   console.log('userNow', userNow);
+          console.log('userNow', userNow);
         //   console.log('postUser: ', postUser);
                 const btnPost = viewComment.querySelector('#btn-postComment')
                 btnPost.addEventListener('click', () => {
