@@ -18,9 +18,33 @@ const createComment = (comments, user, username, photo, idPost) => {
     });
 };
 
-const readComment = (postUid) => comment().where('idPost', '==', postUid).orderBy('date', 'desc');
+const readComment = postUid => comment().where('idPost', '==', postUid).orderBy('date', 'desc');
+
+const editComment = (id, newComment) => comment().doc(id).update({
+  comments: newComment,
+});
+
+const deleteComment = id => comment().doc(id).delete();
+
+const updateUserNameComment = (id, username) => comment().doc(id).update({
+  username,
+});
+
+const updateAllCommentsUsername = (userId, username) => {
+  comment().get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (doc.data().idUser === userId) {
+          updateUserNameComment(doc.id, username);
+        }
+      });
+    });
+};
 
 export default {
   createComment,
   readComment,
+  editComment,
+  deleteComment,
+  updateAllCommentsUsername,
 };

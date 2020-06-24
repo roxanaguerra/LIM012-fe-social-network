@@ -44,7 +44,7 @@ export default () => {
           <div class="col m12">
             <div class="card round white">
               <div class="container padding flex">
-                <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px" placeholder="What's on your mind?"></textarea>
+                <textarea class="border-radius padding theme-d3" id="input-post" cols="45" rows="4" style="width:600px; overflow:hidden;" placeholder="What's on your mind?"></textarea>
               </div>
               <div class="hide divImg">
                 <span class="deleteImg">❌</span>

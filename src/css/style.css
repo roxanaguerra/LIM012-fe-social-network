@@ -406,10 +406,31 @@ h6 {
 
 .h4 {
   font-size: 17px;
+  margin: 0px;
+}
+
+.h4-m {
+  font-size: 13px;
+  margin: 0px;
+}
+
+.font-13 {
+  font-size: 13px;
+}
+
+.comment-m {
+  background-color: #e9d391;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 13px;
 }
 
 .avatar {
   width: 45px;
+}
+
+.avatar-m {
+  width: 35px;
 }
 
 a {
@@ -537,16 +558,32 @@ div #ctn-privacy {
   margin-top: 25px;
 }
 
+.margin-z {
+  margin: 0;
+}
+
 .tooltip {
   width: 20%;
   font-weight: 600;
-  text-align: center;
+  text-align: start;
   border-radius: 7px;
   padding: 5px 0;
   position: absolute;
-  right: 16%;
+  right: 18%;
   font-size: 12px;
   z-index: 1;
+}
+
+.tooltip-c {
+  width: 25%;
+  font-weight: 600;
+  text-align: start;
+  border-radius: 7px;
+  position: absolute;
+  right: 11.2%;
+  font-size: 12px;
+  z-index: 1;
+  background-color: #9EE2F8;
 }
 
 @media (min-width: 601px) {
@@ -674,8 +711,14 @@ div #ctn-privacy {
   }
   .tooltip {
     font-size: 15px;
-    right: 8%;
+    right: 5.3%;
     padding: 5px 0;
+    width: 13%;
+  }
+  .tooltip-c {
+    font-size: 15px;
+    right: 14%;
+    padding: 3px 0;
     width: 15%;
   }
   .margin-right {
@@ -683,6 +726,18 @@ div #ctn-privacy {
   }
   .h4 {
     font-size: 20px;
+  }
+  .comment-m {
+    background-color: #e9d391;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 17px;
+  }
+  .h4-m {
+    font-size: 16px;
+  }
+  .margin-bottom-m {
+    margin-bottom: 7px !important;
   }
 }
 
@@ -692,7 +747,7 @@ div #ctn-privacy {
   }
   .tooltip {
     font-size: 15px;
-    right: 9%;
+    right: 5.3%;
     width: 15%;
   }
   .margin-right {
@@ -700,6 +755,18 @@ div #ctn-privacy {
   }
   .h4 {
     font-size: 20px;
+  }
+  .h4-m {
+    font-size: 16px;
+  }
+  .comment-m {
+    background-color: #e9d391;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 15px;
+  }
+  .margin-bottom-m {
+    margin-bottom: 7px !important;
   }
 }
 
@@ -738,6 +805,10 @@ div #ctn-privacy {
   padding: 0.01em 16px;
 }
 
+.container-m {
+  padding: 5px;
+}
+
 .card {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
@@ -766,8 +837,16 @@ div #ctn-privacy {
   margin: 16px !important;
 }
 
+.margin-m {
+  margin: 7px !important;
+}
+
 .margin-bottom {
   margin-bottom: 16px !important;
+}
+
+.margin-bottom-m {
+  margin-bottom: 7px !important;
 }
 
 .margin-right {
@@ -780,6 +859,10 @@ div #ctn-privacy {
 
 .padding-large {
   padding: 12px 24px !important;
+}
+
+.padding-left {
+  padding-left: 5px;
 }
 
 .left {

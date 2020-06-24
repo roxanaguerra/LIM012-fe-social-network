@@ -8,7 +8,7 @@ const editPost = (id, newPost) => firebase.firestore().collection('post').doc(id
   post: newPost,
 });
 
-const deletePost = (id) => firebase.firestore().collection('post').doc(id).delete();
+const deletePost = id => firebase.firestore().collection('post').doc(id).delete();
 
 const updateUserNamePost = (id, username) => firebase.firestore().collection('post').doc(id).update({
   username,
@@ -34,7 +34,7 @@ const addLikePost = (idPost, idUser) => firebase.firestore().collection('post')
   });
 
 // SUBIR LA IMAGEN AL STORAGE, PARA OBTENER LA URL DE LA IMG
-const subirImagenFirebase = (imagenASubir) => new Promise((resolve, reject) => {
+const subirImagenFirebase = imagenASubir => new Promise((resolve, reject) => {
   // const imagenASubir = document.querySelector('#uploadImg').files[0];
   const nameImg = `${+new Date()}- ${imagenASubir.name}`;
   const metadata = { tipoFile: imagenASubir.type };
@@ -99,7 +99,7 @@ const createPost = (post, user, mode, username, photo, imagenASubir) => {
 };
 
 // EL ORDEN COMO QUE SE PINTARAN LOS POST
-const postsMain = (callback) => posts().orderBy('date', 'desc').onSnapshot((query) => {
+const postsMain = callback => posts().orderBy('date', 'desc').onSnapshot((query) => {
   const getPost = [];
   query.forEach((post) => {
     getPost.push({

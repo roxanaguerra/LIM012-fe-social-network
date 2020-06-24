@@ -57,6 +57,7 @@ export default (viewHome) => {
       }
       models.user.updateUserName(userNow.uid, newName);
       models.posts.updateAllPostUsername(userNow.uid, newName);
+      models.comment.updateAllCommentsUsername(userNow.uid, newName);
       readUserProfile(userNow.uid);
     });
 
