@@ -1,18 +1,6 @@
 // eslint-disable-next-line import/named
 import { models } from '../src/model/model-index.js';
-
-// configurando firebase mock
-// eslint-disable-next-line import/no-unresolved
-const firebasemock = require('firebase-mock');
-
-const mockauth = new firebasemock.MockAuthentication();
-mockauth.autoFlush();
-
-global.firebase = firebasemock.MockFirebaseSdk(
-  // use null if your code does not use RTDB
-  () => null,
-  () => mockauth,
-);
+import '../mock/mock.js';
 
 // TEST: REGISTRAR NUEVO USUARIO
 describe('auth-signUp: Crear un usuario', () => {
@@ -37,16 +25,6 @@ describe('auth-signIn: Iniciar sesion', () => {
   });
 });
 
-// TEST: CERRAR SESION
-describe('auth-signOut: Cerrar sesion', () => {
-  it('Deberia de cerrar sesion', () => {
-    models.authentication.signOut()
-      .then((user) => {
-        expect(user).toBe(null);
-      });
-  });
-});
-
 // TEST: INICIAR SESION CON GOOGLE
 describe('auth-signInGoogle: Iniciar sesion con Google', () => {
   it('Deberia de iniciar sesion con Google', () => {
@@ -63,6 +41,16 @@ describe('auth-signInFacebook: Iniciar sesion con Facebook', () => {
     models.authentication.signInFacebook()
       .then((user) => {
         expect(user.isAnonymous).toBe(false);
+      });
+  });
+});
+
+// TEST: CERRAR SESION
+describe('auth-signOut: Cerrar sesion', () => {
+  it('Deberia de cerrar sesion', () => {
+    models.authentication.signOut()
+      .then((user) => {
+        expect(user).toBe(null);
       });
   });
 });
