@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-cycle
-// import { models } from './model-index.js';
 // REGISTRO DE USUARIO
 // eslint-disable-next-line max-len
 const signUp = (emailRegister, passwordRegister) => firebase.auth().createUserWithEmailAndPassword(emailRegister, passwordRegister);
@@ -23,6 +21,7 @@ const signInFacebook = () => {
   return firebase.auth().signInWithPopup(provider);
 };
 
+// DATA DEL USUARIO
 const currentUser = () => firebase.auth().currentUser;
 
 // CERRAR SESIÓN

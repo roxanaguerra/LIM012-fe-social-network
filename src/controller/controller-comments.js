@@ -2,7 +2,6 @@ import { componentsView } from '../view/view-index.js';
 import { models } from '../model/model-index.js';
 
 export default (viewPost, userNow, idPost) => {
-  const allComments = models.comment.readComment(idPost);
   const userPhoto = localStorage.getItem('profileImg');
   const userName = localStorage.getItem('username');
   const viewComment = componentsView.writeComment(userPhoto);
@@ -82,14 +81,14 @@ export default (viewPost, userNow, idPost) => {
       }
     };
 
-    allComments.onSnapshot((query) => {
+    models.comment.readComment(idPost, (getComment) => {
       const newComment = viewPost.querySelector('#comment-space');
       let idComment;
       newComment.innerHTML = '';
-      query.forEach((doc) => {
-        const commentUser = doc.data();
-        idComment = doc.id;
-        const viewComments = componentsView.readComment(idComment, commentUser, userNow);
+      getComment.forEach((commentUser) => {
+        // const commentUser = doc.data();
+        idComment = commentUser.id;
+        const viewComments = componentsView.readComment(idComment, commentUser);
         newComment.appendChild(viewComments);
         eventsUpdateDeleteComment(viewComments);
       });

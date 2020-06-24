@@ -26,13 +26,6 @@ const updateAllPostUsername = (userId, username) => {
     });
 };
 
-// Con arrayUnion(), se pueden agregar elementos a un arreglo
-const addLikePost = (idPost, idUser) => firebase.firestore().collection('post')
-  .doc(idPost)
-  .update({
-    likes: firebase.firestore.FieldValue.arrayUnion(idUser),
-  });
-
 // SUBIR LA IMAGEN AL STORAGE, PARA OBTENER LA URL DE LA IMG
 const subirImagenFirebase = imagenASubir => new Promise((resolve, reject) => {
   // const imagenASubir = document.querySelector('#uploadImg').files[0];
@@ -99,35 +92,39 @@ const createPost = (post, user, mode, username, photo, imagenASubir) => {
 };
 
 // EL ORDEN COMO QUE SE PINTARAN LOS POST
-const postsMain = callback => posts().orderBy('date', 'desc').onSnapshot((query) => {
-  const getPost = [];
-  query.forEach((post) => {
-    getPost.push({
-      id: post.id,
-      ...post.data(),
+const postsMain = (callback) => posts().orderBy('date', 'desc')
+  .onSnapshot((query) => {
+    const getPost = [];
+    query.forEach((post) => {
+      getPost.push({
+        id: post.id,
+        ...post.data(),
+      });
     });
+    callback(getPost);
   });
-  callback(getPost);
-});
 
 // LEER DOCUMENTOS PARA PROFILE
-const readPostProfile = (idUser, callback) => posts().where('idUser', '==', idUser).orderBy('date', 'desc').onSnapshot((query) => {
-  const getPost = [];
-  query.forEach((post) => {
-    getPost.push({
-      id: post.id,
-      ...post.data(),
+const readPostProfile = (idUser, callback) => posts().where('idUser', '==', idUser).orderBy('date', 'desc')
+  .onSnapshot((query) => {
+    const getPost = [];
+    query.forEach((post) => {
+      getPost.push({
+        id: post.id,
+        ...post.data(),
+      });
     });
+    callback(getPost);
   });
-  callback(getPost);
-});
+
+const updateLikes = (id, likes) => posts().doc(id).update({ likes });
 
 export default {
   editPost,
   deletePost,
   updateAllPostUsername,
-  addLikePost,
   createPost,
   postsMain,
   readPostProfile,
+  updateLikes,
 };

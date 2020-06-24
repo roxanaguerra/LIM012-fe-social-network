@@ -68,37 +68,39 @@ export default (viewHome) => {
 
   // PINTAR LOS POST
   const ruta = window.location.hash;
+  const user = userNow.uid;
+  let idDoc;
+  let likes;
+    console.log(user);// no borrar este console.log pls
   if (ruta === '#/home') {
     models.posts.postsMain((getPost) => {
       const newPost = viewHome.querySelector('#new-post');
-      let idDoc;
       newPost.innerHTML = '';
-
       getPost.forEach((postUser) => {
-        // const postUser = doc.data();
         if (postUser.privacy === 'public') {
           idDoc = postUser.id;
-          const viewPost = componentsView.postView(postUser, userNow, idDoc);
+          likes = postUser.likes;
+          // console.log(likes);
+          const viewPost = componentsView.postView(postUser, userNow, idDoc, likes);
           newPost.appendChild(viewPost);
           eventsUpdateDeletePost(viewPost);
           controllers.comment(viewPost, userNow, idDoc);
+          controllers.likes(viewPost, likes, user, idDoc);
         }
       });
     });
   } else if (ruta === '#/profile') {
-    const user = userNow.uid;
     models.posts.readPostProfile(user, (getPost) => {
       const newPost = viewHome.querySelector('#new-post');
-      let idDoc;
       newPost.innerHTML = '';
-
       getPost.forEach((postUser) => {
-        // const postUser = doc.data();
         idDoc = postUser.id;
-        const viewPost = componentsView.postView(postUser, userNow, idDoc);
+        likes = postUser.likes;
+        const viewPost = componentsView.postView(postUser, userNow, idDoc, likes);
         newPost.appendChild(viewPost);
         eventsUpdateDeletePost(viewPost);
         controllers.comment(viewPost, userNow, idDoc);
+        controllers.likes(viewPost, likes, user, idDoc);
       });
     });
   }
