@@ -9,11 +9,11 @@ export default (viewPost, likes, user, idDoc) => {
       if (userLike === -1) {
         likes.push(user);
         models.posts.updateLikes(idDoc, likes);
-        console.log('con like');
+        // console.log('con like');
       } else {
         likes.splice(user, 1);
         models.posts.updateLikes(idDoc, likes);
-        console.log('sin like');
+        // console.log('sin like');
       }
     });
   };

@@ -35,7 +35,7 @@ const editComment = (id, newComment) => comment().doc(id).update({
   comments: newComment,
 });
 
-const deleteComment = id => comment().doc(id).delete();
+const deleteComment = (id) => comment().doc(id).delete();
 
 const updateUserNameComment = (id, username) => comment().doc(id).update({
   username,
