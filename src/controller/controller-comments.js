@@ -5,6 +5,7 @@ export default (viewPost, userNow, idPost) => {
   const userPhoto = localStorage.getItem('profileImg');
   const userName = localStorage.getItem('username');
   const viewComment = componentsView.writeComment(userPhoto);
+  
   const toDoComment = () => {
     const btnComment = viewPost.querySelector('.btn-comment');
     const toComment = viewPost.querySelector('#comment-write');

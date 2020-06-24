@@ -1,5 +1,5 @@
 // eslint-disable-next-line consistent-return
-export default (postUser, userNow, idDoc) => {
+export default (postUser, userNow, idDoc, likes) => {
   const viewEditPost = `<span class="options-post right opacity"><i class="fa fa-ellipsis-h"></i></span>  
     <div idPost=${idDoc} class="tooltip hide inline-grid theme-d3">
       <span idPost=${idDoc} class="edit-post opacity"><i class="fa fa-edit"> Editar</i></span>
@@ -23,7 +23,8 @@ export default (postUser, userNow, idDoc) => {
       ${typeof postUser.urlImg !== 'undefined' && postUser.urlImg !== null ? viewImgPost : ' '}
       <hr class="clear">
       <br>
-      <button type="button" class="button theme-d1 margin-bottom btn-like"><i class="fa fa-thumbs-up"></i>  Like</button> 
+      <button type="button" class="button theme-d1 margin-bottom btn-like"> <i class="${likes.indexOf(userNow.uid === -1) ? 'fa fa-thumbs-up' : 'fa fa-thumbs-up'}"></i> Like</button> 
+      <p id="like-counter">${likes.length}</p>
       <button type="button" class="button theme-d1 margin-bottom btn-comment"><i class="fa fa-comment"></i>  Comment</button> 
       <div id="comment-write"></div>
       <div id="comment-space"></div>
