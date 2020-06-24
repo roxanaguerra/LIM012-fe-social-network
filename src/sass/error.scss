@@ -1,0 +1,30 @@
+.error {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.img-error {
+    min-width: 300px;
+    max-width: 500px;
+}
+.message-error {
+    padding: 0 1em 2em 1em;
+}
+
+.message-error h1 {
+    color: #58DAD2;
+    font-weight: bold;
+}
+
+.message-error p {
+    font-size: 3vh;
+    max-width: 500px;
+    padding: 0 10px;
+    color: #E0C162;
+}
