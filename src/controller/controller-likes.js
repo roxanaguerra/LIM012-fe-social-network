@@ -1,11 +1,9 @@
-// import { componentsView } from '../view/view-index.js';
 import { models } from '../model/model-index.js';
 
 export default (viewPost, likes, user, idDoc) => {
   // console.log(viewPost);
   const toDoLike = () => {
     const btnLike = viewPost.querySelector('.btn-like');
-    // const toLike = viewPost.querySelector('#like-counter');
     btnLike.addEventListener('click', () => {
       const userLike = likes.indexOf(user);
       if (userLike === -1) {
