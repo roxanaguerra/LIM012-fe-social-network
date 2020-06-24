@@ -5,7 +5,7 @@ import { componentsView } from '../view/view-index.js';
 
 export default () => {
   const view = componentsView.register();
-  console.log(view);
+  // console.log(view);
 
   const validateEmail = (email) => {
     // para validar que ingrese un email de acuerdo a su sintaxis
@@ -26,13 +26,12 @@ export default () => {
           url: 'https://localhost:5000/#/',
         };
         result.user.sendEmailVerification(configuration)
-        // verificationEmail()
           .then(() => {
             models.user.createUserData(user.uid, user.email, username, profilePhotoDefault);
             span.innerHTML = '*Se envió un correo de verificación';
           }).catch(() => {
             // An error happened.
-            console.log('No se envío correo');
+            // console.log('No se envío correo');
           });
       })
       .catch((error) => {
@@ -71,7 +70,7 @@ export default () => {
     const passwordRegister = view.querySelector('#password-register').value;
     const validateSintaxEmail = validateEmail(emailRegister);
     const span = document.querySelector('#span');
-    console.log(emailRegister, passwordRegister);
+    // console.log(emailRegister, passwordRegister);
     if (username === '') {
       span.innerHTML = '*Debes ingresar Nombres y Apellidos';
     } else if (emailRegister === '') {
@@ -94,7 +93,7 @@ export default () => {
   const btnGoogle = view.querySelector('#google-register');
   btnGoogle.addEventListener('click', (e) => {
     e.preventDefault(); // cancelar el evento de reinicio de formulario
-    console.log('Google Prueba - register');
+    // console.log('Google Prueba - register');
     models.authentication.authSignInGoogle();
   });
 
@@ -102,7 +101,7 @@ export default () => {
   const btnFacebook = view.querySelector('#facebook-register');
   btnFacebook.addEventListener('click', (e) => {
     e.preventDefault(); // cancelar el evento de reinicio de formulario
-    console.log('Facebook Prueba');
+    // console.log('Facebook Prueba');
     models.authentication.authSignInFacebook();
   });
 

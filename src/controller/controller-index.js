@@ -8,7 +8,8 @@ import login from './controller-login.js';
 import register from './controller-register.js';
 // eslint-disable-next-line import/no-cycle
 import home from './controller-home.js';
-import comment from './controller-comments.js'
+import comment from './controller-comments.js';
+import likes from './controller-likes.js';
 
 export const controllers = {
   // comments,
@@ -18,4 +19,5 @@ export const controllers = {
   register,
   home,
   comment,
+  likes,
 };

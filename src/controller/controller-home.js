@@ -1,5 +1,6 @@
 import { models } from '../model/model-index.js';
 import { componentsView } from '../view/view-index.js';
+// eslint-disable-next-line import/no-cycle
 import { controllers } from './controller-index.js';
 
 export default () => {
@@ -54,10 +55,10 @@ export default () => {
   btnPost.addEventListener('click', () => {
     const inputPost = view.querySelector('#input-post').value;
     const imagenASubir = view.querySelector('#uploadImg');
-    console.log(inputPost);
+    // console.log(inputPost);
     divImg.classList.add('hide');
     if (!inputPost.trim()) {
-      console.log('input vacío');
+      // console.log('input vacío');
       return;
     }
     if (publicMode.classList.contains('hide')) {
@@ -81,17 +82,17 @@ export default () => {
   // CARGAR LA IMAGEN PARA HACER UN POST
   const btnImg = view.querySelector('#icon-photo');
   btnImg.addEventListener('click', () => {
-    console.log('Selecciona la img...!');
+    // console.log('Selecciona la img...!');
     const uploadImg = view.querySelector('#uploadImg');
     uploadImg.addEventListener('change', () => {
-      console.log('change');
+      // console.log('change');
       if (uploadImg.files && uploadImg.files[0]) {
         const read = new FileReader();
         read.onload = (e) => {
           const pic = view.querySelector('.picPost');
           pic.parentNode.classList.remove('hide');
           pic.setAttribute('src', e.target.result);
-          console.log('pic: ', pic);
+          // console.log('pic: ', pic);
         };
         read.readAsDataURL(uploadImg.files[0]);
       }

@@ -28,10 +28,10 @@ const currentUser = () => firebase.auth().currentUser;
 const signOutUser = () => {
   signOut()
     .then(() => {
-      console.log('Saliendo...!');
+      // console.log('Saliendo...!');
     })
-    .catch((error) => {
-      console.log(error);
+    .catch(() => {
+      // console.log(error);
     });
 };
 
@@ -42,9 +42,5 @@ export default {
   signInGoogle,
   signInFacebook,
   currentUser,
-  // registerNewUser,
-  // authSignIn,
-  // authSignInGoogle,
-  // authSignInFacebook,
   signOutUser,
 };

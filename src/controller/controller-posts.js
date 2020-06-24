@@ -1,12 +1,10 @@
 import { models } from '../model/model-index.js';
 import { componentsView } from '../view/view-index.js';
-import comment from '../view/comment.js';
+// eslint-disable-next-line import/no-cycle
 import { controllers } from './controller-index.js';
 
 export default (viewHome) => {
   const userNow = models.authentication.currentUser();
-  // const collectionPost = componentsView.postView();
-
 
   const eventsUpdateDeletePost = (viewPost) => {
   // ASIGNA EL EVENTO DE DESPLEGAR LAS OPCIONES DE EDITAR Y ELIMINAR A TODOS LOS POSTS
@@ -64,37 +62,45 @@ export default (viewHome) => {
     }
   };
 
-  // PINTAR LOS DOCUMENTOS DE LA COLECCION POST
+  // PINTAR LOS POST
   const ruta = window.location.hash;
+  const user = userNow.uid;
+  let idDoc;
+  let likes;
+    console.log(user);
   if (ruta === '#/home') {
     models.posts.postsMain((getPost) => {
       const newPost = viewHome.querySelector('#new-post');
-      let idDoc;
       newPost.innerHTML = '';
       getPost.forEach((postUser) => {
-        // console.log(postUser);
+        // const postUser = doc.data();
         if (postUser.privacy === 'public') {
           idDoc = postUser.id;
-          const viewPost = componentsView.postView(postUser, userNow, idDoc);
+          likes = postUser.likes;
+          // console.log(likes);
+          const viewPost = componentsView.postView(postUser, userNow, idDoc, likes);
           newPost.appendChild(viewPost);
           eventsUpdateDeletePost(viewPost);
-          controllers.comment(viewPost, userNow);
-          // console.log(controllers.comment(viewPost, userNow));
+          controllers.comment(viewPost, userNow, idDoc);
+          controllers.likes(viewPost, likes, user, idDoc);
         }
       });
     });
   } else if (ruta === '#/profile') {
-    const user = userNow.uid;
-    models.posts.readPostProfile(user, (getpost) => {
+    models.posts.readPostProfile(user, (getPost) => {
       const newPost = viewHome.querySelector('#new-post');
-      let idDoc;
       newPost.innerHTML = '';
-      getpost.forEach((postUser) => {
+
+      getPost.forEach((postUser) => {
+        // const postUser = doc.data();
         idDoc = postUser.id;
-        const viewPost = componentsView.postView(postUser, userNow, idDoc);
+        likes = postUser.likes;
+
+        const viewPost = componentsView.postView(postUser, userNow, idDoc, likes);
         newPost.appendChild(viewPost);
         eventsUpdateDeletePost(viewPost);
         controllers.comment(viewPost, userNow, idDoc);
+        controllers.likes(viewPost, likes, user, idDoc);
       });
     });
   }
