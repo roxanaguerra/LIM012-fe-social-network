@@ -23,14 +23,8 @@ export default (postUser, userNow, idDoc, likes) => {
       ${typeof postUser.urlImg !== 'undefined' && postUser.urlImg !== null ? viewImgPost : ' '}
       <hr class="clear">
       <br>
-      
-
-
       <button type="button" class="button theme-d1 margin-bottom btn-like"> <i class="${likes.indexOf(userNow.uid === -1) ? 'fa fa-thumbs-up' : 'fa fa-thumbs-up'}"></i> Like</button> 
       <p id="like-counter">${likes.length}</p>
-
-
-
       <button type="button" class="button theme-d1 margin-bottom btn-comment"><i class="fa fa-comment"></i>  Comment</button> 
       <div id="comment-write"></div>
       <div id="comment-space"></div>
