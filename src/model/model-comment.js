@@ -31,7 +31,31 @@ const readComment = (postUid, callback) => comment().where('idPost', '==', postU
     callback(getComment);
   });
 
+const editComment = (id, newComment) => comment().doc(id).update({
+  comments: newComment,
+});
+
+const deleteComment = id => comment().doc(id).delete();
+
+const updateUserNameComment = (id, username) => comment().doc(id).update({
+  username,
+});
+
+const updateAllCommentsUsername = (userId, username) => {
+  comment().get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (doc.data().idUser === userId) {
+          updateUserNameComment(doc.id, username);
+        }
+      });
+    });
+};
+
 export default {
   createComment,
   readComment,
+  editComment,
+  deleteComment,
+  updateAllCommentsUsername,
 };

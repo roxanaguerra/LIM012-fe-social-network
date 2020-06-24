@@ -5,10 +5,11 @@ export default (viewPost, userNow, idPost) => {
   const userPhoto = localStorage.getItem('profileImg');
   const userName = localStorage.getItem('username');
   const viewComment = componentsView.writeComment(userPhoto);
-  
+
   const toDoComment = () => {
     const btnComment = viewPost.querySelector('.btn-comment');
     const toComment = viewPost.querySelector('#comment-write');
+
     btnComment.addEventListener('click', () => {
       toComment.appendChild(viewComment);
       const btnPost = viewComment.querySelector('#btn-postComment');
@@ -23,6 +24,63 @@ export default (viewPost, userNow, idPost) => {
       });
     });
 
+    const eventsUpdateDeleteComment = (view) => {
+      const btnOptComment = view.querySelector('.options-comment');
+      if (btnOptComment) {
+        btnOptComment.addEventListener('click', () => {
+          const ctnOpt = btnOptComment.parentNode.querySelector('.tooltip-c');
+          if (ctnOpt.classList.contains('hide')) {
+            ctnOpt.classList.remove('hide');
+          } else {
+            ctnOpt.classList.add('hide');
+          }
+        });
+      }
+
+      const btnEditComment = view.querySelector('.edit-comment');
+      if (btnEditComment) {
+        btnEditComment.addEventListener('click', () => {
+          const idComment = btnEditComment.getAttribute('idComment');
+          const textPost = view.querySelector(`#comment-${idComment}`);
+          textPost.setAttribute('contenteditable', 'true');
+          textPost.setAttribute('style', 'width: 90%');
+          textPost.focus();
+          const ctnOpt = btnEditComment.parentNode.parentNode.querySelector('.tooltip');
+          const btnSave = btnEditComment.parentNode.parentNode.querySelector('.save-comment');
+          if (ctnOpt.classList.contains('hide') === false) {
+            ctnOpt.classList.add('hide');
+          }
+          if (btnSave.classList.contains('hide')) {
+            btnSave.classList.remove('hide');
+          }
+        });
+      }
+
+      const btnSaveComment = view.querySelector('.save-comment');
+      if (btnSaveComment) {
+        btnSaveComment.addEventListener('click', () => {
+          const idComment = btnSaveComment.getAttribute('idComment');
+          const textComment = view.querySelector(`#comment-${idComment}`);
+          textComment.setAttribute('contenteditable', 'false');
+          btnSaveComment.classList.add('hide');
+          const lastPost = textComment.innerText;
+          if (!lastPost.trim()) {
+            console.log('input vacío');
+            return;
+          }
+          models.comment.editComment(idComment, lastPost);
+        });
+      }
+
+      const btnDeleteComment = view.querySelector('.delete-comment');
+      if (btnDeleteComment) {
+        btnDeleteComment.addEventListener('click', () => {
+          const idComment = btnDeleteComment.getAttribute('idComment');
+          models.comment.deleteComment(idComment);
+        });
+      }
+    };
+
     models.comment.readComment(idPost, (getComment) => {
       const newComment = viewPost.querySelector('#comment-space');
       let idComment;
@@ -32,6 +90,7 @@ export default (viewPost, userNow, idPost) => {
         idComment = commentUser.id;
         const viewComments = componentsView.readComment(idComment, commentUser);
         newComment.appendChild(viewComments);
+        eventsUpdateDeleteComment(viewComments);
       });
     });
   };

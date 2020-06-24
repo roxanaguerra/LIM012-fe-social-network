@@ -8,7 +8,7 @@ const editPost = (id, newPost) => firebase.firestore().collection('post').doc(id
   post: newPost,
 });
 
-const deletePost = (id) => firebase.firestore().collection('post').doc(id).delete();
+const deletePost = id => firebase.firestore().collection('post').doc(id).delete();
 
 const updateUserNamePost = (id, username) => firebase.firestore().collection('post').doc(id).update({
   username,
@@ -27,7 +27,7 @@ const updateAllPostUsername = (userId, username) => {
 };
 
 // SUBIR LA IMAGEN AL STORAGE, PARA OBTENER LA URL DE LA IMG
-const subirImagenFirebase = (imagenASubir) => new Promise((resolve, reject) => {
+const subirImagenFirebase = imagenASubir => new Promise((resolve, reject) => {
   // const imagenASubir = document.querySelector('#uploadImg').files[0];
   const nameImg = `${+new Date()}- ${imagenASubir.name}`;
   const metadata = { tipoFile: imagenASubir.type };
