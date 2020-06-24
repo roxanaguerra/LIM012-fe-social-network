@@ -67,7 +67,7 @@ export default (viewHome) => {
   const user = userNow.uid;
   let idDoc;
   let likes;
-    console.log(user);
+    console.log(user);// no borrar este console.log pls
   if (ruta === '#/home') {
     models.posts.postsMain((getPost) => {
       const newPost = viewHome.querySelector('#new-post');
@@ -90,12 +90,10 @@ export default (viewHome) => {
     models.posts.readPostProfile(user, (getPost) => {
       const newPost = viewHome.querySelector('#new-post');
       newPost.innerHTML = '';
-
       getPost.forEach((postUser) => {
         // const postUser = doc.data();
         idDoc = postUser.id;
         likes = postUser.likes;
-
         const viewPost = componentsView.postView(postUser, userNow, idDoc, likes);
         newPost.appendChild(viewPost);
         eventsUpdateDeletePost(viewPost);
