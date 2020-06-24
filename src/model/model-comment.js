@@ -18,7 +18,18 @@ const createComment = (comments, user, username, photo, idPost) => {
     });
 };
 
-const readComment = (postUid) => comment().where('idPost', '==', postUid).orderBy('date', 'desc');
+const readComment = (postUid, callback) => comment().where('idPost', '==', postUid).orderBy('date', 'desc')
+  .onSnapshot((query) => {
+    const getComment = [];
+    // eslint-disable-next-line no-shadow
+    query.forEach((comment) => {
+      getComment.push({
+        id: comment.id,
+        ...comment.data(),
+      });
+    });
+    callback(getComment);
+  });
 
 export default {
   createComment,

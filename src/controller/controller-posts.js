@@ -73,7 +73,6 @@ export default (viewHome) => {
       const newPost = viewHome.querySelector('#new-post');
       newPost.innerHTML = '';
       getPost.forEach((postUser) => {
-        // const postUser = doc.data();
         if (postUser.privacy === 'public') {
           idDoc = postUser.id;
           likes = postUser.likes;
@@ -91,7 +90,6 @@ export default (viewHome) => {
       const newPost = viewHome.querySelector('#new-post');
       newPost.innerHTML = '';
       getPost.forEach((postUser) => {
-        // const postUser = doc.data();
         idDoc = postUser.id;
         likes = postUser.likes;
         const viewPost = componentsView.postView(postUser, userNow, idDoc, likes);

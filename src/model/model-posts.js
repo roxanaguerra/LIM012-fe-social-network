@@ -92,28 +92,30 @@ const createPost = (post, user, mode, username, photo, imagenASubir) => {
 };
 
 // EL ORDEN COMO QUE SE PINTARAN LOS POST
-const postsMain = (callback) => posts().orderBy('date', 'desc').onSnapshot((query) => {
-  const getPost = [];
-  query.forEach((post) => {
-    getPost.push({
-      id: post.id,
-      ...post.data(),
+const postsMain = (callback) => posts().orderBy('date', 'desc')
+  .onSnapshot((query) => {
+    const getPost = [];
+    query.forEach((post) => {
+      getPost.push({
+        id: post.id,
+        ...post.data(),
+      });
     });
+    callback(getPost);
   });
-  callback(getPost);
-});
 
 // LEER DOCUMENTOS PARA PROFILE
-const readPostProfile = (idUser, callback) => posts().where('idUser', '==', idUser).orderBy('date', 'desc').onSnapshot((query) => {
-  const getPost = [];
-  query.forEach((post) => {
-    getPost.push({
-      id: post.id,
-      ...post.data(),
+const readPostProfile = (idUser, callback) => posts().where('idUser', '==', idUser).orderBy('date', 'desc')
+  .onSnapshot((query) => {
+    const getPost = [];
+    query.forEach((post) => {
+      getPost.push({
+        id: post.id,
+        ...post.data(),
+      });
     });
+    callback(getPost);
   });
-  callback(getPost);
-});
 
 const updateLikes = (id, likes) => posts().doc(id).update({ likes });
 
