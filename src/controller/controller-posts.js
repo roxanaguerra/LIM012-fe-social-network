@@ -71,7 +71,6 @@ export default (viewHome) => {
       newPost.innerHTML = '';
 
       getPost.forEach((postUser) => {
-        // const postUser = doc.data();
         if (postUser.privacy === 'public') {
           idDoc = postUser.id;
           const viewPost = componentsView.postView(postUser, userNow, idDoc);
@@ -89,7 +88,6 @@ export default (viewHome) => {
       newPost.innerHTML = '';
 
       getPost.forEach((postUser) => {
-        // const postUser = doc.data();
         idDoc = postUser.id;
         const viewPost = componentsView.postView(postUser, userNow, idDoc);
         newPost.appendChild(viewPost);
