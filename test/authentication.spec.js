@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/named
 import { models } from '../src/model/model-index.js';
-import '../mock/mock.js';
+import '../_mock_/mock.js';
 
 // TEST: REGISTRAR NUEVO USUARIO
 describe('auth-signUp: Crear un usuario', () => {
