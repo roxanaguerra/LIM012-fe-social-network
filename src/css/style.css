@@ -288,8 +288,29 @@ textarea {
   border-radius: 10px;
 }
 
+#generalComment {
+  height: 75px;
+}
+
+#btn-postComment {
+  margin-top: -47px;
+}
+
+#commnetArea {
+  width: 330px;
+  margin: -9px 0 1px 0px;
+}
+
+.textarea2 {
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  height: 40px;
+  width: 300px;
+}
+
 textarea::placeholder {
-  padding: 20px;
+  padding: 10px;
   font-family: Verdana, sans-serif;
   font-size: 15px;
 }
@@ -452,11 +473,26 @@ a {
   vertical-align: middle;
   overflow: hidden;
   text-decoration: none;
-  color: inherit;
-  background-color: inherit;
   text-align: center;
   cursor: pointer;
   white-space: nowrap;
+}
+
+.buttonCounter {
+  border: none;
+  display: inline-block;
+  height: 2.5rem;
+  padding: 6px 5px 15px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  /* text-align: center; */
+  white-space: nowrap;
+  /* border-left: dashed; */
+  border: dashed;
+  border-radius: 5em;
 }
 
 .button-medium {
@@ -810,7 +846,11 @@ div #ctn-privacy {
 }
 
 .card {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.16), 0 10px 20px 0 rgba(0, 0, 0, 0.16);
+}
+
+.card1 {
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.16), 0 10px 20px 0 rgba(72, 93, 161, 0.678);
 }
 
 .opacity {
@@ -838,7 +878,7 @@ div #ctn-privacy {
 }
 
 .margin-m {
-  margin: 7px !important;
+  margin: 7px 0 0 35px;
 }
 
 .margin-bottom {
@@ -854,7 +894,7 @@ div #ctn-privacy {
 }
 
 .padding {
-  padding: 8px 16px !important;
+  padding: 8px 16px;
 }
 
 .padding-large {
@@ -873,6 +913,16 @@ div #ctn-privacy {
   float: right !important;
 }
 
+.theme-dd {
+  color: #2B3049;
+  background-color: #9EE2F8;
+}
+
+.theme-d1 {
+  color: #fff;
+  background-color: #2B3049;
+}
+
 .button:hover {
   color: #2B3049 !important;
   background-color: #9EE2F8 !important;
@@ -882,11 +932,6 @@ div #ctn-privacy {
 .white {
   color: #2B3049 !important;
   background-color: #E0C162 !important;
-}
-
-.theme-d1 {
-  color: #fff !important;
-  background-color: #2B3049 !important;
 }
 
 .theme-d2 {

@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
 const templateWriteComment = (photoUser) => {
   const viewComment = `
-      <div class="container card white round margin"><br>
+      <div id="generalComment" class="container card1 white round margin"><br>
         <img src=${photoUser} alt="Avatar" class="avatar left circle margin-right">
-        <div class="container padding flex">
-          <textarea class="border-radius padding theme-d3" id="input-comment" cols="45" rows="4" style="width:600px"></textarea>
+        <div id="commnetArea" class="container padding flex">
+          <textarea class="textarea2 border-radius padding theme-d3" id="input-comment" cols="45" rows="4" style="width:600px"></textarea>
         </div>
         <button type="button" id="btn-postComment" class="button theme-d1 right button-medium" >Post</button>
       </div>
