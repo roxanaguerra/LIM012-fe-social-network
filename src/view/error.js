@@ -1,14 +1,18 @@
 export default () => {
   const viewDifferent = `
-            <div class="error">          
-            <img src="./assets/error2.png" alt="" class="img-error">
-              <div class="message-error">
-                <h1>Página no encontrada</h1>
-                <p>El archivo especificado no se encontró en este sitio web. 
-                Por favor, compruebe la URL para errores y vuelva a intentarlo.</p>
-                <a class="option" id="comment-signin" href="#/">Inicio</a>
-              </div>
-            </div>
+  <div class="container content bg-error flex" style="max-width:1400px;">
+    <!-- The Grid -->
+    <div class="row max-width ">
+      
+      <div class="flex column col m12">
+        <p class="oops">Oops!</p>
+        <p class="msg">PÁGINA NO ENCONTRADA</p>
+        <h1 class="code">404</h1>
+        <button class="btn-error"><a class="link" id="comment-signin" href="#/">Inicio</a></button>
+      </div>
+
+    </div>
+  </div>
             `;
   const divElemt = document.createElement('div');
   divElemt.setAttribute('id', 'message');
