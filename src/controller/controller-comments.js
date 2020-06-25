@@ -45,7 +45,7 @@ export default (viewPost, userNow, idPost) => {
           textPost.setAttribute('contenteditable', 'true');
           textPost.setAttribute('style', 'width: 90%');
           textPost.focus();
-          const ctnOpt = btnEditComment.parentNode.parentNode.querySelector('.tooltip');
+          const ctnOpt = btnEditComment.parentNode.parentNode.querySelector('.tooltip-c');
           const btnSave = btnEditComment.parentNode.parentNode.querySelector('.save-comment');
           if (ctnOpt.classList.contains('hide') === false) {
             ctnOpt.classList.add('hide');
@@ -88,7 +88,7 @@ export default (viewPost, userNow, idPost) => {
       getComment.forEach((commentUser) => {
         // const commentUser = doc.data();
         idComment = commentUser.id;
-        const viewComments = componentsView.readComment(idComment, commentUser);
+        const viewComments = componentsView.readComment(idComment, commentUser, userNow);
         newComment.appendChild(viewComments);
         eventsUpdateDeleteComment(viewComments);
       });
