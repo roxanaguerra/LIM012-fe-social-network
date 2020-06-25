@@ -1,30 +1,63 @@
-.error {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.img-error {
-    min-width: 300px;
-    max-width: 500px;
-}
-.message-error {
-    padding: 0 1em 2em 1em;
+.bg-error {
+    background-image: url(../assets/error-mobile.png);
+    background-size: cover;
+    height: 100vh;
 }
 
-.message-error h1 {
-    color: #58DAD2;
-    font-weight: bold;
+.btn-error {
+    width: 100px;
+    background-color: #2B3049;
+    height: 35px;
+    border-radius: 5px;
 }
 
-.message-error p {
-    font-size: 3vh;
-    max-width: 500px;
-    padding: 0 10px;
+.oops {
     color: #E0C162;
+    font-size: 35px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.code {
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    font-size: 50px;
+}
+
+.msg {
+    color: #2B3049;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.link {
+    color: #E0C162;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+@media (min-width: 600px) {
+    .bg-error {
+        background-image: url(../assets/error-min600.png);
+    }
+}
+
+@media (min-width: 993px) {
+    .bg-error {
+        background-image: url(../assets/error2.png);
+    }
+    .btn-error {
+        width: 150px;
+    }
+    .code {
+        font-size: 80px;
+    }
+    .msg {
+        font-size: 15px;
+    }
+    .oops {
+        font-size: 45px;
+    }
 }
