@@ -65,7 +65,7 @@ export default () => {
                     <button type="button" id="private-privacy" value="private" class="hide button theme-d5"><i class="fa fa-lock"></i>  Private</button>
                   </div>
                   <button type="button" id="privacy" class="button-small theme-d5 zero-padding"><i class="fa fa-caret-down"></i></button>
-                  <button type="button" id="btn-post" class="button theme-d1 right button-medium" >Post</button>     
+                  <button type="button" id="btn-post" class="button theme-d1 right button-medium" disabled>Post</button>     
               </div>
             </div>
           </div>
