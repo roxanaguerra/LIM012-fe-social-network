@@ -62,6 +62,7 @@ export default (viewHome) => {
       btnDeletePost.addEventListener('click', () => {
         const idPost = btnDeletePost.getAttribute('idpost');
         models.posts.deletePost(idPost);
+        models.comment.deleteCommentsPost(idPost);
       });
     }
   };
