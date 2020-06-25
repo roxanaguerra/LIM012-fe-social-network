@@ -49,7 +49,7 @@ export default (viewHome) => {
         btnSavePost.classList.add('hide');
         const lastPost = textPost.innerText;
         if (!lastPost.trim()) {
-          console.log('input vacío');
+          // console.log('input vacío');
           return;
         }
         models.posts.editPost(idPost, lastPost);
@@ -62,6 +62,7 @@ export default (viewHome) => {
       btnDeletePost.addEventListener('click', () => {
         const idPost = btnDeletePost.getAttribute('idpost');
         models.posts.deletePost(idPost);
+        models.comment.deleteCommentsPost(idPost);
       });
     }
   };
@@ -71,7 +72,7 @@ export default (viewHome) => {
   const user = userNow.uid;
   let idDoc;
   let likes;
-    console.log(user);// no borrar este console.log pls
+  // console.log(user); // no borrar este console.log pls
   if (ruta === '#/home') {
     models.posts.postsMain((getPost) => {
       const newPost = viewHome.querySelector('#new-post');

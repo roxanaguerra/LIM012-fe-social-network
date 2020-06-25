@@ -35,7 +35,18 @@ const editComment = (id, newComment) => comment().doc(id).update({
   comments: newComment,
 });
 
-const deleteComment = id => comment().doc(id).delete();
+const deleteComment = (id) => comment().doc(id).delete();
+
+const deleteCommentsPost = (postId) => {
+  comment().get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (doc.data().idPost === postId) {
+          deleteComment(doc.id);
+        }
+      });
+    });
+};
 
 const updateUserNameComment = (id, username) => comment().doc(id).update({
   username,
@@ -58,4 +69,5 @@ export default {
   editComment,
   deleteComment,
   updateAllCommentsUsername,
+  deleteCommentsPost,
 };

@@ -18,7 +18,7 @@ export default () => {
   const registerNewUser = (emailRegister, passwordRegister) => {
     const span = document.querySelector('#span');
     const username = document.querySelector('#name-register').value;
-    const profilePhotoDefault = 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png';
+    const profilePhotoDefault = 'https://image.flaticon.com/icons/svg/2919/2919600.svg';
     models.authentication.signUp(emailRegister, passwordRegister)
       .then((result) => {
         const user = result.user;

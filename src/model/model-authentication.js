@@ -28,6 +28,8 @@ const currentUser = () => firebase.auth().currentUser;
 const signOutUser = () => {
   signOut()
     .then(() => {
+      localStorage.removeItem('username');
+      localStorage.removeItem('profileImg');
       // console.log('Saliendo...!');
     })
     .catch(() => {

@@ -51,24 +51,42 @@ export default () => {
   const btnPost = view.querySelector('#btn-post');
   const divImg = view.querySelector('.divImg');
 
+  // EVENTO PARA ACTIVAR BOTON DE POST
+  const inputPost2 = view.querySelector('#input-post');
+  inputPost2.addEventListener('keyup', () => {
+    if (inputPost2.value.length >= 1) {
+      btnPost.disabled = false;
+    }
+  });
+
   // ALMACENAR EL POST EN LA COLECCION
   btnPost.addEventListener('click', () => {
     const inputPost = view.querySelector('#input-post').value;
     const imagenASubir = view.querySelector('#uploadImg');
-    // console.log(inputPost);
+    const userPhoto = localStorage.getItem('profileImg');
+    const userName = localStorage.getItem('username');
+    // console.log('img: ', imagenASubir);
     divImg.classList.add('hide');
-    if (!inputPost.trim()) {
-      // console.log('input vacío');
+    const firtsCondition = !inputPost.trim() && (imagenASubir.files && imagenASubir.files[0]);
+    const secondCondition = inputPost.trim() && (imagenASubir.files && imagenASubir.files[0]);
+    if (firtsCondition || secondCondition || inputPost.trim()) {
+      console.log('Se puede postear!');
+    } else {
+      console.log('input vacío');
       return;
     }
     if (publicMode.classList.contains('hide')) {
-      models.posts.createPost(inputPost, userNow, privateMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'), imagenASubir);
+      // eslint-disable-next-line max-len
+      models.posts.createPost(inputPost, userNow, privateMode.value, userName, userPhoto, imagenASubir);
       view.querySelector('#input-post').value = '';
       document.getElementById('uploadImg').value = '';
+      btnPost.disabled = true;
     } else {
-      models.posts.createPost(inputPost, userNow, publicMode.value, localStorage.getItem('username'), localStorage.getItem('profileImg'), imagenASubir);
+      // eslint-disable-next-line max-len
+      models.posts.createPost(inputPost, userNow, publicMode.value, userName, userPhoto, imagenASubir);
       view.querySelector('#input-post').value = '';
       document.getElementById('uploadImg').value = '';
+      btnPost.disabled = true;
     }
   });
 
@@ -92,7 +110,7 @@ export default () => {
           const pic = view.querySelector('.picPost');
           pic.parentNode.classList.remove('hide');
           pic.setAttribute('src', e.target.result);
-          // console.log('pic: ', pic);
+          btnPost.disabled = false;
         };
         read.readAsDataURL(uploadImg.files[0]);
       }
