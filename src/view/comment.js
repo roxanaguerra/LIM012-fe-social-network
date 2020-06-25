@@ -6,7 +6,7 @@ const templateWriteComment = (photoUser) => {
         <div id="commnetArea" class="container padding flex">
           <textarea class="textarea2 border-radius padding theme-d3" id="input-comment" cols="45" rows="4" style="width:600px"></textarea>
         </div>
-        <button type="button" id="btn-postComment" class="button theme-d1 right button-medium" >Post</button>
+        <button type="button" id="btn-postComment" class="button theme-d1 right button-medium" disabled>Post-Comment</button>
       </div>
     `;
   const divElemt = document.createElement('div');

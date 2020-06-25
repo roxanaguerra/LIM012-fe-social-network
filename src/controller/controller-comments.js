@@ -9,10 +9,18 @@ export default (viewPost, userNow, idPost) => {
   const toDoComment = () => {
     const btnComment = viewPost.querySelector('.btn-comment');
     const toComment = viewPost.querySelector('#comment-write');
+    const btnPost = viewComment.querySelector('#btn-postComment');
+
+    // EVENTO PARA ACTIVAR BOTON DE POSTEAR UN COMENTARIO
+    const inputComment2 = viewComment.querySelector('#input-comment');
+    inputComment2.addEventListener('keyup', () => {
+      if (inputComment2.value.length >= 1) {
+        btnPost.disabled = false;
+      }
+    });
 
     btnComment.addEventListener('click', () => {
       toComment.appendChild(viewComment);
-      const btnPost = viewComment.querySelector('#btn-postComment');
       btnPost.addEventListener('click', () => {
         const inputComment = viewComment.querySelector('#input-comment').value;
         if (!inputComment.trim()) {
@@ -20,6 +28,7 @@ export default (viewPost, userNow, idPost) => {
         } else {
           models.comment.createComment(inputComment, userNow, userName, userPhoto, idPost);
           viewComment.querySelector('#input-comment').value = '';
+          btnPost.disabled = true;
         }
       });
     });
