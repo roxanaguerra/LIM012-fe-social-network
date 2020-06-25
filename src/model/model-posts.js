@@ -1,7 +1,4 @@
-/* eslint-disable no-undef */
 // CREAR LA COLECCION DE POST
-// import { models } from '../model/model-index.js';
-
 const posts = () => firebase.firestore().collection('post');
 
 const editPost = (id, newPost) => firebase.firestore().collection('post').doc(id).update({
@@ -28,7 +25,6 @@ const updateAllPostUsername = (userId, username) => {
 
 // SUBIR LA IMAGEN AL STORAGE, PARA OBTENER LA URL DE LA IMG
 const subirImagenFirebase = (imagenASubir) => new Promise((resolve, reject) => {
-  // const imagenASubir = document.querySelector('#uploadImg').files[0];
   const nameImg = `${+new Date()}- ${imagenASubir.name}`;
   const metadata = { tipoFile: imagenASubir.type };
   const uploadTask = firebase.storage().ref().child(nameImg).put(imagenASubir, metadata);
@@ -56,12 +52,9 @@ const createPost = (post, user, mode, username, photo, imagenASubir) => {
       privacy: mode,
       urlImg: '',
       likes: [],
-      // likes: userObject.like,
     })
-      .then(() => {
-        // .then((docRef) => {
-        // console.log('Document written with ID: ', docRef.id);
-        // sessionStorage.removeItem('imgNewPost');
+      .then((docRef) => {
+        console.log('Document written with ID: ', docRef.id);
       })
       .catch(() => {
         // console.error('Error adding document: ', error);
@@ -78,11 +71,9 @@ const createPost = (post, user, mode, username, photo, imagenASubir) => {
           privacy: mode,
           urlImg: url,
           likes: [],
-          // likes: userObject.like,
         })
-          .then(() => {
-            // console.log('Document written with ID: ', docRef.id);
-            // imagenASubir.dispatchEvent(new Event('change'));
+          .then((docRef) => {
+            console.log('Document written with ID: ', docRef.id);
           })
           .catch(() => {
             // console.error('Error adding document: ', error);
