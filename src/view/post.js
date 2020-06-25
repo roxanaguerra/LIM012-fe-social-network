@@ -21,13 +21,17 @@ export default (postUser, userNow, idDoc, likes) => {
       <span idPost=${idDoc} class="right save-post opacity hide"><i class="fa fa-save"></i></span>
       <p id="post-${idDoc}" class="margin-top">${postUser.post}</p> 
       ${typeof postUser.urlImg !== 'undefined' && postUser.urlImg !== null ? viewImgPost : ' '}
-      <hr class="clear">
       <br>
+
+      <hr class="clear">
+      
       <button type="button" class="btn-like ${(likes.indexOf(userNow.uid) === -1) ? 'theme-d1' : 'theme-dd'} button margin-bottom-m"> 
         <i class="fa fa-thumbs-up"></i>Like</button> 
       <p class= "buttonCounter theme-d1 ">${likes.length}</p>
       
       <button type="button" id="comment" class="button theme-d1 margin-bottom-m btn-comment"><i class="fa fa-comment"></i>  Comment</button> 
+      <hr class="clear">
+      
       <div id="comment-write"></div>
       <div id="comment-space"></div>
     </div>
