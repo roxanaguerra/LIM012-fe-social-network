@@ -11,7 +11,7 @@ const authenticate = (view) => {
     if (user) {
       html = container.appendChild(view());
     } else {
-      models.authentication.signOutUser();
+      models.authentication.signOut();
       window.location.hash = '#/';
     }
   });
@@ -24,11 +24,11 @@ const changeView = (route) => {
     case '':
     case '#':
     case '#/': {
-      models.authentication.signOutUser();
+      models.authentication.signOut();
       return container.appendChild(controllers.login());
     }
     case '#/register': {
-      models.authentication.signOutUser();
+      models.authentication.signOut();
       return container.appendChild(controllers.register()); }
     case '#/home':
       // eslint-disable-next-line max-len

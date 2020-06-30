@@ -1,4 +1,3 @@
-// import comments from './controller-comments.js';
 // eslint-disable-next-line import/no-cycle
 import posts from './controller-posts.js';
 import user from './controller-user.js';
@@ -12,7 +11,6 @@ import comment from './controller-comments.js';
 import likes from './controller-likes.js';
 
 export const controllers = {
-  // comments,
   posts,
   user,
   login,

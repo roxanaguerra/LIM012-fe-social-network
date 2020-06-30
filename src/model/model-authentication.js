@@ -25,17 +25,17 @@ const signInFacebook = () => {
 const currentUser = () => firebase.auth().currentUser;
 
 // CERRAR SESIÓN
-const signOutUser = () => {
-  signOut()
-    .then(() => {
-      localStorage.removeItem('username');
-      localStorage.removeItem('profileImg');
-      // console.log('Saliendo...!');
-    })
-    .catch(() => {
-      // console.log(error);
-    });
-};
+// const signOutUser = () => {
+//   signOut()
+//     .then(() => {
+//       localStorage.removeItem('username');
+//       localStorage.removeItem('profileImg');
+//       // console.log('Saliendo...!');
+//     })
+//     .catch(() => {
+//       // console.log(error);
+//     });
+// };
 
 export default {
   signUp,
@@ -44,5 +44,5 @@ export default {
   signInGoogle,
   signInFacebook,
   currentUser,
-  signOutUser,
+  // signOutUser,
 };
