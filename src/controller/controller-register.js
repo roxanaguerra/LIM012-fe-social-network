@@ -28,7 +28,13 @@ export default () => {
         result.user.sendEmailVerification(configuration)
           .then(() => {
             models.user.createUserData(user.uid, user.email, username, profilePhotoDefault);
-            span.innerHTML = '*Se envió un correo de verificación';
+
+            if (user.emailVerified) {
+              window.location.hash = '#/home';
+            } else {
+              span.innerHTML = '*Se envió un correo de verificación';
+              models.authentication.signOut();
+            }
           }).catch(() => {
             // An error happened.
             // console.log('No se envío correo');
