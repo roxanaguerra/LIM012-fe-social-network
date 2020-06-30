@@ -17,7 +17,7 @@ export default () => {
           window.location.hash = '#/home';
         } else {
           span.innerHTML = '*Debes validar tu correo';
-          models.authentication.signOutUser();
+          models.authentication.signOut();
         }
       })
       .catch((error) => {
