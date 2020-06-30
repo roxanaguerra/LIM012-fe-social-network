@@ -95,20 +95,51 @@ export default () => {
     );
   });
 
+  // AUTENTICACIÓN CON GOOGLE
+  const authSignInGoogle = () => {
+    models.authentication.signInGoogle()
+      // signInGoogle()
+      .then((result) => {
+        const user = result.user;
+        models.user.createUserData(user.uid, user.email, user.displayName, user.photoURL);
+        window.location.hash = '#/home';
+      })
+      .catch(() => {
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        // const email = error.email;
+        // const credential = error.credential;
+      });
+  };
+
   // INICIO DE SESIÓN CON GOOGLE
   const btnGoogle = view.querySelector('#google-register');
   btnGoogle.addEventListener('click', (e) => {
     e.preventDefault(); // cancelar el evento de reinicio de formulario
     // console.log('Google Prueba - register');
-    models.authentication.authSignInGoogle();
+    authSignInGoogle();
   });
+
+  // AUTENTICACIÓN CON FACEBOOK
+  const authSignInFacebook = () => {
+    models.authentication.signInFacebook()
+    // signInFacebook()
+      .then((result) => {
+        const user = result.user;
+        models.user.createUserData(user.uid, user.email, user.displayName, user.photoURL);
+        window.location.hash = '#/home';
+      })
+      .catch(() => {
+        // console.log(error);
+      });
+  };
 
   // INICIO DE SESIÓN CON FACEBOOK
   const btnFacebook = view.querySelector('#facebook-register');
   btnFacebook.addEventListener('click', (e) => {
     e.preventDefault(); // cancelar el evento de reinicio de formulario
     // console.log('Facebook Prueba');
-    models.authentication.authSignInFacebook();
+    authSignInFacebook();
   });
 
   return view;

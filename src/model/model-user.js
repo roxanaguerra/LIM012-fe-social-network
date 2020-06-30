@@ -1,5 +1,5 @@
 const createUserData = (id, email, name, photo) => {
-  firebase.firestore()
+  const addUserCollection = firebase.firestore()
     .collection('usersData').doc(id).set({
       userID: id,
       mail: email,
@@ -7,6 +7,7 @@ const createUserData = (id, email, name, photo) => {
       profileImg: photo,
       about: 'Drone user',
     });
+  return addUserCollection;
 };
 
 const userProfile = (id) => {

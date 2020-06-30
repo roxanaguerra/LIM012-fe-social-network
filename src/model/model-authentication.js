@@ -39,5 +39,4 @@ export default {
   signInGoogle,
   signInFacebook,
   currentUser,
-
 };

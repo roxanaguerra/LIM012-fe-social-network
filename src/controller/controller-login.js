@@ -5,7 +5,6 @@ import { componentsView } from '../view/view-index.js';
 
 export default () => {
   const view = componentsView.login();
-  // console.log('view: ', view);
 
   // INICIAR SESIÓN
   const authSignIn = (emailLogin, passwordLogin) => {

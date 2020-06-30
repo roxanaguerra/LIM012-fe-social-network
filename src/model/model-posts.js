@@ -1,16 +1,20 @@
-// CREAR LA COLECCION DE POST
+// CREAR LA COLECCIÓN DE POST
 const posts = () => firebase.firestore().collection('post');
 
+// ACTUALIZAR INPUT DE POST
 const editPost = (id, newPost) => firebase.firestore().collection('post').doc(id).update({
   post: newPost,
 });
 
+// ELIMINAR LA COLECCIÓN POST
 const deletePost = (id) => firebase.firestore().collection('post').doc(id).delete();
 
+// ACTUALIZAR NOMBRE DE USUARIO
 const updateUserNamePost = (id, username) => firebase.firestore().collection('post').doc(id).update({
   username,
 });
 
+// ACTUALIZAR NOMBRE DE USUARIO EN TODOS LOS POST
 const updateAllPostUsername = (userId, username) => {
   firebase.firestore()
     .collection('post').get()
@@ -38,11 +42,10 @@ const subirImagenFirebase = (imagenASubir) => new Promise((resolve, reject) => {
   });
 });
 
+// ALMACENAR, EN LA COLECCION DE POST
 const createPost = (post, user, mode, username, photo, imagenASubir) => {
   // console.log(user);
   const imagenASubir1 = imagenASubir.files[0];
-
-  // console.log('imagenAsubir: ', imagenASubir1);
   if (imagenASubir1 === undefined) {
     posts().add({
       post,
@@ -109,6 +112,7 @@ const readPostProfile = (idUser, callback) => posts().where('idUser', '==', idUs
     callback(getPost);
   });
 
+// ACTUALIZAR LA PROPIEDAD O KEY (LIKES)
 const updateLikes = (id, likes) => posts().doc(id).update({ likes });
 
 export default {
