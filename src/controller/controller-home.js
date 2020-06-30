@@ -70,9 +70,9 @@ export default () => {
     const firtsCondition = !inputPost.trim() && (imagenASubir.files && imagenASubir.files[0]);
     const secondCondition = inputPost.trim() && (imagenASubir.files && imagenASubir.files[0]);
     if (firtsCondition || secondCondition || inputPost.trim()) {
-      console.log('Se puede postear!');
+      // console.log('Se puede postear!');
     } else {
-      console.log('input vacío');
+      // console.log('input vacío');
       return;
     }
     if (publicMode.classList.contains('hide')) {
@@ -94,7 +94,7 @@ export default () => {
   const btnCerrar = view.querySelector('#btn-cerrar');
   btnCerrar.addEventListener('click', (e) => {
     e.preventDefault();
-    models.authentication.signOutUser();
+    models.authentication.signOut();
   });
 
   // CARGAR LA IMAGEN PARA HACER UN POST

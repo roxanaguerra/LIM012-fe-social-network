@@ -7,7 +7,15 @@ const signUp = (emailRegister, passwordRegister) => firebase.auth().createUserWi
 const signIn = (emailLogin, passwordLogin) => firebase.auth().signInWithEmailAndPassword(emailLogin, passwordLogin);
 
 // CERRAR SESIÓN
-const signOut = () => firebase.auth().signOut();
+const signOut = () => firebase.auth().signOut()
+  .then(() => {
+    localStorage.removeItem('username');
+    localStorage.removeItem('profileImg');
+  // console.log('Saliendo...!');
+  })
+  .catch(() => {
+  // console.log(error);
+  });
 
 // INICIO DE SESIÓN CON GOOGLE
 const signInGoogle = () => {
@@ -24,19 +32,6 @@ const signInFacebook = () => {
 // DATA DEL USUARIO
 const currentUser = () => firebase.auth().currentUser;
 
-// CERRAR SESIÓN
-const signOutUser = () => {
-  signOut()
-    .then(() => {
-      localStorage.removeItem('username');
-      localStorage.removeItem('profileImg');
-      // console.log('Saliendo...!');
-    })
-    .catch(() => {
-      // console.log(error);
-    });
-};
-
 export default {
   signUp,
   signIn,
@@ -44,5 +39,5 @@ export default {
   signInGoogle,
   signInFacebook,
   currentUser,
-  signOutUser,
+
 };
