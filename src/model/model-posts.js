@@ -41,6 +41,7 @@ const subirImagenFirebase = (imagenASubir) => new Promise((resolve, reject) => {
 const createPost = (post, user, mode, username, photo, imagenASubir) => {
   // console.log(user);
   const imagenASubir1 = imagenASubir.files[0];
+
   // console.log('imagenAsubir: ', imagenASubir1);
   if (imagenASubir1 === undefined) {
     posts().add({
@@ -53,8 +54,8 @@ const createPost = (post, user, mode, username, photo, imagenASubir) => {
       urlImg: '',
       likes: [],
     })
-      .then((docRef) => {
-        console.log('Document written with ID: ', docRef.id);
+      .then(() => {
+        // console.log('Document written with ID: ', docRef.id);
       })
       .catch(() => {
         // console.error('Error adding document: ', error);
@@ -72,8 +73,8 @@ const createPost = (post, user, mode, username, photo, imagenASubir) => {
           urlImg: url,
           likes: [],
         })
-          .then((docRef) => {
-            console.log('Document written with ID: ', docRef.id);
+          .then(() => {
+            // console.log('Document written with ID: ', docRef.id);
           })
           .catch(() => {
             // console.error('Error adding document: ', error);
