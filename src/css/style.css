@@ -480,7 +480,7 @@ a {
 }
 
 .buttonCounter {
-  border: none;
+  /* border: none; */
   display: inline-block;
   height: 2.5rem;
   padding: 6px 5px 15px;
