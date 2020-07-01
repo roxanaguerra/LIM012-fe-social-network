@@ -50,6 +50,7 @@ export default (viewPost, userNow, idPost) => {
       if (btnEditComment) {
         btnEditComment.addEventListener('click', () => {
           const idComment = btnEditComment.getAttribute('idComment');
+          // console.log(idComment);
           const textPost = view.querySelector(`#comment-${idComment}`);
           textPost.setAttribute('contenteditable', 'true');
           textPost.setAttribute('style', 'width: 90%');
@@ -85,7 +86,9 @@ export default (viewPost, userNow, idPost) => {
       if (btnDeleteComment) {
         btnDeleteComment.addEventListener('click', () => {
           const idComment = btnDeleteComment.getAttribute('idComment');
+          // console.log(idComment);
           models.comment.deleteComment(idComment);
+          // console.log(models.comment.deleteComment(idComment));
         });
       }
     };

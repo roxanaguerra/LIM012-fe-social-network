@@ -15,17 +15,15 @@ const updateUserNamePost = (id, username) => firebase.firestore().collection('po
 });
 
 // ACTUALIZAR NOMBRE DE USUARIO EN TODOS LOS POST
-const updateAllPostUsername = (userId, username) => {
-  firebase.firestore()
-    .collection('post').get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        if (doc.data().idUser === userId) {
-          updateUserNamePost(doc.id, username);
-        }
-      });
+const updateAllPostUsername = (userId, username) => firebase.firestore()
+  .collection('post').get()
+  .then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      if (doc.data().idUser === userId) {
+        updateUserNamePost(doc.id, username);
+      }
     });
-};
+  });
 
 // SUBIR LA IMAGEN AL STORAGE, PARA OBTENER LA URL DE LA IMG
 const subirImagenFirebase = (imagenASubir) => new Promise((resolve, reject) => {
@@ -47,7 +45,7 @@ const createPost = (post, user, mode, username, photo, imagenASubir) => {
   // console.log(user);
   const imagenASubir1 = imagenASubir.files[0];
   if (imagenASubir1 === undefined) {
-    posts().add({
+    return posts().add({
       post,
       date: new Date().toLocaleString(),
       idUser: user.uid,
@@ -56,34 +54,19 @@ const createPost = (post, user, mode, username, photo, imagenASubir) => {
       privacy: mode,
       urlImg: '',
       likes: [],
-    })
-      .then(() => {
-        // console.log('Document written with ID: ', docRef.id);
-      })
-      .catch(() => {
-        // console.error('Error adding document: ', error);
-      });
-  } else {
-    subirImagenFirebase(imagenASubir1)
-      .then((url) => {
-        posts().add({
-          post,
-          date: new Date().toLocaleString(),
-          idUser: user.uid,
-          username,
-          photo,
-          privacy: mode,
-          urlImg: url,
-          likes: [],
-        })
-          .then(() => {
-            // console.log('Document written with ID: ', docRef.id);
-          })
-          .catch(() => {
-            // console.error('Error adding document: ', error);
-          });
-      });
+    });
   }
+  return subirImagenFirebase(imagenASubir1)
+    .then((url) => posts().add({
+      post,
+      date: new Date().toLocaleString(),
+      idUser: user.uid,
+      username,
+      photo,
+      privacy: mode,
+      urlImg: url,
+      likes: [],
+    }));
 };
 
 // EL ORDEN COMO QUE SE PINTARAN LOS POST
