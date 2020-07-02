@@ -1,75 +1,42 @@
-body {
-    margin: 0;
-    height: 100vh;
-    width: 100vw;
-    font-family: $main-font;
-    display: flex;    
-    align-items: center;
-    justify-content: center;
-    color: white;
-}
-
-h1 {
-    color: white;
-    margin: 0;
-    font-size: 30px;
-}
-
-h4 {
-    color: #120136;
-    margin-bottom: 0%;
-    margin-top: 35px;
-    font-size: 18px;
-}
-
-h6 {
-    color: #F6A13E;
-    font-size: 12px;
-    margin-top: 0;
-    letter-spacing: 0.7px;
-}
-
 .flex {
     display: flex;    
     align-items: center;
-    justify-content: center;   
+    justify-content: center;
 }
 
 .column {
     flex-direction: column;
 }
 
-.ctn-register-login {
-    background-image: $bgcolor-top-bottom;
-    margin: 0;
-    width: 362px;
-    height: 640px;
-}
-
-.content {
-    margin: 0;
-    background-image: url(/src/assets/bg-mobile.png);
-    width: 362px;
-    height: 640px;
-    background-position: center;
-    background-size: cover;
+.content1 {
     text-align: center;
 }
 
 .container-form {
     width: 232px;
-    height: 400px;
-    background: $bg-form;
-    border-radius: 20px;
+    height: 390px;
+    background-color: #9EE2F8;
+    position: relative;
+    border-radius: 5px;
+    top: 15px;
+}
+
+.delivery-drone {
+    color: #E0C162;
+    margin: 0;
 }
 
 .data-register {
     width: 174px;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 
 .inputs-form {
     padding: 0px 5px 45px 5px;
+}
+
+.inputs-formrg {
+    padding: 0px 5px 10px 5px;
 }
 
 .inputs-form input{
@@ -79,6 +46,19 @@ h6 {
     border-bottom: 4px solid #201C50;
     padding-bottom: 8px;
     padding-top: 17px;
+    width: 162px;
+    height: 50px;
+}
+
+.inputs-formrg input{
+    border: none;
+    outline: none;
+    background: none;
+    border-bottom: 4px solid #201C50;
+    padding-bottom: 8px;
+    padding-top: 17px;
+    width: 162px;
+    height: 50px;
 }
 
 ::placeholder {
@@ -89,17 +69,23 @@ h6 {
     letter-spacing: 0.7px;
 }
 
-.btn-register {
+.btn-form {
     outline: none;
     border: none;
     cursor: pointer;
     width: 170px;
     height: 38px;
-    border-radius: 20px;
-    background: #201C50;
-    color: white;
-    font-weight: 500;
+    border-radius: 5px;
+    background: #2B3049;
+    color: #E0C162;
+    font-weight: 700;
     letter-spacing: 1px;
+}
+
+.btn-form:hover {
+    background-color: #E0C162;
+    color: #2B3049;
+    font-weight: 700;
 }
 
 .txt-register {
@@ -109,7 +95,7 @@ h6 {
 }
 
 .logo-google, 
-.logo-fb{
+.logo-fb {
     width: 45px;
     height: 45px;
     margin: 15px;
@@ -130,45 +116,113 @@ div .option {
     text-decoration: none;
     cursor: pointer;
     font-size: 12px;
-    color: #360C8E;
+    color: #2B3049;
+    font-weight: 700;
+}
+
+.fa-key {
+    position: absolute;
+    left: 17px;
+    top: 93px;
+}
+.fa-user {
+    position: absolute;
+    left: 17px;
+    top: 43px;
 }
 
 .find-delivers {
     letter-spacing: 1px;
     font-size: 16px;
 }
+.error-msg {
+    height: 13px;
+    font-size: 12px;
+    color: #cc4539;
+    font-style: normal;
+    text-align: center;
+    padding: 5px;
+}
 
-@media screen and (max-width: 900px) and (min-width: 370px) {
-    .ctn-register-login {
-        background-image: $bgcolor-top-bottom;
-        width: 700px;
-        height: 900px;
-        margin: 0;
-    }
-    .content {
-        background-image: url(/src/assets/bg-mobile.png);
-        width: 700px;
-        height: 900px;
-        background-position: center;
+.bg-img {
+        background-image: url(../assets/bg-mobile.png);
         background-size: cover;
-        text-align: center;
+        height: 100vh;
+}
+
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px #9EE2F8 inset !important;
+    box-shadow: 0 0 0 30px #9EE2F8 inset !important;
+}
+
+@media (min-width: 600px) {
+    .container-form {
+        top: 70px;
+        border-radius: 5px;
+    }
+    .inputs-form input{
+        width: 177px;
+    }
+    .inputs-formrg {
+        padding-bottom: 15px;
+    }
+    .bg-img {
+        background-image: url(../assets/bg-desktop-700.png);
+        background-size: cover;
+        height: 100vh;
+    }
+    .delivery-drone {
+        margin: 10px 0;
     }
 }
 
-// desktop
-@media screen and (min-width: 900px) {
-    .ctn-register-login {
-        background-image: $bgcolor-top-bottom;
-        width: 1440px;
-        height: 1024px;
-        margin: 0;
+@media (min-width: 993px) {
+    .container-form {
+        width: 300px;
+        height: 500px;
+        background-color: #9EE2F8;
+        position: relative;
+        top: 70px;
+        border-radius: 5px;
+    } 
+
+    .fa-key {
+        left: 34px;
+        top: 120px;
     }
-    .content {
-        background-image: url(/src/assets/bg-desktop.png);
-        width: 1440px;
-        height: 1024px;
-        background-position: center;
+
+    .fa-user {
+        left: 35px;
+        top: 70px;
+    }
+    
+    .bg-img {
+        background-image: url(../assets/bg-desktop-1200.png);
         background-size: cover;
-        text-align: center;
+        height: 100vh;
+    }
+
+    .data-register {
+        width: 200px;
+        padding-bottom: 50px;
+    }
+    .btn-form {
+        width: 205px;
+    }
+
+    .inputs-form input{
+        width: 200px;
+    }
+
+    .inputs-formrg input {
+        width: 200px;
+    }
+
+    .inputs-formrg {
+        padding-bottom: 40px;
     }
 }

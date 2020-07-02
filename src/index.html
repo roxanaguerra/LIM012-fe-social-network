@@ -5,50 +5,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" href="assets/drone-icon.png" type="assets/png">
   <title>DRONE LOGISTICS</title>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body>
-  <section class="container" id="general-container">
-    <div class="ctn-register-login">
-    <div class="content flex column">
-      <div class="">
-          <h1 class="delivery-drone">Delivery Drone</h1>
-          <h6 class="safetyHome"> STAY HOME, STAY SAFE</h6>
-      </div>
-        <div class="container-form flex column">
-            <div class="data-register flex column">
-              <div class="inputs-form">
-                <input class="name" id="username" type="text" placeholder="Nombres y Apellidos">
-                <input class="email" id="email" type="mail" placeholder="E-mail">
-                <input class="password" id="password" type="text" placeholder="Password">
-              </div>
-              <button class="btn-register" id="register">Register</button>
-            </div>
-            <p class="txt-register">Or</p>
-            <div class="options-register">
-                <img class="logo-fb" src="assets/fb.png" alt="">
-                <img class="logo-google" src="assets/gg.png" alt="">
-            </div>
-            <div class="ask-option flex">
-              <p class="question" id="comment-register">If you have an account</p>
-              <a class="option" id="comment-signin" href="">Sign In</a>
-            </div>
-        </div>
-        
-      <h4 class="find-delivers">FIND DELIVERIES TO <br> YOU SAFELY</h4>
-    </div>
-  </div>
-  </section>
-
-
-  <!-- prueba -->
-
-  <!--  -->
-  <script type="module" src="index.js"></script>
-
+<body class="theme-l5" id="general-container">
 
   <!-- FIREBASE SCRIPTS -->
   <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -57,6 +22,9 @@
   <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
   <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-storage.js"></script>
 
   <script>
     // Your web app's Firebase configuration
@@ -72,8 +40,9 @@
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
   </script>
+  <script type="module" src="./main.js"></script>
+ 
 </body>
 
 </html>
