@@ -4,7 +4,7 @@ import firebasemock from 'firebase-mock';
 // const firebasemock = require('firebase-mock');
 
 const mockauth = new firebasemock.MockAuthentication();
-const mockfirestore = new firebasemock.MockFirebase();
+const mockfirestore = new firebasemock.MockFirestore();
 
 mockauth.autoFlush();
 mockfirestore.autoFlush();
