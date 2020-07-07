@@ -5,16 +5,25 @@ import firebasemock from 'firebase-mock';
 
 const mockauth = new firebasemock.MockAuthentication();
 const mockfirestore = new firebasemock.MockFirebase();
-const mockstorage = new firebasemock.MockStorage();
 
 mockauth.autoFlush();
 mockfirestore.autoFlush();
-// mockstorage.autoFlush();
+
+const mockAnswer = {
+  ref: {
+    getDownloadURL: () => Promise.resolve('/PostsImages/estrella.jpg'),
+  },
+};
 
 global.firebase = firebasemock.MockFirebaseSdk(
   // use null if your code does not use RTDB
   () => null,
   () => mockauth,
   () => mockfirestore,
-  () => mockstorage,
 );
+
+global.firebase.storage = () => ({
+  ref: () => ({
+    child: () => ({ put: () => Promise.resolve(mockAnswer) }),
+  }),
+});
