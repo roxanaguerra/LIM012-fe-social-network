@@ -7,11 +7,6 @@
     object-fit: cover;
 }
 
-.photo-medium img {
-    height: 106px;
-    width: 106px;
-}
-
 .border {
     border-color: white;
     border-style: solid;
@@ -797,3 +792,8 @@ div #ctn-privacy {
     right: 0;
     cursor: pointer;
   }
+  
+  .photo-medium img {
+    height: 106px;
+    width: 106px;
+}
