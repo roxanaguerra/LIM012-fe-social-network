@@ -6,9 +6,6 @@ const editPost = (id, newPost) => firebase.firestore().collection('post').doc(id
   post: newPost,
 });
 
-// ELIMINAR LA COLECCIÓN POST
-const deletePost = (id) => firebase.firestore().collection('post').doc(id).delete();
-
 // SUBIR LA IMAGEN AL STORAGE, PARA OBTENER LA URL DE LA IMG
 const subirImagenFirebase = (imagenASubir) => new Promise((resolve, reject) => {
   const nameImg = `${+new Date()}- ${imagenASubir.name}`;
@@ -97,6 +94,9 @@ const updateAllPostUsername = (userId, username) => firebase.firestore()
 
 // ACTUALIZAR LA PROPIEDAD O KEY (LIKES)
 const updateLikes = (id, likes) => posts().doc(id).update({ likes });
+
+// ELIMINAR LA COLECCIÓN POST
+const deletePost = (id) => firebase.firestore().collection('post').doc(id).delete();
 
 export default {
   editPost,
