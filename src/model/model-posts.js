@@ -9,8 +9,6 @@ const editPost = (id, newPost) => firebase.firestore().collection('post').doc(id
 // ELIMINAR LA COLECCIÓN POST
 const deletePost = (id) => firebase.firestore().collection('post').doc(id).delete();
 
-// ACTUALIZAR NOMBRE DE USUARIO
-
 // SUBIR LA IMAGEN AL STORAGE, PARA OBTENER LA URL DE LA IMG
 const subirImagenFirebase = (imagenASubir) => new Promise((resolve, reject) => {
   const nameImg = `${+new Date()}- ${imagenASubir.name}`;
@@ -81,6 +79,7 @@ const readPostProfile = (idUser, callback) => posts().where('idUser', '==', idUs
     callback(getPost);
   });
 
+// ACTUALIZAR NOMBRE DE USUARIO
 const updateUserNamePost = (id, username) => firebase.firestore().collection('post').doc(id).update({
   username,
 });
